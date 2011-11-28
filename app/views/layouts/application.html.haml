@@ -1,0 +1,59 @@
+!!!
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}/
+    %title Your Page Title
+    / add your meta tags here    
+    = stylesheet_link_tag "application"
+    = javascript_include_tag :application
+    = csrf_meta_tag
+  %body
+    .page_margins
+      .page
+        #header
+          #topnav
+            / / start: skip link navigation
+            /             %a.skip{:href => "#navigation", :title => "skip link"} Skip to the navigation
+            /             %span.hideme .
+            /             %a.skip{:href => "#content", :title => "skip link"} Skip to the content
+            /             %span.hideme .
+            /             / end: skip link navigation
+            /             %a{:href => "#"} Login
+            /             |
+            /             %a{:href => "#"} Contact
+            /             |
+            /             %a{:href => "#"} Imprint                                          
+        #nav
+          / skiplink anchor: navigation
+          %a#navigation{:name => "navigation"}
+          .hlist
+            / main navigation: horizontal list
+            %ul
+              = active_menu_to "Workstations", nodes_path, :active => {:when => :self}
+              %li
+                %strong= link_to "Users" 
+              = active_menu_to "Cookbooks", cookbooks_path, :active => {:when => :self}
+
+                
+
+        #main
+          #col1
+            #col1_content.clearfix   
+              / add your content here
+          #col2
+            #col2_content.clearfix  
+              / add your content here
+          #col3
+            #col3_content.clearfix   
+              - flash.each do |name, msg|
+                = content_tag :div, msg, :id => "flash_#{name}"
+              = content_tag :h1, yield(:title) if show_title?
+              = yield    
+              
+              / add your content here
+            / IE Column Clearing
+            #ie_clearing  
+        / begin: #footer
+        #footer
+          Layout based on
+          %a{:href => "http://www.yaml.de/"} YAML

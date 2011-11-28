@@ -1,0 +1,4 @@
+#Rename to chef.yml
+uri: http://chef:4000/
+client_name: ironchef
+keyfile: config/chef/ironchef.pem

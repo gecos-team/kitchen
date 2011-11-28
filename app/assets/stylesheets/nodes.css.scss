@@ -1,0 +1,16 @@
+// Place all the styles related to the nodes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+                                
+#node {
+  width: 80px;
+  height: 80px;
+	
+}   
+
+.on { background-color: green; }                          
+
+.off { background-color: gray; }
+
+.error {background-color: red;}                             
+      

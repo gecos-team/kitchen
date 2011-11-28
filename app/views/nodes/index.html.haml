@@ -1,0 +1,7 @@
+%h1 Nodos 
+#search
+  = form_tag(nodes_path, {:method => :get}) do
+    = text_field_tag :name
+    = submit_tag "buscar"
+#nodes
+  =render @nodes

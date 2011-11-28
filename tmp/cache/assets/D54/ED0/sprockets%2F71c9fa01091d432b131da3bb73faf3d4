@@ -1,0 +1,772 @@
+o: ActiveSupport::Cache::Entry	:@value{	"_version"%51cae7c9b0283738b5cb3c252ce75d10"digest"%82cc5c686e0c42bbe6644ee07c46c540"lengthi�O"source"�O/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*/
+
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS framework
+ * (en) stylesheet for screen layout
+ * (de) Stylesheet für das Bildschirm-Layout
+ *
+ * @creator       YAML Builder V1.2.1 (http://builder.yaml.de)
+ * @file          basemod.css
+ * @-yaml-minver  3.3
+ */
+@media screen, projection {
+  /** 
+   * (en) Forcing vertical scrollbars in IE8, Firefox, Webkit & Opera 
+   * (de) Erzwingen vertikaler Scrollbalken in IE8, Firefox, Webkit & Opera 
+   *
+   * @workaround
+   * @affected IE8, FF, Webkit, Opera
+   * @css-for all
+   * @valid CSS3
+   */
+  /* line 24, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  body {
+    overflow-y: scroll;
+  }
+
+  /*-------------------------------------------------------------------------*/
+  /* (en) Marginal areas & page background */
+  /* (de) Randbereiche & Seitenhintergrund */
+  /* line 30, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  body {
+    background: #4d87c7 url("images/bg_blue.gif") repeat-x top left fixed;
+    padding: 10px 0;
+  }
+
+  /* Layout Alignment | Layout-Ausrichtung */
+  /* line 33, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  .page_margins {
+    margin: 0 auto;
+  }
+
+  /* Layout Properties | Layout-Eigenschaften */
+  /* line 36, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  .page_margins {
+    width: auto;
+    min-width: 740px;
+    max-width: 90em;
+    background: #fff;
+  }
+
+  /* line 37, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  .page {
+    padding: 10px;
+  }
+
+  /* line 38, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #header {
+    position: relative;
+    padding: 45px 2em 1em 20px;
+    color: #000;
+    background: #edf2f8 url("../../images/bg_header.gif") repeat-x bottom left;
+  }
+
+  /* line 39, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #topnav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+    color: #aaa;
+    background: transparent;
+  }
+
+  /* line 40, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #nav {
+    overflow: hidden;
+  }
+
+  /* line 41, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  div.hlist {
+    background-color: #c8ddf3;
+  }
+
+  /* line 42, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #main {
+    margin: 10px 0;
+    background: #fff;
+  }
+
+  /* line 43, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #footer {
+    padding: 10px 20px;
+    color: #666;
+    background: #f9f9f9;
+    border-top: 5px #efefef solid;
+  }
+
+  /* (en) navigation: horizontal adjustment | (de) horizontale Ausrichtung  */
+  /* line 46, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #nav ul {
+    margin-left: 20px;
+  }
+
+  /*-------------------------------------------------------------------------*/
+  /**
+   * (en) Formatting content container
+   * (de) Formatierung der Inhalts-Container
+   *
+   */
+  /* line 56, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #col1 {
+    float: left;
+    width: 10%;
+    margin: 0;
+  }
+
+  /* line 57, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #col2 {
+    float: right;
+    width: 10%;
+    margin: 0;
+  }
+
+  /* line 58, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #col3 {
+    width: auto;
+    margin: 0 10% 0 10%;
+  }
+
+  /* line 59, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #col1_content {
+    padding: 0 10px 0 20px;
+  }
+
+  /* line 60, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #col2_content {
+    padding: 0 20px 0 10px;
+  }
+
+  /* line 61, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+  #col3_content {
+    padding: 0 10px;
+  }
+
+  /*-------------------------------------------------------------------------*/
+}
+/**
+* Design of Additional Layout Elements | Gestaltung weiterer Layoutelemente
+*
+* @section layout-misc
+*/
+/**
+* ------------------------------------------------------------------------------------------------- #
+*
+* Skiplinks 
+*
+* (en) Visual styling for skiplink navigation
+* (de) Visuelle Gestaltung der Skiplink-Navigation
+*
+* @section content-skiplinks
+*/
+/* line 86, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+#skiplinks a.skip:focus,
+#skiplinks a.skip:active {
+  color: #fff;
+  background: #333;
+  border-bottom: 1px #000 solid;
+  padding: 10px 0;
+  text-decoration: none;
+}
+
+/**
+* Fonts
+*
+* (en) global settings of font-families and font-sizes
+* (de) Globale Einstellungen für Zeichensatz und Schriftgrößen
+*
+* @section content-global-settings
+*/
+/* (en) reset font size for all elements to standard (16 Pixel) */
+/* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
+/* line 105, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+html * {
+  font-size: 100.01%;
+}
+
+/**
+* (en) reset monospaced elements to font size 16px in all browsers
+* (de) Schriftgröße von monospaced Elemente in allen Browsern auf 16 Pixel setzen
+*
+* @see: http://webkit.org/blog/67/strange-medium/
+*/
+/* line 114, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+textarea, pre, code, kbd, samp, var, tt {
+  font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
+}
+
+/* (en) base layout gets standard font size 12px */
+/* (de) Basis-Layout erhält Standardschriftgröße von 12 Pixeln */
+/* line 120, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 75.00%;
+  color: #444;
+}
+
+/*--- Headings | Überschriften ------------------------------------------------------------------------*/
+/* line 128, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+  color: #222;
+  margin: 0 0 0.25em 0;
+}
+
+/* line 135, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h1 {
+  font-size: 250%;
+}
+
+/* 30px */
+/* line 136, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h2 {
+  font-size: 200%;
+}
+
+/* 24px */
+/* line 137, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h3 {
+  font-size: 150%;
+}
+
+/* 18px */
+/* line 138, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h4 {
+  font-size: 133.33%;
+}
+
+/* 16px */
+/* line 139, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h5 {
+  font-size: 116.67%;
+}
+
+/* 14px */
+/* line 140, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+h6 {
+  font-size: 116.67%;
+}
+
+/* 14px */
+/* --- Lists | Listen  -------------------------------------------------------------------------------- */
+/* line 144, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+ul, ol, dl {
+  line-height: 1.5em;
+  margin: 0 0 1em 1em;
+}
+
+/* line 145, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+ul {
+  list-style-type: disc;
+}
+
+/* line 146, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+ul ul {
+  list-style-type: circle;
+  margin-bottom: 0;
+}
+
+/* line 148, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+ol {
+  list-style-type: decimal;
+}
+
+/* line 149, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+ol ol {
+  list-style-type: lower-latin;
+  margin-bottom: 0;
+}
+
+/* line 151, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+li {
+  margin-left: 0.8em;
+  line-height: 1.5em;
+}
+
+/* line 153, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+dt {
+  font-weight: bold;
+}
+
+/* line 154, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+dd {
+  margin: 0 0 1em 0.8em;
+}
+
+/* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
+/* line 158, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+p {
+  line-height: 1.5em;
+  margin: 0 0 1em 0;
+}
+
+/* line 160, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+blockquote, cite, q {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+}
+
+/* line 164, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+blockquote {
+  margin: 0 0 1em 1.6em;
+  color: #666;
+}
+
+/* line 166, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+strong, b {
+  font-weight: bold;
+}
+
+/* line 167, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+em, i {
+  font-style: italic;
+}
+
+/* line 169, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+big {
+  font-size: 116.667%;
+}
+
+/* line 170, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+small {
+  font-size: 91.667%;
+}
+
+/* line 172, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+pre {
+  line-height: 1.5em;
+  margin: 0 0 1em 0;
+}
+
+/* line 173, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+pre, code, kbd, tt, samp, var {
+  font-size: 100%;
+}
+
+/* line 174, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+pre, code {
+  color: #800;
+}
+
+/* line 175, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+kbd, samp, var, tt {
+  color: #666;
+  font-weight: bold;
+}
+
+/* line 176, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+var, dfn {
+  font-style: italic;
+}
+
+/* line 178, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+acronym, abbr {
+  border-bottom: 1px #aaa dotted;
+  font-variant: small-caps;
+  letter-spacing: .07em;
+  cursor: help;
+}
+
+/* line 185, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+sub, sup {
+  font-size: 91.6667%;
+  line-height: 0;
+}
+
+/* line 187, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+hr {
+  color: #fff;
+  background: transparent;
+  margin: 0 0 0.5em 0;
+  padding: 0 0 0.5em 0;
+  border: 0;
+  border-bottom: 1px #eee solid;
+}
+
+/*--- Links ----------------------------------------------------------------------------------------- */
+/* line 198, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+a {
+  color: #4D87C7;
+  background: transparent;
+  text-decoration: none;
+}
+
+/* line 199, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+a:visited {
+  color: #036;
+}
+
+/* (en) maximum constrast for tab focus - change with great care */
+/* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
+/* line 203, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+a:focus {
+  text-decoration: underline;
+  color: #000;
+  background: #fff;
+  outline: 3px #f93 solid;
+}
+
+/* line 205, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+a:hover,
+a:active {
+  color: #182E7A;
+  text-decoration: underline;
+  outline: 0 none;
+}
+
+/* --- images (with optional captions) | Bilder (mit optionaler Bildunterschrift) ------------------ */
+/* line 209, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+p.icaption_left {
+  float: left;
+  display: inline;
+  margin: 0 1em 0.15em 0;
+}
+
+/* line 210, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+p.icaption_right {
+  float: right;
+  display: inline;
+  margin: 0 0 0.15em 1em;
+}
+
+/* line 213, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+p.icaption_left img,
+p.icaption_right img {
+  padding: 0;
+  border: 1px #888 solid;
+}
+
+/* line 216, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+p.icaption_left strong,
+p.icaption_right strong {
+  display: block;
+  overflow: hidden;
+  margin-top: 2px;
+  padding: 0.3em 0.5em;
+  background: #eee;
+  font-weight: normal;
+  font-size: 91.667%;
+}
+
+/**
+* ------------------------------------------------------------------------------------------------- #
+*
+* Generic Content Classes
+*
+* (en) standard classes for positioning and highlighting
+* (de) Standardklassen zur Positionierung und Hervorhebung
+*
+* @section content-generic-classes
+*/
+/* line 229, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.highlight {
+  color: #c30;
+}
+
+/* line 230, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.dimmed {
+  color: #888;
+}
+
+/* line 232, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.info {
+  background: #f8f8f8;
+  color: #666;
+  padding: 10px;
+  margin-bottom: 0.5em;
+  font-size: 91.7%;
+}
+
+/* line 234, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.note {
+  background: #efe;
+  color: #040;
+  border: 2px #484 solid;
+  padding: 10px;
+  margin-bottom: 1em;
+}
+
+/* line 235, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.important {
+  background: #ffe;
+  color: #440;
+  border: 2px #884 solid;
+  padding: 10px;
+  margin-bottom: 1em;
+}
+
+/* line 236, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.warning {
+  background: #fee;
+  color: #400;
+  border: 2px #844 solid;
+  padding: 10px;
+  margin-bottom: 1em;
+}
+
+/* line 238, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.float_left {
+  float: left;
+  display: inline;
+  margin-right: 1em;
+  margin-bottom: 0.15em;
+}
+
+/* line 239, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.float_right {
+  float: right;
+  display: inline;
+  margin-left: 1em;
+  margin-bottom: 0.15em;
+}
+
+/* line 240, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.center {
+  display: block;
+  text-align: center;
+  margin: 0.5em auto;
+}
+
+/**
+* ------------------------------------------------------------------------------------------------- #
+*
+* Tables | Tabellen
+*
+* (en) Generic classes for table-width and design definition
+* (de) Generische Klassen für die Tabellenbreite und Gestaltungsvorschriften für Tabellen
+*
+* @section content-tables
+*/
+/* line 253, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+table {
+  width: auto;
+  border-collapse: collapse;
+  margin-bottom: 0.5em;
+  border-top: 2px #888 solid;
+  border-bottom: 2px #888 solid;
+}
+
+/* line 254, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+table caption {
+  font-variant: small-caps;
+}
+
+/* line 255, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+table.full {
+  width: 100%;
+}
+
+/* line 256, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+table.fixed {
+  table-layout: fixed;
+}
+
+/* line 258, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+th, td {
+  padding: 0.5em;
+}
+
+/* line 259, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+thead th {
+  color: #000;
+  border-bottom: 2px #800 solid;
+}
+
+/* line 260, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+tbody th {
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* line 261, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+tbody th[scope="row"], tbody th.sub {
+  background: #f0f0f0;
+}
+
+/* line 263, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+tbody th {
+  border-bottom: 1px solid #fff;
+  text-align: left;
+}
+
+/* line 264, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+tbody td {
+  border-bottom: 1px solid #eee;
+}
+
+/* line 267, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+tbody tr:hover th[scope="row"],
+tbody tr:hover tbody th.sub {
+  background: #f0e8e8;
+}
+
+/* line 268, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+tbody tr:hover td {
+  background: #fff8f8;
+}
+
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Horizontal list navigation based on "Sliding Door II" from von "A List Apart"
+ * (de) Horizontale Navigationsliste basierend auf "Sliding Door II" von "A List Apart"
+ *
+ * @copyright       Copyright 2005-2010, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.2.1
+ * @revision        $Revision:392 $
+ * @lastmodified    $Date:2009-07-05 12:18:40 +0200 (So, 05. Jul 2009) $
+ */
+/* line 286, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist {
+  /* (en) This image is mainly transparent */
+  /* (de) Dieses Bild ist größtenteils transparent */
+  background: transparent  repeat-x bottom;
+  float: left;
+  width: 100%;
+}
+
+/* line 294, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist ul {
+  margin: 0;
+  padding: 0;
+  line-height: 1em;
+  list-style: none;
+  white-space: nowrap;
+}
+
+/* line 302, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist li {
+  /* (en) Repeat the main color from the image */
+  /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
+  list-style-type: none !important;
+  background: #e0ecf8  no-repeat top left;
+  border-bottom: 1px solid #000;
+  float: left;
+  /* LTR */
+  margin: 0;
+  padding: 0 0 0 3px;
+}
+
+/* line 314, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist a,
+.hlist strong {
+  /* (en) This image is mainly transparent */
+  /* (de) Dieses Bild ist größtenteils transparent */
+  background: transparent  no-repeat top right;
+  color: #667;
+  display: block;
+  font-weight: normal;
+  padding: 5px 11px 3px 8px;
+  text-decoration: none;
+  text-transform: none;
+  /**
+   * @bugfix
+   * @affected   IE5.x, IE6
+   * @css-for    all browsers
+   * @valid      yes
+   */
+  width: auto;
+  /* only IE 5.x */
+  width/**/: .1em;
+  /* only IE 6.0 */
+}
+
+/* line 336, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist a:link,
+.hlist a:visited {
+  background-color: transparent;
+  color: #667;
+}
+
+/**
+ * @bugfix
+ * @affected   IE5.x, IE6
+ * @css-for    all browsers
+ * @valid      yes
+ */
+/* line 345, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist > ul a,
+.hlist > ul strong {
+  width: auto;
+}
+
+/* for other browsers */
+/* line 349, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist ul li:focus,
+.hlist ul li:hover,
+.hlist ul li:active {
+  /* (en) Repeat the main color from the image */
+  /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
+  background-color: #c4d0dc;
+  background-position: 0 -150px;
+}
+
+/* line 358, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist ul li:focus a,
+.hlist ul li:hover a,
+.hlist ul li:active a {
+  background-position: 100% -150px;
+}
+
+/* line 362, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist a:focus,
+.hlist a:hover,
+.hlist a:active {
+  background: transparent no-repeat top right;
+  color: #223;
+  outline: 0 none;
+  text-decoration: none;
+}
+
+/* line 372, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist ul li.active,
+.hlist ul li.active:focus,
+.hlist ul li.active:hover,
+.hlist ul li.active:active {
+  /* (en) Repeat the main color from the image */
+  /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
+  background: white no-repeat top left;
+  border: 0 none;
+}
+
+/* line 379, /Users/mmarin/Work/ironchef/app/assets/stylesheets/base.css.scss */
+.hlist li.active strong {
+  /* (en) This image is mainly transparent */
+  /* (de) Dieses Bild ist größtenteils transparent */
+  background: transparent  no-repeat top right;
+  color: #334;
+  font-weight: bold;
+  padding-bottom: 4px;
+  padding-top: 5px;
+}
+/* line 5, /Users/mmarin/Work/ironchef/app/assets/stylesheets/nodes.css.scss */
+#node {
+  width: 80px;
+  height: 80px;
+}
+
+/* line 11, /Users/mmarin/Work/ironchef/app/assets/stylesheets/nodes.css.scss */
+.on {
+  background-color: green;
+}
+
+/* line 13, /Users/mmarin/Work/ironchef/app/assets/stylesheets/nodes.css.scss */
+.off {
+  background-color: gray;
+}
+
+/* line 15, /Users/mmarin/Work/ironchef/app/assets/stylesheets/nodes.css.scss */
+.error {
+  background-color: red;
+}
+:@expires_in0:@compressedF:@created_atf1322224521.111562 #�
