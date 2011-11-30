@@ -5,7 +5,7 @@ class ChefAPI
     if !@connection
       configfile = File.join(Rails.root,"config","chef.yml")
       if File.exists? configfile
-        config = YAML.load_file(configfile)
+        config = YAML.load_file(configfile)[Rails.env] 
         uri = URI.parse(config["uri"])
         Spice.setup do |s|
           s.host = uri.host

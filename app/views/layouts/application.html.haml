@@ -12,27 +12,16 @@
       .page
         #header
           #topnav
-            / / start: skip link navigation
-            /             %a.skip{:href => "#navigation", :title => "skip link"} Skip to the navigation
-            /             %span.hideme .
-            /             %a.skip{:href => "#content", :title => "skip link"} Skip to the content
-            /             %span.hideme .
-            /             / end: skip link navigation
-            /             %a{:href => "#"} Login
-            /             |
-            /             %a{:href => "#"} Contact
-            /             |
-            /             %a{:href => "#"} Imprint                                          
-        #nav
-          / skiplink anchor: navigation
-          %a#navigation{:name => "navigation"}
-          .hlist
-            / main navigation: horizontal list
+            %h1 Gecos-Kitchen                                        
+          #nav  
             %ul
               = active_menu_to "Workstations", nodes_path, :active => {:when => :self}
-              %li
-                %strong= link_to "Users" 
-              = active_menu_to "Cookbooks", cookbooks_path, :active => {:when => :self}
+              = active_menu_to "users", users_path, :active => {:when => :self}
+              = active_menu_to "Cookbooks", cookbooks_path, :active => {:when => :self}, :class => "last"   
+            #search
+              = form_tag(nodes_path, {:method => :get}) do
+                = text_field_tag :name  
+
 
                 
 
@@ -42,7 +31,7 @@
               / add your content here
           #col2
             #col2_content.clearfix  
-              / add your content here
+
           #col3
             #col3_content.clearfix   
               - flash.each do |name, msg|
@@ -54,6 +43,5 @@
             / IE Column Clearing
             #ie_clearing  
         / begin: #footer
-        #footer
-          Layout based on
-          %a{:href => "http://www.yaml.de/"} YAML
+        / #footer
+

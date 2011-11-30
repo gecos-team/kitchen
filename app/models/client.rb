@@ -1,4 +1,3 @@
-class Client < Spice::Client    
-  include ChefBase
+class Client < ChefBase    
 
 end

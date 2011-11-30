@@ -1,4 +1,7 @@
-#node.on
-  =link_to node.name, node_path(node.name)    
-  = node.platform_version  
-  = node.ip
+#node-border
+  #node{:class => node.error? ? "error" : "on", :title => node.error}  
+    %ul
+      %li
+        %h3=link_to node.name, node_path(node.name)    
+      %li= node.hostname 
+      %li= node.ip  

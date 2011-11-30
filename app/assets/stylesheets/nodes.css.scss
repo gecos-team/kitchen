@@ -1,16 +1,47 @@
 // Place all the styles related to the nodes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-                                
+
+#node-border {
+
+
+}                                
 #node {
-  width: 80px;
-  height: 80px;
+  width: 280px;
+  height:70px;
+
+padding:10px;     
+box-shadow:3px 3px 7px #0f0f0f;
+
+//border: 1px solid #4c4c4c;   
+
+
+background: #7abcff; 
+
+
+ -moz-border-radius: 10px;
+border-radius: 10px;   
+
+
+float:left;  
+margin-right:50px;
 	
 }   
 
-.on { background-color: green; }                          
+.on { 
+     background: url("on.png") no-repeat scroll left center #60abf8 !important; 	
+	 }                          
 
-.off { background-color: gray; }
+.off { 
+	background: url("off.png") no-repeat scroll left center #60abf8 !important;  
+	}
 
-.error {background-color: red;}                             
+.error {
+	background: url("error.png") no-repeat scroll left center #60abf8 !important;  
+}   
+
+#node ul {
+	float:right;
+	width:150px; 
+}                          
       

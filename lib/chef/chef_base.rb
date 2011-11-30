@@ -13,7 +13,7 @@ class ChefBase
   extend ActiveModel::Naming  
   include ActiveModel::Serializers::JSON
     
-  def initialize(attributes = {}) 
+  def initialize(attributes = {})      
     attributes.each_pair { |key, value|
          metaclass.send :attr_accessor, key.gsub("?","")
          send "#{key.gsub("?","")}=".to_sym, value

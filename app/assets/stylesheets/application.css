@@ -6,3 +6,53 @@
  *= require_tree . 
 */
 
+#search { 
+	float:right; 
+	margin-right:8%;
+	margin-bottom:10px;
+	}  
+#search	input {
+		border:none;  
+		background: url("search.gif") no-repeat scroll left center white;
+		padding-left:16px;
+	}
+        
+
+
+  
+
+#nav  ul {
+		list-style:none;
+		margin-top:11px; 
+		margin-left:7%;
+	} 
+#nav  ul  li{
+			float:left;
+			text-decoration:none;  
+			margin-right:10px;
+			border-left:1px solid black;
+			padding-left:20px;  
+
+			}
+			
+#nav  ul  li.last {
+			  	border-right:1px solid black;
+				padding-right:20px;  
+			}
+			
+#nav  ul  li.active a{
+				color:black !important;
+				text-shadow:1px 1px 2px #FAFAFA; 
+			}
+
+			
+#nav  ul  li a{
+				color:white !important; 
+			    text-transform: uppercase;  
+				text-shadow:2px 2px 2px #000000;
+		      }
+		
+#nav  ul  li a:hover {
+				color:black !important;
+				text-shadow:1px 1px 1px #FAFAFA;
+			}

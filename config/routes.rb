@@ -61,5 +61,6 @@ Ironchef::Application.routes.draw do
   resources :nodes        
   resources :clients
   resources :cookbooks
+  resources :users
   
 end

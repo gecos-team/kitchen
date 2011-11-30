@@ -26,23 +26,42 @@
 
   /* (en) Marginal areas & page background */
   /* (de) Randbereiche & Seitenhintergrund */
-  body { background: #4d87c7 url("images/bg_blue.gif") repeat-x top left fixed; padding: 10px 0; }
+  body { 
+	background-color:#fafafa;
+
+	margin:0px;}
 
   /* Layout Alignment | Layout-Ausrichtung */
   .page_margins { margin: 0 auto; }
 
   /* Layout Properties | Layout-Eigenschaften */
-  .page_margins { width: auto;  min-width: 740px; max-width: 90em; background: #fff; }
-  .page { padding: 10px; }
-  #header { position:relative; padding: 45px 2em 1em 20px; color: #000; background:#edf2f8 url("../../images/bg_header.gif") repeat-x bottom left; }
+  .page_margins { width: auto;}
+  .page { }
+  #header { 
+	margin-top:65px;
+
+	}  
+	
   #topnav { position:absolute; top:10px; right:10px; text-align:right; color: #aaa; background: transparent; }
-  #nav { overflow:hidden; }
-  div.hlist { background-color: #c8ddf3 }
-  #main { margin: 10px 0; background: #fff; }
+  #nav { overflow:hidden; 
+	background: #7abcff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
+	background: linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+
+
+
+	}
+  
+  #main { margin: 10px 0 }
   #footer { padding: 10px 20px; color:#666; background: #f9f9f9; border-top: 5px #efefef solid; }
 
-  /* (en) navigation: horizontal adjustment | (de) horizontale Ausrichtung  */
-  #nav ul { margin-left: 20px; }
+  
+  
 
   /*-------------------------------------------------------------------------*/
 
@@ -147,7 +166,7 @@ ul ul { list-style-type:circle; margin-bottom:0; }
 ol { list-style-type:decimal; }
 ol ol { list-style-type:lower-latin; margin-bottom:0; }
 
-li { margin-left:0.8em; line-height:1.5em; }
+li { margin-left:0.8em; line-height:1.5em; list-style:none;}
 
 dt { font-weight:bold; }
 dd { margin:0 0 1em 0.8em; }
@@ -201,7 +220,7 @@ a:visited  { color:#036; }
 /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
 a:focus { text-decoration:underline; color:#000; background: #fff; outline: 3px #f93 solid; }
 a:hover,
-a:active { color:#182E7A; text-decoration:underline; outline: 0 none; }
+a:active { color:#182E7A; text-decoration:none; outline: 0 none; }
 
 /* --- images (with optional captions) | Bilder (mit optionaler Bildunterschrift) ------------------ */
 
@@ -266,121 +285,3 @@ tbody tr:hover th[scope="row"],
 tbody tr:hover tbody th.sub { background:#f0e8e8; }
 tbody tr:hover td { background:#fff8f8; }
 
-/**
- * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
- *
- * (en) Horizontal list navigation based on "Sliding Door II" from von "A List Apart"
- * (de) Horizontale Navigationsliste basierend auf "Sliding Door II" von "A List Apart"
- *
- * @copyright       Copyright 2005-2010, Dirk Jesse
- * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
- *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
- * @link            http://www.yaml.de
- * @package         yaml
- * @version         3.2.1
- * @revision        $Revision:392 $
- * @lastmodified    $Date:2009-07-05 12:18:40 +0200 (So, 05. Jul 2009) $
- */
-
-.hlist {
-  /* (en) This image is mainly transparent */
-  /* (de) Dieses Bild ist größtenteils transparent */
-  background:transparent  repeat-x bottom;
-  float:left;
-  width:100%;
-}
-
-.hlist ul {
-  margin:0;
-  padding:0;
-  line-height:1em;
-  list-style:none;
-  white-space:nowrap;
-}
-
-.hlist li {
-  /* (en) Repeat the main color from the image */
-  /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
-  list-style-type:none !important;
-  background:#e0ecf8  no-repeat top left;
-  border-bottom:1px solid #000;
-  float:left; /* LTR */
-  margin:0;
-  padding:0 0 0 3px;
-}
-
-.hlist a,
-.hlist strong {
-  /* (en) This image is mainly transparent */
-  /* (de) Dieses Bild ist größtenteils transparent */
-  background:transparent  no-repeat top right;
-  color:#667;
-  display:block;
-  font-weight:normal;
-  padding:5px 11px 3px 8px;
-  text-decoration:none;
-  text-transform:none;
-
-  /**
-   * @bugfix
-   * @affected   IE5.x, IE6
-   * @css-for    all browsers
-   * @valid      yes
-   */
-  width:auto; /* only IE 5.x */
-  width/**/:/**/ .1em; /* only IE 6.0 */
-}
-
-.hlist a:link,
-.hlist a:visited { background-color:transparent; color:#667; }
-
-/**
- * @bugfix
- * @affected   IE5.x, IE6
- * @css-for    all browsers
- * @valid      yes
- */
-.hlist > ul a,
-.hlist > ul strong { width:auto; }  /* for other browsers */
-
-.hlist ul li:focus,
-.hlist ul li:hover,
-.hlist ul li:active {
-  /* (en) Repeat the main color from the image */
-  /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
-  background-color:#c4d0dc;
-  background-position:0 -150px;
-}
-
-.hlist ul li:focus a,
-.hlist ul li:hover a,
-.hlist ul li:active a { background-position:100% -150px; }
-
-.hlist a:focus,
-.hlist a:hover,
-.hlist a:active {
-  background:transparent no-repeat top right;
-  color:#223;
-  outline: 0 none;
-  text-decoration:none;
-}
-
-.hlist ul li.active,
-.hlist ul li.active:focus,
-.hlist ul li.active:hover,
-.hlist ul li.active:active {
-  /* (en) Repeat the main color from the image */
-  /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
-  background:white no-repeat top left;
-  border:0 none;
-}
-
-.hlist li.active strong {
-  /* (en) This image is mainly transparent */
-  /* (de) Dieses Bild ist größtenteils transparent */
-  background:transparent  no-repeat top right;
-  color:#334;
-  font-weight:bold;
-  padding-bottom:4px;
-  padding-top:5px;
-}

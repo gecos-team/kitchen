@@ -9301,5 +9301,5 @@ window.jQuery = window.$ = jQuery;
 })( window );
 "content_type"application/javascript"
 class"BundledAsset"
-mtime"2011-11-23T09:51:16+01:00"_version"%46dde6621c301f4928e3b34efee9e3b5"id"%62667f8397a7477099ee24296ef30d29"dependency_paths[{"hexdigest"%f2a91ff6a83f03a4db8c8ea8d7ddd472"
-mtimeu:	TimeикЂ   Н"	path"i/Users/mmarin/.rvm/gems/ruby-1.8.7-p352/gems/jquery-rails-1.0.18/vendor/assets/javascripts/jquery.js"pathname"i/Users/mmarin/.rvm/gems/ruby-1.8.7-p352/gems/jquery-rails-1.0.18/vendor/assets/javascripts/jquery.js"logical_path"jquery.js:@expires_in0:@compressedF:@created_atf1322211460.03054 ф^
+mtime"2011-11-23T09:51:16+01:00"_version"%46dde6621c301f4928e3b34efee9e3b5"id"%4e35629e0509bfd9c99124ead1b94de7"dependency_paths[{"hexdigest"%f2a91ff6a83f03a4db8c8ea8d7ddd472"
+mtimeu:	TimeикЂ   Н"	path"i/Users/mmarin/.rvm/gems/ruby-1.8.7-p352/gems/jquery-rails-1.0.18/vendor/assets/javascripts/jquery.js"pathname"i/Users/mmarin/.rvm/gems/ruby-1.8.7-p352/gems/jquery-rails-1.0.18/vendor/assets/javascripts/jquery.js"logical_path"jquery.js:@expires_in0:@compressedF:@created_atf1322648241.4778931 •Н

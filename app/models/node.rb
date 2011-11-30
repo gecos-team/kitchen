@@ -10,11 +10,23 @@ class Node < ChefBase
   
   def ip
     self.automatic["ipaddress"]
-  end    
+  end 
+  
+  def hostname
+    self.automatic["hostname"]
+  end   
   
   def running?
     self.automatic["uptime"].blank? ? false : true
   end 
+  
+  def error?
+    self.normal["last_run_error"]
+  end  
+  
+  def error
+    self.normal["last_run_status_msg"]
+  end
   
   def self.find_by_user(user) 
     self.class.find(:all, :user => user)
