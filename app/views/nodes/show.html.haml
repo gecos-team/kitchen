@@ -1,28 +1,56 @@
-%h1= @node.name  
+%h1 Workstation info  
 
-= link_to "Editar", edit_node_path(@node.name)
+#errors
+  = @node.error
+/ #error_details
+/   = @node.normal["last_run_status_bt"]
 
-#status
-  %p= @node.platform_version
-  %p= @node.ip
-  %p= @node.automatic["uptime"] 
+#node-info{:class => @node.error? ? "error" : @node.status} 
+  %ul
+    %h3 Info
+    %li 
+      %strong Name:
+      = @node.name
+    %li
+      %strong Hostname:
+      = @node.hostname  
+  %ul
+    %h3 Users
+    - @node.users.each do |user|
+      %li= link_to user, user_path(user) 
+  %ul
+    %h3 Net
+    %li
+      %strong Ip:
+      = @node.ip 
+    %li
+      %stronc Mac:
+      = @node.automatic["macaddress"]
+  %ul
+    %h3 Others
+    %li
+      %strong Uptime
+      = @node.automatic["uptime"]   
+    
+.clear  
+
   
-%h3 Run List
-%table.table
-  %thead
-    %tr
-      %th.first Position
-      %th Name
-      %th Version
-      %th.last Type
-  %tbody
-    - if @node.extended_run_list.empty?
-      %tr
-        %td{:colspan => 2} This node has no roles or recipes applied.
-    - else
-      -@node.extended_run_list.each_with_index do |run_list_item, i|
-        %tr
-          %td.position= i
-          %td= run_list_item.name
-          %td= run_list_item.version
-          %td= run_list_item.type     
+  
+
+
+#run-list.sortable
+  %ul
+    -@node.extended_run_list.each do |run_list_item|
+      %li.item{:class => run_list_item.type}
+        = run_list_item.name
+        = run_list_item.version     
+        
+#roles.sortable
+  %ul
+    - @roles.each do |role|
+      %li.role= normalize_item(role)
+
+#recipes.sortable
+  %ul
+    - @recipes.each do |recipe|
+      %li.recipe= normalize_item(recipe)

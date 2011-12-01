@@ -2,46 +2,45 @@
 %html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}/
-    %title Your Page Title
+    %title Gecos-Kitchen
     / add your meta tags here    
     = stylesheet_link_tag "application"
     = javascript_include_tag :application
     = csrf_meta_tag
   %body
-    .page_margins
-      .page
-        #header
-          #topnav
-            %h1 Gecos-Kitchen                                        
-          #nav  
-            %ul
-              = active_menu_to "Workstations", nodes_path, :active => {:when => :self}
-              = active_menu_to "users", users_path, :active => {:when => :self}
-              = active_menu_to "Cookbooks", cookbooks_path, :active => {:when => :self}, :class => "last"   
-            #search
-              = form_tag(nodes_path, {:method => :get}) do
-                = text_field_tag :name  
+    #header
+      #topnav
+        / %h1 Gecos-Kitchen                                        
+      #nav  
+        %ul
+          = active_menu_to "Workstations", nodes_path, :active => {:when => :self}
+          = active_menu_to "users", users_path, :active => {:when => :self}
+          = active_menu_to "Cookbooks", cookbooks_path, :active => {:when => :self}, :class => "last"   
+          
+        #search
+          = form_tag(nodes_path, {:method => :get}) do
+            = text_field_tag :name  
 
 
-                
+            
 
-        #main
-          #col1
-            #col1_content.clearfix   
-              / add your content here
-          #col2
-            #col2_content.clearfix  
+    #main2
+      #col1
+        #col1_content.clearfix   
 
-          #col3
-            #col3_content.clearfix   
-              - flash.each do |name, msg|
-                = content_tag :div, msg, :id => "flash_#{name}"
-              = content_tag :h1, yield(:title) if show_title?
-              = yield    
-              
-              / add your content here
-            / IE Column Clearing
-            #ie_clearing  
-        / begin: #footer
-        / #footer
+      #col2
+        #col2_content.clearfix  
+
+      #col3
+        #col3_content.clearfix   
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => "flash_#{name}"
+          = content_tag :h1, yield(:title) if show_title?
+          = yield    
+          
+          / add your content here
+        / IE Column Clearing
+        #ie_clearing  
+    / begin: #footer
+    / #footer       
 

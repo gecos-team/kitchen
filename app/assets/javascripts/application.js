@@ -5,5 +5,9 @@
 // the compiled file.
 //
 //= require jquery
-//= require jquery_ujs
+//= require jquery_ujs         
+//= require pakunok/jquery-ui/pack/draggable   
+//= require pakunok/jquery-ui/pack/droppable
+//= require pakunok/jquery-ui/pack/sortable
+//= require pakunok/jquery-ui/pack/accordion
 //= require_tree .

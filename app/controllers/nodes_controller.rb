@@ -10,6 +10,8 @@ class NodesController < ApplicationController
   
   def show
     @node = Node.find(params[:id])
+    @roles = @node.avaiable_roles
+    @recipes = @node.avaiable_recipes
   end
                 
   def edit  

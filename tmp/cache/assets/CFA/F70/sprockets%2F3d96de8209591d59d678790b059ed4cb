@@ -1,4 +1,4 @@
-o: ActiveSupport::Cache::Entry	:@value{"asset_paths["/$root/app/assets/stylesheets/base.css.scss"	body"l=/**
+o: ActiveSupport::Cache::Entry	:@value{"asset_paths["/$root/app/assets/stylesheets/base.css.scss"	body"Û=/**
  * "Yet Another Multicolumn Layout" - (X)HTML/CSS framework
  * (en) stylesheet for screen layout
  * (de) Stylesheet f√ºr das Bildschirm-Layout
@@ -43,22 +43,21 @@
     width: auto;
   }
 
-  /* line 41, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
-  #header {
-    margin-top: 65px;
-  }
-
   /* line 46, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #topnav {
     position: absolute;
     top: 10px;
-    right: 10px;
-    text-align: right;
+    text-align: left;
     color: #aaa;
     background: transparent;
   }
 
   /* line 47, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  #topnav h1 {
+    margin: 0 auto;
+  }
+
+  /* line 48, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #nav {
     overflow: hidden;
     background: #7abcff;
@@ -79,12 +78,14 @@
     /* IE6-9 */
   }
 
-  /* line 61, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 62, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #main {
-    margin: 10px 0;
+    margin: 10px auto;
+    width: 960px;
+    display: block;
   }
 
-  /* line 62, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 63, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #footer {
     padding: 10px 20px;
     color: #666;
@@ -98,37 +99,37 @@
    * (de) Formatierung der Inhalts-Container
    *
    */
-  /* line 75, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 76, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #col1 {
     float: left;
     width: 10%;
     margin: 0;
   }
 
-  /* line 76, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 77, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #col2 {
     float: right;
     width: 10%;
     margin: 0;
   }
 
-  /* line 77, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 78, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #col3 {
     width: auto;
     margin: 0 10% 0 10%;
   }
 
-  /* line 78, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 79, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #col1_content {
     padding: 0 10px 0 20px;
   }
 
-  /* line 79, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 80, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #col2_content {
     padding: 0 20px 0 10px;
   }
 
-  /* line 80, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+  /* line 81, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
   #col3_content {
     padding: 0 10px;
   }
@@ -150,7 +151,7 @@
 *
 * @section content-skiplinks
 */
-/* line 105, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 106, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 #skiplinks a.skip:focus,
 #skiplinks a.skip:active {
   color: #fff;
@@ -170,7 +171,7 @@
 */
 /* (en) reset font size for all elements to standard (16 Pixel) */
 /* (de) Alle Schriftgr√∂√üen auf Standardgr√∂√üe (16 Pixel) zur√ºcksetzen */
-/* line 124, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 125, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 html * {
   font-size: 100.01%;
 }
@@ -181,14 +182,14 @@ html * {
 *
 * @see: http://webkit.org/blog/67/strange-medium/
 */
-/* line 133, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 134, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 textarea, pre, code, kbd, samp, var, tt {
   font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
 }
 
 /* (en) base layout gets standard font size 12px */
 /* (de) Basis-Layout erh√§lt Standardschriftgr√∂√üe von 12 Pixeln */
-/* line 139, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 140, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 75.00%;
@@ -196,7 +197,7 @@ body {
 }
 
 /*--- Headings | √úberschriften ------------------------------------------------------------------------*/
-/* line 147, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 148, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Times New Roman", Times, serif;
   font-weight: normal;
@@ -204,155 +205,158 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
 }
 
-/* line 154, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 155, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h1 {
   font-size: 250%;
 }
 
 /* 30px */
-/* line 155, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 156, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h2 {
   font-size: 200%;
 }
 
 /* 24px */
-/* line 156, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 157, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h3 {
   font-size: 150%;
 }
 
 /* 18px */
-/* line 157, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 158, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h4 {
   font-size: 133.33%;
 }
 
 /* 16px */
-/* line 158, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 159, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h5 {
   font-size: 116.67%;
 }
 
 /* 14px */
-/* line 159, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 160, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 h6 {
   font-size: 116.67%;
 }
 
 /* 14px */
 /* --- Lists | Listen  -------------------------------------------------------------------------------- */
-/* line 163, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 164, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 ul, ol, dl {
   line-height: 1.5em;
-  margin: 0 0 1em 1em;
-}
-
-/* line 164, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
-ul {
-  list-style-type: disc;
+  margin: 0 0 1em 0;
 }
 
 /* line 165, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+ul {
+  list-style-type: disc;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 166, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 ul ul {
   list-style-type: circle;
   margin-bottom: 0;
 }
 
-/* line 167, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 168, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 ol {
   list-style-type: decimal;
 }
 
-/* line 168, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 169, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 ol ol {
   list-style-type: lower-latin;
   margin-bottom: 0;
 }
 
-/* line 170, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 171, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 li {
-  margin-left: 0.8em;
+  margin: 0;
+  padding: 0;
   line-height: 1.5em;
   list-style: none;
 }
 
-/* line 172, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 173, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 dt {
   font-weight: bold;
 }
 
-/* line 173, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 174, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 dd {
   margin: 0 0 1em 0.8em;
 }
 
 /* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
-/* line 177, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 178, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 p {
   line-height: 1.5em;
   margin: 0 0 1em 0;
 }
 
-/* line 179, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 180, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 blockquote, cite, q {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
 }
 
-/* line 183, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 184, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 blockquote {
   margin: 0 0 1em 1.6em;
   color: #666;
 }
 
-/* line 185, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 186, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 strong, b {
   font-weight: bold;
 }
 
-/* line 186, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 187, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 em, i {
   font-style: italic;
 }
 
-/* line 188, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 189, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 big {
   font-size: 116.667%;
 }
 
-/* line 189, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 190, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 small {
   font-size: 91.667%;
 }
 
-/* line 191, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 192, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 pre {
   line-height: 1.5em;
   margin: 0 0 1em 0;
 }
 
-/* line 192, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 193, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 pre, code, kbd, tt, samp, var {
   font-size: 100%;
 }
 
-/* line 193, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 194, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 pre, code {
   color: #800;
 }
 
-/* line 194, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 195, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 kbd, samp, var, tt {
   color: #666;
   font-weight: bold;
 }
 
-/* line 195, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 196, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 var, dfn {
   font-style: italic;
 }
 
-/* line 197, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 198, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 acronym, abbr {
   border-bottom: 1px #aaa dotted;
   font-variant: small-caps;
@@ -360,13 +364,13 @@ acronym, abbr {
   cursor: help;
 }
 
-/* line 204, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 205, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 sub, sup {
   font-size: 91.6667%;
   line-height: 0;
 }
 
-/* line 206, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 207, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 hr {
   color: #fff;
   background: transparent;
@@ -377,21 +381,21 @@ hr {
 }
 
 /*--- Links ----------------------------------------------------------------------------------------- */
-/* line 217, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 218, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 a {
   color: #4D87C7;
   background: transparent;
   text-decoration: none;
 }
 
-/* line 218, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 219, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 a:visited {
   color: #036;
 }
 
 /* (en) maximum constrast for tab focus - change with great care */
 /* (en) Maximaler Kontrast f√ºr Tab Focus - √Ñndern Sie diese Regel mit Bedacht */
-/* line 222, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 223, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 a:focus {
   text-decoration: underline;
   color: #000;
@@ -399,7 +403,7 @@ a:focus {
   outline: 3px #f93 solid;
 }
 
-/* line 224, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 225, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 a:hover,
 a:active {
   color: #182E7A;
@@ -408,28 +412,28 @@ a:active {
 }
 
 /* --- images (with optional captions) | Bilder (mit optionaler Bildunterschrift) ------------------ */
-/* line 228, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 229, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 p.icaption_left {
   float: left;
   display: inline;
   margin: 0 1em 0.15em 0;
 }
 
-/* line 229, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 230, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 p.icaption_right {
   float: right;
   display: inline;
   margin: 0 0 0.15em 1em;
 }
 
-/* line 232, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 233, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 p.icaption_left img,
 p.icaption_right img {
   padding: 0;
   border: 1px #888 solid;
 }
 
-/* line 235, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 236, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 p.icaption_left strong,
 p.icaption_right strong {
   display: block;
@@ -451,17 +455,17 @@ p.icaption_right strong {
 *
 * @section content-generic-classes
 */
-/* line 248, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 249, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .highlight {
   color: #c30;
 }
 
-/* line 249, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 250, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .dimmed {
   color: #888;
 }
 
-/* line 251, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 252, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .info {
   background: #f8f8f8;
   color: #666;
@@ -470,7 +474,7 @@ p.icaption_right strong {
   font-size: 91.7%;
 }
 
-/* line 253, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 254, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .note {
   background: #efe;
   color: #040;
@@ -479,7 +483,7 @@ p.icaption_right strong {
   margin-bottom: 1em;
 }
 
-/* line 254, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 255, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .important {
   background: #ffe;
   color: #440;
@@ -488,7 +492,7 @@ p.icaption_right strong {
   margin-bottom: 1em;
 }
 
-/* line 255, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 256, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .warning {
   background: #fee;
   color: #400;
@@ -497,7 +501,7 @@ p.icaption_right strong {
   margin-bottom: 1em;
 }
 
-/* line 257, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 258, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .float_left {
   float: left;
   display: inline;
@@ -505,7 +509,7 @@ p.icaption_right strong {
   margin-bottom: 0.15em;
 }
 
-/* line 258, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 259, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .float_right {
   float: right;
   display: inline;
@@ -513,11 +517,16 @@ p.icaption_right strong {
   margin-bottom: 0.15em;
 }
 
-/* line 259, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 260, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 .center {
   display: block;
   text-align: center;
   margin: 0.5em auto;
+}
+
+/* line 261, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+.clear {
+  clear: both;
 }
 
 /**
@@ -530,74 +539,73 @@ p.icaption_right strong {
 *
 * @section content-tables
 */
-/* line 272, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 274, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 table {
   width: auto;
-  border-collapse: collapse;
+  border-collapse: separate;
   margin-bottom: 0.5em;
-  border-top: 2px #888 solid;
-  border-bottom: 2px #888 solid;
+  border: 1px #60ABF8 solid;
 }
 
-/* line 273, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 275, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 table caption {
   font-variant: small-caps;
 }
 
-/* line 274, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 276, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 table.full {
   width: 100%;
 }
 
-/* line 275, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 277, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 table.fixed {
   table-layout: fixed;
 }
 
-/* line 277, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 279, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 th, td {
   padding: 0.5em;
 }
 
-/* line 278, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 280, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 thead th {
   color: #000;
-  border-bottom: 2px #800 solid;
+  border-bottom: 1px #60ABF8 solid;
+  background-color: #60ABF8;
 }
 
-/* line 279, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 281, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 tbody th {
   background: #e0e0e0;
   color: #333;
 }
 
-/* line 280, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 282, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 tbody th[scope="row"], tbody th.sub {
   background: #f0f0f0;
 }
 
-/* line 282, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 284, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 tbody th {
-  border-bottom: 1px solid #fff;
-  text-align: left;
+  text-align: center;
 }
 
-/* line 283, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
-tbody td {
-  border-bottom: 1px solid #eee;
+/* line 287, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+tbody tr.even {
+  background-color: #e6e6e6;
 }
 
-/* line 286, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 290, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 tbody tr:hover th[scope="row"],
 tbody tr:hover tbody th.sub {
   background: #f0e8e8;
 }
 
-/* line 287, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
+/* line 291, /Users/mmarin/Work/kitchen/app/assets/stylesheets/base.css.scss */
 tbody tr:hover td {
-  background: #fff8f8;
+  background-color: #7ABCFF;
 }
 "content_type"text/css"
 class"BundledAsset"
-mtime"2011-11-30T10:22:55+01:00"_version"%46dde6621c301f4928e3b34efee9e3b5"id"%4e71676723524a2fd0fab615f8d8b158"dependency_paths[{"hexdigest"%d0d053b2e6b25e449db229da35b3be3e"
-mtimeu:	Time…ÎÄ  p["	path"/$root/app/assets/stylesheets/base.css.scss"pathname"/$root/app/assets/stylesheets/base.css.scss"logical_path"base.css:@expires_in0:@compressedF:@created_atf1322648241.434314 ÀÕ
+mtime"2011-12-01T10:01:16+01:00"_version"%46dde6621c301f4928e3b34efee9e3b5"id"%93f68f6c54d126cb9dd3027aa2bcfe52"dependency_paths[{"hexdigest"%2c6058d5c0eaca5abb50c7cca0b5cbce"
+mtimeu:	Time)ÏÄ   "	path"/$root/app/assets/stylesheets/base.css.scss"pathname"/$root/app/assets/stylesheets/base.css.scss"logical_path"base.css:@created_atf1322730086.331733 ;:@expires_in0:@compressedF

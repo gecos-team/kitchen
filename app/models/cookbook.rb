@@ -25,6 +25,11 @@ class Cookbook < ChefBase
   
   def versions_name
     self.data["versions"].map{|x| x["version"]}.join(",")
+  end   
+  
+  def recipes_name 
+    #TODO comprobar si hay mas versiones
+    self.versions.first.metadata["recipes"].keys
   end
   
 end

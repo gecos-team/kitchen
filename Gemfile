@@ -14,6 +14,7 @@ gem 'rest-client'
 gem 'mixlib-authentication', :require =>'mixlib/authentication'
 gem 'haml'  
 gem 'mongrel'
+gem 'pakunok'
 
 
 gem "nifty-generators", :group => :development

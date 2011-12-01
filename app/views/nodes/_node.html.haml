@@ -1,5 +1,5 @@
 #node-border
-  #node{:class => node.error? ? "error" : "on", :title => node.error}  
+  #node{:class => node.error? ? "error" : node.status , :title => node.error}  
     %ul
       %li
         %h3=link_to node.name, node_path(node.name)    
