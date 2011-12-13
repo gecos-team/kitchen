@@ -3,17 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
                                
-#node {
-  width: 280px;
-  height:70px;
-padding:10px;     
-box-shadow:3px 3px 7px #0f0f0f;
-background: #7abcff; 
- -moz-border-radius: 10px;
-border-radius: 10px;   
-float:left;  
-margin-right:50px;   
-}    
+
 
 
 
@@ -30,12 +20,7 @@ margin-right:50px;
 	background: url("error.png") no-repeat scroll left center #60abf8 !important;  
 }   
 
-#node ul {
-	float:right;
-	width:150px; 
-}                          
-    
-
+                        
   
 #node-info {
   max-width: 100%;
@@ -103,32 +88,102 @@ margin-bottom:20px;
 }
         
 
-#run-list, #roles, #recipes {
-
-  max-width: 20%;
-padding:10px;     
-box-shadow:3px 3px 7px #0f0f0f;
-background: #7abcff; 
- -moz-border-radius: 10px;
-border-radius: 10px;  
-
-                      
-
+#runlistform {
+//	width:700px; 
+//	height:300px;
+	margin:0 auto;
 	
-}    
-#run-list ul, #roles ul, #recipes ul {
-min-height:50px;                      
 }
 
+//#itemscontainer {
+//	width:280px;  
+//    margin-bottom:20px;
+//    float:left;
+//}
+//
+//#runlistcontainer {
+//	float:right;
+//}
+//
+//.list-header {
+//
+//padding:10px;     
+//box-shadow:3px 3px 7px #0f0f0f;
+//background: #7abcff; 
+// -moz-border-radius: 10px;
+//border-radius: 10px;  
+//float:left; 
+//width:100%;
+//                      
+//
+//	
+//}   
+//
+//#roles, #recipes, #run-list {
+//clear:both;
+//
+//background:#7abcff;
+//margin-left:10px;       
+//box-shadow:1px 1px 3px #0f0f0f;  
+//padding-top:20px; 
+//padding-bottom:5px;  
+//height:100px;
+//}    
+//
+//
+//#roles, #recipes {
+//margin-bottom:20px; 
+//width:280px;  
+// 	
+//}     
+//
+//#run-list {
+//	height:300px;
+//	width:300px; 	
+//}
+// 
+//#roles ul, #recipes ul {
+//min-height:50px;                      
+//}
+//#run-list ul {
+//min-height:150px;	
+//}
+//     
 
-#run-list li, #roles li, #recipes li {	
-	 width: 170px;
-	 box-shadow:1px 1px 1px #0f0f0f;
-	 -moz-border-radius: 10px;
-	 border-radius: 10px;
-	 margin-bottom:10px; 
-	 background:#60ABF8;
+//#run-list li, #roles li, #recipes li {	
+//	 width: 170px;
+//	 box-shadow:1px 1px 1px #0f0f0f;
+//	 -moz-border-radius: 10px;
+//	 border-radius: 10px;
+//	 
+//	 background:#60ABF8; 
+//	 margin: 0 auto;
+//	margin-bottom:10px; 
+//}     
+
+
+
+
+#runlistcontainer{
+	float:left;   
+//	margin-right:80px;
+	width:400px; 
+    margin-left:50px;
+	margin-right:80px;
+	margin-bottom:20px; 
+	height:100%; 
+}  
+
+li.recipe {
+	background: url("recipe.png") no-repeat scroll 5px center #60ABF8 !important; 
+}  
+
+li.role {
+	background: url("role.png") no-repeat scroll 5px center #60ABF8 !important; 
+}  
+
+li.recipe span, li.role span, li.run-list span{
+	margin-left:30px;
 }
-
 
 

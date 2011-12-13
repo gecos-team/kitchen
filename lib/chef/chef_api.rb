@@ -62,12 +62,6 @@ class ChefAPI
     self.post("/clients", options)
   end
   
-  def self.update(options={})
-    raise ArgumentError, "Option :name must be present" unless options[:name] 
-    path = '/' + self.name.to_s.downcase.pluralize
-    name = options.delete(:name)
-    self.put("#{path}/#{name}", options)
-  end
   
   def self.delete(options={})   
     raise ArgumentError, "Option :name must be present" unless options[:name]

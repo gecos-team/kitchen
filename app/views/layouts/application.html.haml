@@ -13,15 +13,27 @@
         / %h1 Gecos-Kitchen                                        
       #nav  
         %ul
-          = active_menu_to "Workstations", nodes_path, :active => {:when => :self}
-          = active_menu_to "users", users_path, :active => {:when => :self}
-          = active_menu_to "Cookbooks", cookbooks_path, :active => {:when => :self}, :class => "last"   
+          - isadmin = (current_user and current_user.admin?) 
+          = active_menu_to "groups", groups_path, :active => {:when => :self} 
+          = active_menu_to "Workstations", nodes_path, :active => {:when => :self} 
+          = active_menu_to "users", home_users_path, :active => {:when => :self}, :class => ("last" if !isadmin) 
+          - if isadmin
+            = active_menu_to "ADMIN", admin_root_path, :active => {:when => :self}, :class => "last"
+   
           
+ 
+        #user-panel 
+          - if user_signed_in?
+
+            Conected as:
+            = current_user.email
+            |
+            = link_to "Logout", destroy_user_session_path, :method => :delete  
+          - else
+            = link_to "Login", new_user_session_path
         #search
-          = form_tag(nodes_path, {:method => :get}) do
-            = text_field_tag :name  
-
-
+          = form_tag(search_index_path(@search), {:method => :get}) do
+            = search_field_tag :id
             
 
     #main2
@@ -33,8 +45,8 @@
 
       #col3
         #col3_content.clearfix   
-          - flash.each do |name, msg|
-            = content_tag :div, msg, :id => "flash_#{name}"
+          %p.notice= notice
+          %p.alert= alert
           = content_tag :h1, yield(:title) if show_title?
           = yield    
           

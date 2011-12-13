@@ -30,6 +30,6 @@ module NodesHelper
       
       @name
     
-  end
+  end  
   
 end

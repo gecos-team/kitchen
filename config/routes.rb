@@ -1,4 +1,6 @@
 Ironchef::Application.routes.draw do
+  devise_for :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -58,9 +60,17 @@ Ironchef::Application.routes.draw do
   
   root :to => 'nodes#index'
   
+  resources :search
+  
   resources :nodes        
   resources :clients
   resources :cookbooks
-  resources :users
+  resources :home_users
+  resources :groups
+  
+  namespace :admin do    
+    root :to => 'home#index'
+    resources :groups
+  end
   
 end

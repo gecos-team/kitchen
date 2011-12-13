@@ -4,4 +4,9 @@
 # Examples:
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Emanuel', :city => cities.first)
+#   Mayor.create(:name => 'Emanuel', :city => cities.first)   
+User.delete_all
+u = User.create(:email => "admin@gecos.com", :password => "admin..", :password_confirmation => "admin..")
+u.admin = true
+u.save
+User.create(:email => "soporte@gecos.com", :password => "soporte..", :password_confirmation => "soporte..")

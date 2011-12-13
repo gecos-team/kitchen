@@ -15,6 +15,10 @@ gem 'mixlib-authentication', :require =>'mixlib/authentication'
 gem 'haml'  
 gem 'mongrel'
 gem 'pakunok'
+gem 'mysql' 
+gem 'devise'  
+gem "friendly_id", "~> 4.0.0.beta14"
+gem 'bluecloth'
 
 
 gem "nifty-generators", :group => :development
@@ -25,6 +29,11 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+end   
+
+group :development do
+  gem 'hpricot'
+  gem 'ruby_parser'
 end
 
 gem 'jquery-rails'

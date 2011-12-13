@@ -1,5 +1,7 @@
 class NodesController < ApplicationController  
   
+  before_filter :get_node, :except => "index"
+  
   def index    
     if params[:name]
       @nodes = Node.search("name:*#{params[:name]}*")
@@ -9,13 +11,30 @@ class NodesController < ApplicationController
   end  
   
   def show
-    @node = Node.find(params[:id])
     @roles = @node.avaiable_roles
-    @recipes = @node.avaiable_recipes
+    @recipes = @node.avaiable_recipes 
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @node.to_json }
+    end
   end
                 
   def edit  
-     @node = Node.find(params[:id]) 
-  end 
+  end       
+  
+  def update  
+    @node.run_list = (["recipe[ohai]"] + [params[:for_node]]).flatten.uniq       
+    @node.save
+    redirect_to node_path(@node.name)
+  end   
+  
+  
+  
+  protected
+  
+  def get_node
+    @node = Node.find(params[:id])  
+  end
   
 end

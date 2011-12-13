@@ -25,6 +25,22 @@ $(document).ready ->
    $("#run-list ul").disableSelection()
    $("#run-list ul").disableSelection()
    $("#run-list ul").disableSelection()   
-		
    
-    
+   $("#tabs").tabs() 	
+   
+   $("form#edit_node, form.edit_group").submit (event) ->    
+     form = $(this) 
+     to_node = $('#run-list ul').sortable('toArray')
+     for field in to_node   
+       form.append('<input type="hidden" name="for_node[]" value="' + field + '"/>')    
+
+
+   
+   $(".toggle .ui-icon").click () ->
+     $(this).toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s")
+     $(this).parents().next('.toggable').slideToggle("fast")  
+
+   $('#tree').jstree
+     json_data:
+       ajax:
+        url: "http://localhost:3000/nodes/localhost.json"

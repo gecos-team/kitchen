@@ -1,7 +1,8 @@
-%h1 Workstation info  
-
-#errors
-  = @node.error
+%h1 Workstation info
+  
+- if @node.error?   
+  #errors
+    = @node.error 
 / #error_details
 /   = @node.normal["last_run_status_bt"]
 
@@ -16,8 +17,10 @@
       = @node.hostname  
   %ul
     %h3 Users
-    - @node.users.each do |user|
-      %li= link_to user, user_path(user) 
+    -if !@node.users.blank?
+      - @node.users.each do |user|
+        %li= user
+        / %li= link_to user, home_user_path(user)     
   %ul
     %h3 Net
     %li
@@ -34,23 +37,18 @@
     
 .clear  
 
+#tabs
+  %ul
+    %li= link_to  "Run List", "#tabs-1"
+    - if @node.error?   
+      %li= link_to "Errors", "#tabs-2"
+    %li= link_to "Workstation details", "#tabs-3"
+  #tabs-1
+    = render :partial => "run_list"  
+    .clear
+  - if @node.error?  
+    #tabs-2.ui-state-error.ui-corner-all   
+      %pre.ui-state-error.ui-corner-all= @node.normal["last_run_status_bt"]  
+  #tabs-3
+    = raw @node.to_html
   
-  
-
-
-#run-list.sortable
-  %ul
-    -@node.extended_run_list.each do |run_list_item|
-      %li.item{:class => run_list_item.type}
-        = run_list_item.name
-        = run_list_item.version     
-        
-#roles.sortable
-  %ul
-    - @roles.each do |role|
-      %li.role= normalize_item(role)
-
-#recipes.sortable
-  %ul
-    - @recipes.each do |recipe|
-      %li.recipe= normalize_item(recipe)

@@ -1,20 +1,16 @@
 class Node < ChefBase
+  
+  [:patform, :hostname, :ip].each do |method|
+   define_method method do
+      self.automatic["method"]
+   end
+  end   
 
-  def platform
-    self.automatic["platform"]
-  end
   
   def platform_version 
     "#{self.automatic["platform"]} #{self.automatic["platform_version"]}"
   end     
-  
-  def ip
-    self.automatic["ipaddress"]
-  end 
-  
-  def hostname
-    self.automatic["hostname"]
-  end   
+ 
   
   def status
     self.automatic["uptime"].blank? ? "off" : "on"
@@ -29,7 +25,7 @@ class Node < ChefBase
   end   
   
   def users
-    self.automatic["home_users"].keys
+    self.automatic["home_users"].keys.map if self.automatic["home_users"]
   end 
   
   def users_list

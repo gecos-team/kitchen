@@ -17,12 +17,24 @@ class ChefBase
     attributes.each_pair { |key, value|
          metaclass.send :attr_accessor, key.gsub("?","")
          send "#{key.gsub("?","")}=".to_sym, value
-       }    
+       }
   end
   
   def persisted?
     false
-  end 
+  end  
+  
+  def to_json       
+    path = '/' + self.class.name.to_s.downcase.pluralize + '/' + self.name
+    ChefAPI.get(path)
+  end   
+  
+  def to_html
+    yaml =  self.to_json.to_yaml
+    html = yaml.gsub(/^--- \n/, "").gsub(/\S*:/){|i| "- #{i}"}
+    BlueCloth.new(html).to_html
+    
+  end
   
   
   def self.find(*arguments)  
@@ -65,7 +77,24 @@ class ChefBase
     results_chef = ChefAPI.search(index,query) 
     results_chef["rows"].each {|x| results << self.new(x)}
     results
-  end      
+  end  
+  
+  def self.update(options={})
+    path = '/' + self.name.to_s.downcase.pluralize
+    name = options["name"]
+    ChefAPI.put("#{path}/#{name}", options)
+  end   
+  
+  def save  
+    self.class.update(self.instance_values)
+  end
+  
+  
+  
+  
+  
+  
+     
   
 
 end
