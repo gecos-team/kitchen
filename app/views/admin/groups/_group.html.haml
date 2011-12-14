@@ -1,0 +1,6 @@
+.box#group 
+  %ul
+    %li= link_to group.name, group_path(group)
+    %li
+      Members: 
+      = group.nodes.size

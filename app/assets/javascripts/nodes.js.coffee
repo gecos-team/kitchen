@@ -39,8 +39,3 @@ $(document).ready ->
    $(".toggle .ui-icon").click () ->
      $(this).toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s")
      $(this).parents().next('.toggable').slideToggle("fast")  
-
-   $('#tree').jstree
-     json_data:
-       ajax:
-        url: "http://localhost:3000/nodes/localhost.json"

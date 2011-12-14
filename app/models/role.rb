@@ -1,0 +1,3 @@
+class Role < ChefBase    
+
+end

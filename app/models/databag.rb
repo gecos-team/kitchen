@@ -1,0 +1,3 @@
+class Databag < ChefBase    
+
+end
