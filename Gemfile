@@ -15,7 +15,7 @@ gem 'mixlib-authentication', :require =>'mixlib/authentication'
 gem 'haml'  
 gem 'mongrel'
 gem 'pakunok'
-gem 'mysql' 
+gem 'mysql2' 
 gem 'devise'  
 gem "friendly_id", "~> 4.0.0.beta14"
 gem 'bluecloth'
