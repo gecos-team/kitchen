@@ -39,3 +39,7 @@ $(document).ready ->
    $(".toggle .ui-icon").click () ->
      $(this).toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s")
      $(this).parents().next('.toggable').slideToggle("fast")  
+
+
+   $("#tabs-2").children("ul").treeview
+     collapsed: true

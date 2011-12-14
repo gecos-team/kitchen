@@ -39,16 +39,19 @@
 
 #tabs
   %ul
-    %li= link_to  "Run List", "#tabs-1"
+    %li= link_to  "Run List", "#tabs-1" 
+    %li= link_to "Workstation details", "#tabs-2" 
     - if @node.error?   
-      %li= link_to "Errors", "#tabs-2"
-    %li= link_to "Workstation details", "#tabs-3"
+      %li= link_to "Errors", "#tabs-3"
+    
   #tabs-1
     = render :partial => "run_list"  
-    .clear
+    .clear   
+    
+  #tabs-2
+    = raw @node.to_html  
   - if @node.error?  
-    #tabs-2.ui-state-error.ui-corner-all   
+    #tabs-3.ui-state-error.ui-corner-all   
       %pre.ui-state-error.ui-corner-all= @node.normal["last_run_status_bt"]  
-  #tabs-3
-    = raw @node.to_html
+
   
