@@ -23,8 +23,9 @@ class NodesController < ApplicationController
   def edit  
   end       
   
-  def update  
-    @node.run_list = (["recipe[ohai]"] + [params[:for_node]]).flatten.uniq       
+  def update       
+    # debugger
+    @node.run_list = (["recipe[ohai]"] + [params[:for_node]]).flatten.uniq.compact      
     @node.save
     redirect_to node_path(@node.name)
   end   

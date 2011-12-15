@@ -3,14 +3,14 @@
 #     client_name: gecos-kitchen
 #     keyfile: config/chef/kitchen.pem    
 development:
-    uri: https://10.240.194.220/
-    client_name: kitchen2
-    keyfile: config/chef/kitchen2.pem      
+    uri: http://chef:4000/
+    client_name: k2
+    keyfile: config/chef/k2.pem      
 
 production:
-    uri: http://localhost:4000/
-    client_name: kitchen
-    keyfile: config/chef/kitchen.pem   
+    uri: http://chef:4000/
+    client_name: k2
+    keyfile: config/chef/k2.pem   
     
 pre:
     uri: https://10.240.194.220/

@@ -12,6 +12,8 @@ class ChefBase
   include ActiveModel::Conversion
   extend ActiveModel::Naming  
   include ActiveModel::Serializers::JSON
+  
+  API_ROUTE =  nil
     
   def initialize(attributes = {})      
     attributes.each_pair { |key, value|
@@ -25,8 +27,8 @@ class ChefBase
   end  
   
   def to_json       
-    path = '/' + self.class.name.to_s.downcase.pluralize + '/' + self.name
-    ChefAPI.get(path)
+    # path = '/' + self.class.name.to_s.downcase.pluralize + '/' + self.name
+    ChefAPI.get(self.class.api_path + '/' + self.name)
   end   
   
   def to_html
@@ -39,7 +41,8 @@ class ChefBase
   
   def self.find(*arguments)  
     
-    path = '/' + self.name.to_s.downcase.pluralize
+    # path = '/' + self.name.to_s.downcase.pluralize
+    path = self.api_path
     
     if arguments.size == 1  
       path += "/#{arguments.first}" 
@@ -63,10 +66,10 @@ class ChefBase
       
   end 
        
-  def self.all(*args)
-    path = '/' + self.name.to_s.downcase.pluralize
+  def self.all(*args)  
+    # path = '/' + self.name.to_s.downcase.pluralize
     all = []     
-    results_chef = ChefAPI.get(path)   
+    results_chef = ChefAPI.get(self.api_path)   
     results_chef.each_pair {|key, value| all <<  self.find(key)}
     all 
   end    
@@ -80,19 +83,20 @@ class ChefBase
   end  
   
   def self.update(options={})
-    path = '/' + self.name.to_s.downcase.pluralize
+    # path = '/' + self.name.to_s.downcase.pluralize
     name = options["name"]
-    ChefAPI.put("#{path}/#{name}", options)
+    ChefAPI.put("#{self.api_path}/#{name}", options)
   end   
   
   def save  
     self.class.update(self.instance_values)
   end
+    
+  def self.api_path
+    self::API_ROUTE || ('/' + self.name.to_s.downcase.pluralize)
+  end
   
-  
-  
-  
-  
+
   
      
   
