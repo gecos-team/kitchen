@@ -103,6 +103,12 @@ class ChefBase
     new(attributes).save
   end
 
+  def self.update(options={})
+    # path = '/' + self.name.to_s.downcase.pluralize
+    name = options["name"]
+    ChefAPI.put("#{self.api_path}/#{name}", options)
+  end
+
   private
 
   def update
@@ -110,18 +116,6 @@ class ChefBase
   end
 
   def create
-    self.class.create(self.instance_values)
-  end
-
-  def self.update(options={})
-    # path = '/' + self.name.to_s.downcase.pluralize
-    name = options["name"]
-    ChefAPI.put("#{self.api_path}/#{name}", options)
-  end
-
-  def self.create(options={})
-    ChefAPI.post("#{self.api_path}", options)
-    @new_record = false
-    options["name"]
+    ChefAPI.post(self.class.api_path, self.instance_values)
   end
 end
