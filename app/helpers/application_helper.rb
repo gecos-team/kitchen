@@ -49,6 +49,7 @@ module ApplicationHelper
     
      display_label = properties["display_name"] 
      display_label += "* " if properties["required"]
+     input_class = "required"if properties["required"]  
      
      out << label_tag(key, display_label) 
      
@@ -61,8 +62,14 @@ module ApplicationHelper
      
      if !properties["choice"].blank?
        out << select_tag(field_id, options_for_select(properties["choice"], data))
+     elsif properties["html_type"] == "url"
+       input_class += " url"
+       out << url_field_tag(field_id, data, :class => input_class) 
+     elsif properties["html_type"] == "number" 
+       input_class += " number" 
+       out << number_field_tag(field_id, data, :class => input_class) 
      else
-       out << text_field_tag(field_id, data)
+       out << text_field_tag(field_id, data, :class => input_class)
      end
         
      out << "<p class = 'hint'>#{properties['description']}</p></p>"

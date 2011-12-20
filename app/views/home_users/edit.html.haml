@@ -1,5 +1,5 @@
 %h1= "Edit user #{@user.username}" 
-= form_tag home_user_path(@user.username), :method => :put do 
+= form_tag home_user_path(@user.username), :method => :put, :id => "edit_user" do 
   - @user.skel.each do |attribute|
     = raw render_fieldset(attribute, @user.databag.send(attribute[0]))
 

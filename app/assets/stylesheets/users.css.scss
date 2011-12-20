@@ -89,12 +89,28 @@ form p label {
   vertical-align: top;
 }
 
-form p input[type=text] {
+form p input[type=text], 
+form p input[type=url], 
+form p input[type=number] {
   border: 1px solid #809db9;
   font-size: 12px;
   padding: 2px 4px;
   vertical-align: top;
   width: 130px;
+}    
+
+
+form p input.error[type=text], 
+form p input.error[type=url], 
+form p input.error[type=number] {
+  border: 1px solid red !important;
+  background:none !important;
+}  
+
+label.error { 
+	color:red;
+	background:none !important;
+	
 }
 
 form p input[type=radio] {

@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs 
+//= require pakunok/jquery.validate
 //= require pakunok/jquery-ui/pack/draggable   
 //= require pakunok/jquery-ui/pack/droppable
 //= require pakunok/jquery-ui/pack/sortable
