@@ -3,10 +3,10 @@ require 'chef_api'
 class ChefBase
 
   def metaclass
-      class << self
-        self
-      end
+    class << self
+      self
     end
+  end
 
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -17,13 +17,18 @@ class ChefBase
 
   def initialize(attributes = {})
     attributes.each_pair { |key, value|
-         metaclass.send :attr_accessor, key.to_s.gsub("?","")
-         send "#{key.gsub("?","")}=".to_sym, value
-       }
+      metaclass.send :attr_accessor, key.to_s.gsub("?","")
+      send "#{key.gsub("?","")}=".to_sym, value
+    }
+    @new_record = true
+  end
+
+  def new_record?
+    @new_record
   end
 
   def persisted?
-    false
+    !@new_record
   end
 
   def to_json
@@ -35,19 +40,29 @@ class ChefBase
     yaml =  self.to_json.to_yaml
     html = yaml.gsub(/^--- \n/, "").gsub(/\S*:/){|i| "- #{i}"}
     BlueCloth.new(html).to_html
-
   end
 
+  def save
+    if @new_record
+      create
+    else
+      update
+    end
+  end
+
+  def self.instantiate(attributes={})
+    object = new(attributes)
+    object.instance_variable_set :@new_record, false
+    object
+  end
 
   def self.find(*arguments)
-
     # path = '/' + self.name.to_s.downcase.pluralize
     path = self.api_path
 
     if arguments.size == 1
       path += "/#{arguments.first}"
     else
-
       scope   = arguments.slice!(0)
       options = arguments.slice!(0) || {}
 
@@ -55,15 +70,13 @@ class ChefBase
         id = options[:name].blank? ? arguments.first : options[:name]
         path += "/#{options[:name]}"
       end
-
     end
 
     begin
-      self.new ChefAPI.get(path)
+      self.instantiate ChefAPI.get(path)
     rescue Exception => e
       []
     end
-
   end
 
   def self.all(*args)
@@ -78,8 +91,26 @@ class ChefBase
     results = []
     index = self.name.to_s.downcase
     results_chef = ChefAPI.search(index,query)
-    results_chef["rows"].each {|x| results << self.new(x)}
+    results_chef["rows"].each {|x| results << self.instantiate(x)}
     results
+  end
+
+  def self.api_path
+    self::API_ROUTE || ('/' + self.name.to_s.downcase.pluralize)
+  end
+
+  def self.create(attributes={})
+    new(attributes).save
+  end
+
+  private
+
+  def update
+    self.class.update(self.instance_values)
+  end
+
+  def create
+    self.class.create(self.instance_values)
   end
 
   def self.update(options={})
@@ -88,17 +119,9 @@ class ChefBase
     ChefAPI.put("#{self.api_path}/#{name}", options)
   end
 
-  def save
-    self.class.update(self.instance_values)
+  def self.create(options={})
+    ChefAPI.post("#{self.api_path}", options)
+    @new_record = false
+    name
   end
-
-  def self.api_path
-    self::API_ROUTE || ('/' + self.name.to_s.downcase.pluralize)
-  end
-
-
-
-
-
-
 end
