@@ -18,7 +18,8 @@ gem 'pakunok'
 gem 'mysql2' 
 gem 'devise'  
 gem "friendly_id", "~> 4.0.0.beta14"
-gem 'bluecloth'
+gem 'bluecloth' 
+gem 'formtastic'
 
 
 gem "nifty-generators", :group => :development

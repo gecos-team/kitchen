@@ -51,6 +51,8 @@ GEM
     execjs (1.2.12)
       multi_json (~> 1.0)
     fastthread (1.0.7)
+    formtastic (2.0.2)
+      rails (~> 3.0)
     friendly_id (4.0.0.beta14)
     gem_plugin (0.2.3)
     haml (3.1.4)
@@ -158,6 +160,7 @@ DEPENDENCIES
   bluecloth
   coffee-rails (~> 3.1.1)
   devise
+  formtastic
   friendly_id (~> 4.0.0.beta14)
   haml
   hpricot

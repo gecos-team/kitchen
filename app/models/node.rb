@@ -25,7 +25,7 @@ class Node < ChefBase
   end   
   
   def users
-    self.automatic["users"].map {|u| u["username"] } if self.automatic["users"]
+    self.automatic["home_users"].keys.map if self.automatic["home_users"]
   end 
   
   def users_list
