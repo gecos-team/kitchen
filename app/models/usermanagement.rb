@@ -44,9 +44,7 @@ class Usermanagement < ChefBase
     end
     
      Usermanagement.find(id)
-    
-     
-  end     
+  end  
   
   
 end

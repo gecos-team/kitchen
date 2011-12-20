@@ -28,14 +28,34 @@ module ApplicationHelper
   
   def render_attribute(key,properties,data,index = nil)
      
-     out = ""
+     size = case data.size
+     when 0..10 
+       out = "<p class = 'short'>"
+     when 10..40
+       out = "<p class = 'medium'>" 
+     when 40..80
+       out = "<p class = 'long'>"
+     when 80..200
+       out = "<p class = 'giant'>"     
+     else
+       out = "<p>"
+     end
      
-     out << label_tag(key, properties["display_name"]) 
+     # if data.size > 30
+     #   out = "<p class = 'long'>"
+     # else
+     #   out = "<p>"
+     #   end  
+    
+     display_label = properties["display_name"] 
+     display_label += "* " if properties["required"]
+     
+     out << label_tag(key, display_label) 
      
      if index.nil?
        field_id = key.split("/").map{|x| "[#{x}]"}.join
      else
-       field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[#{index}]").join
+       field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[]").join
      end 
       field_id = "[databag]"+ field_id
      
@@ -45,12 +65,9 @@ module ApplicationHelper
        out << text_field_tag(field_id, data)
      end
         
+     out << "<p class = 'hint'>#{properties['description']}</p></p>"
      
-     out << "<br/>"
        
   end      
-  
-  
-
-  
+    
 end

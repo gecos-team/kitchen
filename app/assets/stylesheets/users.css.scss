@@ -70,4 +70,75 @@ background: url("small_user.png") no-repeat scroll left center #60abf8 !importan
 	box-shadow:1px 1px 3px #0f0f0f;  
 	padding-top:10px; 
 	padding-bottom:5px;
+}     
+
+
+//form p {
+//  padding: 7px 0;
+//  font-size: 12px;
+//}    
+
+form a {
+  color: #000;
+}
+
+form p label {
+  font-size: 12px;
+  width: 135px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+form p input[type=text] {
+  border: 1px solid #809db9;
+  font-size: 12px;
+  padding: 2px 4px;
+  vertical-align: top;
+  width: 130px;
+}
+
+form p input[type=radio] {
+  margin-left: 10px;
+}
+
+form p input[type=button] {
+  background-color: #66a0d0;
+  color: #fff;
+  border: none;
+  margin-left: 10px;
+  font-weight: bold;
+  padding: 4px;
+}
+
+form select {
+  vertical-align: top;
+}  
+
+label.required {
+}
+
+p.hint {
+  font-size: 10px !important;
+  font-style: italic;
+  margin-top: -10px;
+}  
+
+p.long input,
+p.long select{
+  width:420px !important;
+}   
+
+p.giant input,
+p.giant select{
+   width:700px !important;    
+}
+
+p.medium input,
+p.medium select{
+  width:200px !important;
+}
+
+p.short input,
+p.short select{
+  width:75px !important;
 }
