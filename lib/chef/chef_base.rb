@@ -122,6 +122,6 @@ class ChefBase
   def self.create(options={})
     ChefAPI.post("#{self.api_path}", options)
     @new_record = false
-    name
+    options["name"]
   end
 end
