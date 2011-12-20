@@ -61,12 +61,7 @@ module ChefAPI
     self.find(:all, *args)
   end
 
-  def self.create(options={})
-    raise ArgumentError, "Option :name must be present" unless options[:name]
-    self.post("/clients", options)
-  end
-
-  def self.delete(options={})
+  def self.destroy(options={})
     raise ArgumentError, "Option :name must be present" unless options[:name]
     path = '/' + self.name.to_s.downcase.pluralize
     name = options.delete(:name)
