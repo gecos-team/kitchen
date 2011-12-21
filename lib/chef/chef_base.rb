@@ -121,9 +121,11 @@ class ChefBase
 
   def update
     self.class.update(self.instance_values)
+    self
   end
 
   def create
     ChefAPI.post(self.class.api_path, self.instance_values)
+    self
   end
 end
