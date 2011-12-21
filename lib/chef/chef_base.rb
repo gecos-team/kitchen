@@ -23,6 +23,14 @@ class ChefBase
     @new_record = true
   end
 
+  def id
+    if @name
+      @name
+    else
+      super
+    end
+  end
+
   def new_record?
     @new_record
   end
