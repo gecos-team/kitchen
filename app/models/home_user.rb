@@ -36,7 +36,7 @@ class HomeUser < ChefBase
   end
 
   def skel
-    Cookbook.find("usermanagement").versions.last.grouped_attributes
+    Cookbook.find("usermanagement").versions.first.grouped_attributes
   end
 
 end
