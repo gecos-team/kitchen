@@ -103,6 +103,10 @@ class ChefBase
     results = []
     index = self.name.to_s.downcase
     results_chef = ChefAPI.search(index,query)
+    if results_chef.is_a? String
+      response = Yajl.load results_chef
+      raise ChefException, response["error"].join(", ")
+    end
     results_chef["rows"].each {|x| results << self.instantiate(x)}
     results
   end
