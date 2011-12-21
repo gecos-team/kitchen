@@ -39,4 +39,8 @@ class HomeUser < ChefBase
     Cookbook.find("usermanagement").versions.first.grouped_attributes
   end
 
+  def multiple_in_skel
+    Cookbook.find("usermanagement").versions.first.multiple_attributes
+  end
+
 end

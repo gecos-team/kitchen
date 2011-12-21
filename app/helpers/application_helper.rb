@@ -55,22 +55,23 @@ module ApplicationHelper
      if index.nil?
        field_id = key.split("/").map{|x| "[#{x}]"}.join
      else
-       field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[]").join
+       field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[#{index}]").join
      end
       field_id = "[databag]"+ field_id
 
      if !properties["choice"].blank?
        out << select_tag(field_id, options_for_select(properties["choice"], data))
-     elsif properties["html_type"] == "url"
-       input_class += " url"
-       out << text_field_tag(field_id, data, :class => input_class)
-     elsif properties["html_type"] == "uri"
-       input_class += " uri"
-       out << text_field_tag(field_id, data, :class => input_class)
-     elsif properties["html_type"] == "number"
-       input_class += " number"
-       out << number_field_tag(field_id, data, :class => input_class)
+     # elsif properties["html_type"] == "url"
+     #   input_class += " url"
+     #   out << text_field_tag(field_id, data, :class => input_class)
+     # elsif properties["html_type"] == "uri"
+     #   input_class += " uri"
+     #   out << text_field_tag(field_id, data, :class => input_class)
+     # elsif properties["html_type"] == "number"
+     #   input_class += " number"
+     #   out << number_field_tag(field_id, data, :class => input_class)
      else
+       input_class += " #{properties["html_type"]}"
        out << text_field_tag(field_id, data, :class => input_class)
      end
 
