@@ -50,6 +50,10 @@ class ChefBase
     end
   end
 
+  def delete
+    self.class.delete(self.name)
+  end
+
   def self.instantiate(attributes={})
     object = new(attributes)
     object.instance_variable_set :@new_record, false
@@ -107,6 +111,10 @@ class ChefBase
     # path = '/' + self.name.to_s.downcase.pluralize
     name = options["name"]
     ChefAPI.put("#{self.api_path}/#{name}", options)
+  end
+
+  def self.delete(name)
+    ChefAPI.delete("#{self.api_path}/#{name}")
   end
 
   private
