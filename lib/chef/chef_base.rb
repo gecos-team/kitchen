@@ -23,6 +23,22 @@ class ChefBase
     @new_record = true
   end
 
+  def update_attributes(attributes={})
+    attributes.each_pair { |key, value|
+      method = "#{key.gsub("?","")}=".to_sym
+      send method, value if respond_to? method
+    }
+    save
+  end
+
+  def id
+    if @name
+      @name
+    else
+      super
+    end
+  end
+
   def new_record?
     @new_record
   end
@@ -48,6 +64,22 @@ class ChefBase
     else
       update
     end
+  end
+
+  def delete
+    self.class.delete(self.name)
+  end
+
+  def instance_values
+    if (allowed = self.class.instance_variable_get :@allowed_attributes)
+      super.slice *allowed
+    else
+      super
+    end
+  end
+
+  def self.allowed_attributes(*attrs)
+    @allowed_attributes = attrs.collect &:to_s
   end
 
   def self.instantiate(attributes={})
@@ -91,6 +123,10 @@ class ChefBase
     results = []
     index = self.name.to_s.downcase
     results_chef = ChefAPI.search(index,query)
+    if results_chef.is_a? String
+      response = Yajl.load results_chef
+      raise ChefException, response["error"].join(", ")
+    end
     results_chef["rows"].each {|x| results << self.instantiate(x)}
     results
   end
@@ -103,25 +139,25 @@ class ChefBase
     new(attributes).save
   end
 
-  private
-
-  def update
-    self.class.update(self.instance_values)
-  end
-
-  def create
-    self.class.create(self.instance_values)
-  end
-
   def self.update(options={})
     # path = '/' + self.name.to_s.downcase.pluralize
     name = options["name"]
     ChefAPI.put("#{self.api_path}/#{name}", options)
   end
 
-  def self.create(options={})
-    ChefAPI.post("#{self.api_path}", options)
-    @new_record = false
-    options["name"]
+  def self.delete(name)
+    ChefAPI.delete("#{self.api_path}/#{name}")
+  end
+
+  private
+
+  def update
+    self.class.update(self.instance_values)
+    self
+  end
+
+  def create
+    ChefAPI.post(self.class.api_path, self.instance_values)
+    self
   end
 end
