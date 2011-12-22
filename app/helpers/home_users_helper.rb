@@ -1,15 +1,38 @@
 module HomeUsersHelper
+
+def render_base_attribute(field)
+  out = ""
+  field_title = field[0]
+
+  if !field[1][:principal].blank?
+
+    out << "<div id = #{field_title}_base class='hidden'>"
+    field[1][:attributes].each do |x|
+      out << render_attribute(x.keys.first, x.values.first, "", "base")
+    end
+    out <<  "<a href='#' class=remove>Delete</a>"
+    out << "</div>"
+  end
+
+end
+
 def render_fieldset(field,data)
-  out =  "<fieldset> <legend> #{field[0]}"
+  field_title = field[0]
+  out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
 
   if !field[1][:principal].blank?
     data[field[0]].each_with_index do |value,index|
+      out << "<div id = #{field_title}_#{index}>"
       field[1][:attributes].each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], index)
       end
+      out <<  "<a href='#' class=remove>Delete</a>"
+      out << "</div>"
     end
+    # out << "<div id = #{field_title}_fill></div>"
+    out << link_to_function ("Add new", "clone_attribute('#{field_title}');")
   else
 
   field[1][:attributes].each do |x|
@@ -20,7 +43,7 @@ end
   out << "</fieldset><br/>"
 end
 
-def render_attribute(key,properties,data,index = nil)
+def render_attribute(key,properties,data = "",index = nil)
    size = case data.size
    when 0..10
      out = "<p class = 'short'>"
@@ -49,15 +72,6 @@ def render_attribute(key,properties,data,index = nil)
 
    if !properties["choice"].blank?
      out << select_tag(field_id, options_for_select(properties["choice"], data))
-   # elsif properties["html_type"] == "url"
-   #   input_class += " url"
-   #   out << text_field_tag(field_id, data, :class => input_class)
-   # elsif properties["html_type"] == "uri"
-   #   input_class += " uri"
-   #   out << text_field_tag(field_id, data, :class => input_class)
-   # elsif properties["html_type"] == "number"
-   #   input_class += " number"
-   #   out << number_field_tag(field_id, data, :class => input_class)
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, :class => input_class)
