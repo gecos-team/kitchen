@@ -23,6 +23,14 @@ class ChefBase
     @new_record = true
   end
 
+  def update_attributes(attributes={})
+    attributes.each_pair { |key, value|
+      method = "#{key.gsub("?","")}=".to_sym
+      send method, value if respond_to? method
+    }
+    save
+  end
+
   def id
     if @name
       @name
