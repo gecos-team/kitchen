@@ -62,6 +62,18 @@ class ChefBase
     self.class.delete(self.name)
   end
 
+  def instance_values
+    if (allowed = self.class.instance_variable_get :@allowed_attributes)
+      super.slice *allowed
+    else
+      super
+    end
+  end
+
+  def self.allowed_attributes(*attrs)
+    @allowed_attributes = attrs.collect &:to_s
+  end
+
   def self.instantiate(attributes={})
     object = new(attributes)
     object.instance_variable_set :@new_record, false
