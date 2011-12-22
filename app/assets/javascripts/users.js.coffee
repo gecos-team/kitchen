@@ -5,7 +5,8 @@
 $(document).ready ->
 
   $(".remove").bind 'click', ->
-    $(this).parent().remove()
+    element = $(this).parent().parent()
+    element.fadeOut 'slow', -> $(this).remove()
 
 
   jQuery.validator.addMethod "complete_uri",
@@ -41,7 +42,7 @@ $(document).ready ->
     fieldset = $("#"+attribute);
     field = $("#"+attribute+"_base");
     clone = field.clone();
-    size = Number($("#shares").find("div").last().attr("id").split("_").pop())+1
+    size = Number($("#shares").children("div:not(.clear)").last().attr("id").split("_").pop())+1
 
 
     clone.find('input').each(function() {
@@ -60,9 +61,18 @@ $(document).ready ->
       $(this).attr("name",new_name);
       });
 
-    clone.insertAfter(fieldset.find("div").last())
+    clone.hide()
+    clone.removeClass()
+
+
+    clone.insertAfter(fieldset.children("div").last())
+    clone.fadeIn('slow')
+
+
 
     $(".remove").bind('click', function() {
-      return $(this).parent().remove();
+      return $(this).parent().parent().fadeOut('slow', function(){
+        $(this).remove();
+        })
     });
 };`

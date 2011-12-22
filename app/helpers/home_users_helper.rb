@@ -7,10 +7,12 @@ def render_base_attribute(field)
   if !field[1][:principal].blank?
 
     out << "<div id = #{field_title}_base class='hidden'>"
+    out << "<div id = 'fields'>"
     field[1][:attributes].each do |x|
       out << render_attribute(x.keys.first, x.values.first, "", "base")
     end
-    out <<  "<a href='#' class=remove>Delete</a>"
+    out << "</div>"
+    out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
     out << "</div>"
   end
 
@@ -25,14 +27,17 @@ def render_fieldset(field,data)
   if !field[1][:principal].blank?
     data[field[0]].each_with_index do |value,index|
       out << "<div id = #{field_title}_#{index}>"
+      out << "<div id = 'fields'>"
       field[1][:attributes].each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], index)
       end
-      out <<  "<a href='#' class=remove>Delete</a>"
+
+      out << "</div>"
+      out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
       out << "</div>"
     end
     # out << "<div id = #{field_title}_fill></div>"
-    out << link_to_function ("Add new", "clone_attribute('#{field_title}');")
+    out << link_to_function (image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
   else
 
   field[1][:attributes].each do |x|
@@ -45,7 +50,7 @@ end
 
 def render_attribute(key,properties,data = "",index = nil)
    size = case data.size
-   when 0..10
+   when 1..10
      out = "<p class = 'short'>"
    when 10..40
      out = "<p class = 'medium'>"
@@ -54,7 +59,7 @@ def render_attribute(key,properties,data = "",index = nil)
    when 80..200
      out = "<p class = 'giant'>"
    else
-     out = "<p>"
+     out = "<p class = 'medium'>"
    end
 
    display_label = properties["display_name"]

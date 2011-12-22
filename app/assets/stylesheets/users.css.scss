@@ -141,27 +141,44 @@ p.hint {
   margin-top: -10px;
 }
 
-p.long input,
-p.long select{
+p.long input
+{
   width:420px !important;
 }
 
-p.giant input,
-p.giant select{
+p.giant input{
    width:700px !important;
 }
 
-p.medium input,
-p.medium select{
+p.medium input{
   width:200px !important;
 }
 
-p.short input,
-p.short select{
+p.short input{
   width:75px !important;
 }
 
 .hidden{
   display:none;
   visibility: hidden;
+}
+
+
+a.add {
+  float:right;
+}
+
+form#edit_user div {
+  display:table;
+}
+
+form#edit_user div#action {
+  display:table-cell;
+  vertical-align:middle;
+  padding-left:10px;
+}
+
+form#edit_user div#fields {
+ display:table-cell;
+
 }
