@@ -13,7 +13,7 @@ def render_base_attribute(field)
     end
     out << "</div>"
     out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
-    out << "</div>"
+    out << "<div class = 'clear'></div></div>"
   end
 
 end
@@ -34,7 +34,7 @@ def render_fieldset(field,data)
 
       out << "</div>"
       out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
-      out << "</div>"
+      out << "<div class = 'clear'></div></div>"
     end
     # out << "<div id = #{field_title}_fill></div>"
     out << link_to_function (image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
@@ -62,6 +62,7 @@ def render_attribute(key,properties,data = "",index = nil)
      out = "<p class = 'medium'>"
    end
 
+
    display_label = properties["display_name"]
    display_label += "* " if properties["required"]
    input_class = "required"if properties["required"]
@@ -81,9 +82,8 @@ def render_attribute(key,properties,data = "",index = nil)
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, :class => input_class)
    end
-
-   out << "<p class = 'hint'>#{properties['description']}</p></p>"
-
+   # out << "</p>"
+   out << "<br/><i class = 'hint'>#{properties['description']}</i>"
 
 end
 

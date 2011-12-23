@@ -1,6 +1,4 @@
-class ChefAPI
-
-
+module ChefAPI
   def self.connect
     if !@connection
       configfile = File.join(Rails.root,"config","chef.yml")
@@ -20,25 +18,33 @@ class ChefAPI
     @connection = Spice.connection
   end
 
-
   def self.get(*args)
     self.connect if !@connection
-    @connection.get(*args)
+    self.check_return_value @connection.get(*args)
   end
 
   def self.delete(*args)
     self.connect if !@connection
-    @connection.delete(*args)
+    self.check_return_value @connection.delete(*args)
   end
 
   def self.post(*args)
     self.connect if !@connection
-    @connection.post(*args)
+    self.check_return_value @connection.post(*args)
   end
 
   def self.put(*args)
     self.connect if !@connection
-    @connection.put(*args)
+    self.check_return_value @connection.put(*args)
+  end
+
+
+  def self.check_return_value(value)
+    if value.is_a? String
+      response = Yajl.load value
+      raise ChefException, response["error"].join(", ")
+    end
+    value
   end
 
 
@@ -57,13 +63,7 @@ class ChefAPI
     self.find(:all, *args)
   end
 
-  def self.create(options={})
-    raise ArgumentError, "Option :name must be present" unless options[:name]
-    self.post("/clients", options)
-  end
-
-
-  def self.delete(options={})
+  def self.destroy(options={})
     raise ArgumentError, "Option :name must be present" unless options[:name]
     path = '/' + self.name.to_s.downcase.pluralize
     name = options.delete(:name)
@@ -74,8 +74,4 @@ class ChefAPI
     self.connect
     Spice::Search.search(index, query)
   end
-
-
-
-
 end

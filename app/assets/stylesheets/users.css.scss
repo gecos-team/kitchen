@@ -135,7 +135,7 @@ form select {
 label.required {
 }
 
-p.hint {
+i.hint {
   font-size: 10px !important;
   font-style: italic;
   margin-top: -10px;
@@ -169,16 +169,10 @@ a.add {
 }
 
 form#edit_user div {
-  display:table;
+  width:100%;
 }
 
-form#edit_user div#action {
-  display:table-cell;
-  vertical-align:middle;
-  padding-left:10px;
-}
 
-form#edit_user div#fields {
- display:table-cell;
-
+form#edit_user div#fields p {
+  float:left;
 }
