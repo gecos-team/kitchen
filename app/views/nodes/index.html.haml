@@ -1,17 +1,17 @@
-%h1 Nodos 
+%h1 Nodos
 
 / #search-node
 /   = form_tag(nodes_path, {:method => :get}) do
 /     = label_tag :name, "Name"
 /     = search_field_tag "search[name]"
-/     = link_to "Save as new group", new_group_path(params[:search]) if !params[:search].blank?   
-/                                                                                                
- 
+/     = link_to "Save as new group", new_role_path(params[:search]) if !params[:search].blank?
+/
+
 - if params.include?(:table_view)
   = render :partial => 'nodes/table_view', :locals => {:nodes => @nodes}
 - else
   .float_right
-    = link_to "Table view", nodes_path+"?table_view"  
-  .clear  
-  #nodes  
-    = render @nodes 
+    = link_to "Table view", nodes_path+"?table_view"
+  .clear
+  #nodes
+    = render @nodes

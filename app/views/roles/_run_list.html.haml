@@ -1,5 +1,5 @@
-= form_for @group do |f| 
-  #runlistform 
+= form_for @role do |f|
+  #runlistform
     #runlistcontainer
       .small_box
         Recipes
@@ -7,18 +7,18 @@
         %ul
           - @recipes.each do |recipe|
             %li.recipe{:id => recipe}
-              %span= normalize_item(recipe) 
+              %span= normalize_item(recipe)
 
 
-    
+
     #runlistcontainer
       .small_box
         Run List
       #run-list.box_info.sortable
         %ul
-          -@group.extended_run_list.each do |run_list_item|
+          -@role.extended_run_list.each do |run_list_item|
             %li.item{:class => run_list_item.type, :id => run_list_item.to_s}
-              %span= run_list_item.name        
+              %span= run_list_item.name
 
 
     / #runlistcontainer
@@ -28,10 +28,10 @@
     /     %ul
     /       - @roles.each do |role|
     /         %li.role{:id => role}
-    /           %span= normalize_item(role)      
-        
+    /           %span= normalize_item(role)
+
   .clear
-  = f.submit "Guardar" 
+  = f.submit "Guardar"
 
   / #runlistform
   /   #runlistcontainer
@@ -39,23 +39,23 @@
   /       Run List
   /     #run-list.sortable
   /       %ul
-  /         -@group.extended_run_list.each do |run_list_item|
+  /         -@role.extended_run_list.each do |run_list_item|
   /           %li.item{:class => run_list_item.type, :id => run_list_item.to_s}
-  /             = run_list_item.name        
-  /           = run_list_item.version     
-  / 
+  /             = run_list_item.name
+  /           = run_list_item.version
+  /
   /   #itemscontainer
   /     .list-header
   /       Roles
   /     #roles.sortable
   /       %ul
   /         - @roles.each do |role|
-  /           %li.role{:id => role}= normalize_item(role)   
-  / 
+  /           %li.role{:id => role}= normalize_item(role)
+  /
   /     .list-header
   /       Recipes
   /     #recipes.sortable
   /       %ul
   /         - @recipes.each do |recipe|
   /           %li.recipe{:id => recipe}= normalize_item(recipe)
-  /     = f.submit "Guardar"         
+  /     = f.submit "Guardar"

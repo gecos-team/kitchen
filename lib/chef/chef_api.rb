@@ -4,6 +4,7 @@ module ChefAPI
       configfile = File.join(Rails.root,"config","chef.yml")
       if File.exists? configfile
         config = YAML.load_file(configfile)[Rails.env]
+        @couchdb = config["couchdb"]
         uri = URI.parse(config["uri"])
         Spice.setup do |s|
           s.host = uri.host
@@ -73,5 +74,19 @@ module ChefAPI
   def self.search(index,query)
     self.connect
     Spice::Search.search(index, query)
+  end
+
+  def self.search_nodes_by_role(name)
+    if @couchdb
+      begin
+        response = RestClient.get("#{@couchdb}/_design/nodes/_view/by_run_list",
+                                  :params => {:key => %Q{"role[#{name}]"}})
+        return Yajl.load(response.body)["rows"].collect { |attrs| Node.instantiate(attrs) }
+      rescue => e
+        e.response
+      end
+    else
+      Node.search("role:#{name}")
+    end
   end
 end

@@ -1,0 +1,6 @@
+.box#group
+  %ul
+    %li= link_to role.name, role_path(role.name)
+    %li
+      Members:
+      = role.nodes.size

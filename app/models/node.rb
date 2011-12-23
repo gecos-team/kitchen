@@ -37,6 +37,11 @@ class Node < ChefBase
   end
 
 
+  def self.search_by_role(name)
+    ChefAPI.search_nodes_by_role(name)
+  end
+
+
   def extended_run_list
     rl = []
     self.run_list.each{|x| rl << RunListItem.new(x)}
@@ -52,5 +57,16 @@ class Node < ChefBase
   end
 
 
+  def add_to_role_and_save(role)
+    rolename = Role.name_of_role(role)
+    @run_list << rolename unless @run_list.include? rolename
+    save
+  end
+
+  def del_from_role_and_save(role)
+    rolename = Role.name_of_role(role)
+    @run_list.delete(rolename)
+    save
+  end
 
 end

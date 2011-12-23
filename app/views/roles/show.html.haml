@@ -1,0 +1,12 @@
+%h1= @role.name
+
+- if current_user.admin?
+  .float_right
+    = link_to "Edit group", edit_admin_role_path(@role.name)
+
+#nodes
+  = render :partial => "nodes/small_node", :collection => @nodes, :as => :node, :locals => {:role_run_list => @role.run_list}
+
+.clear
+#run_list
+  = render :partial => "run_list"
