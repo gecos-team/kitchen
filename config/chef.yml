@@ -4,8 +4,8 @@
 #     keyfile: config/chef/kitchen.pem
 development:
     uri: http://chef:4000/
-    client_name: kk
-    keyfile: config/chef/kk.pem
+    client_name: k2
+    keyfile: config/chef/k2.pem
     couchdb: http://chef:5984/chef/
 
 production:

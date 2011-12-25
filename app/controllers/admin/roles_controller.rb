@@ -12,7 +12,13 @@ class Admin::RolesController < ApplicationController
 
   def create
     params[:role][:node_list] = params[:role][:nodes].reject {|key,value| value == "0" }.keys
-    @role = Role.create(params[:role])
+    params[:role].delete(:nodes)
+    @role = Role.new(params[:role])
+    @role.assign_nodes(params[:role][:node_list])
+    @role.save
+    # @role.assign_nodes(params[:role][:node_list])
+    #
+    # @role.save
     redirect_to role_path(@role.name)
   end
 

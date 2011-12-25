@@ -62,4 +62,18 @@ class Role < ChefBase
     super
     Node.search_by_role(name).each { |node| node.del_from_role_and_save(name) }
   end
+
+
+  def assign_nodes(new_node_list)
+    old_nodes = nodes.collect &:name
+
+    add_role = (new_node_list - old_nodes).collect { |name| Node.find(name) }
+    del_role = (old_nodes - new_node_list).collect { |name|
+      nodes.find { |node| node.name == name }
+    }
+
+    add_role.each { |node| node.add_to_role_and_save(self) }
+    del_role.each { |node| node.del_from_role_and_save(self) }
+  end
+
 end

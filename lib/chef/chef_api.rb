@@ -81,7 +81,7 @@ module ChefAPI
       begin
         response = RestClient.get("#{@couchdb}/_design/nodes/_view/by_run_list",
                                   :params => {:key => %Q{"role[#{name}]"}})
-        return Yajl.load(response.body)["rows"].collect { |attrs| Node.instantiate(attrs) }
+        return Yajl.load(response.body)["rows"].collect { |attrs| Node.find(attrs["value"]) }
       rescue => e
         e.response
       end

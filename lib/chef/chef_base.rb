@@ -20,7 +20,7 @@ class ChefBase
       metaclass.send :attr_accessor, key.to_s.gsub("?","")
       send "#{key.gsub("?","")}=".to_sym, value
     }
-     @@attributes = attributes
+    @@attributes = attributes
     @new_record = true
   end
 
@@ -45,7 +45,7 @@ class ChefBase
   end
 
   def persisted?
-    false
+    !@new_record
   end
 
   def to_json
@@ -110,7 +110,7 @@ class ChefBase
     end
 
     begin
-      self.new ChefAPI.get(path)
+      self.instantiate ChefAPI.get(path)
     rescue Exception => e
       []
     end
@@ -136,16 +136,6 @@ class ChefBase
     end
     results_chef["rows"].each {|x| results << self.instantiate(x)}
     results
-  end
-
-  def self.update(options={})
-    # path = '/' + self.name.to_s.downcase.pluralize
-    name = options["name"] || options["id"]
-    ChefAPI.put("#{self.api_path}/#{name}", options)
-  end
-
-  def save
-    self.class.update(self.instance_values)
   end
 
   def self.api_path
