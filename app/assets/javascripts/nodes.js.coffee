@@ -2,43 +2,43 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).ready -> 
-    
-   $("#run-list ul").sortable 
+$(document).ready ->
+
+   $("#run-list ul").sortable
      connectWith: ["#recipes ul", "#roles ul"],
-     dropOnEmpty: true  
+     dropOnEmpty: true
 
    $("#roles ul").sortable
      connectWith: "#run-list ul",
      items: ".role",
      dropOnEmpty: true
-     receive: (e, ui) -> 
-       ui.sender.sortable('cancel') if not ui.item.context.classList.contains("role")    
-	
+     receive: (e, ui) ->
+       ui.sender.sortable('cancel') if not ui.item.context.classList.contains("role")
+
    $("#recipes ul").sortable
      connectWith: "#run-list ul",
-     items: ".recipe", 
+     items: ".recipe",
      dropOnEmpty: true
-     receive: (e, ui) -> 
-       ui.sender.sortable('cancel') if not ui.item.context.classList.contains("recipe")   
-    
+     receive: (e, ui) ->
+       ui.sender.sortable('cancel') if not ui.item.context.classList.contains("recipe")
+
    $("#run-list ul").disableSelection()
    $("#run-list ul").disableSelection()
-   $("#run-list ul").disableSelection()   
-   
-   $("#tabs").tabs() 	
-   
-   $("form#edit_node, form.edit_group").submit (event) ->    
-     form = $(this) 
+   $("#run-list ul").disableSelection()
+
+   $("#tabs").tabs()
+
+   $("form#edit_node, form.edit_role").submit (event) ->
+     form = $(this)
      to_node = $('#run-list ul').sortable('toArray')
-     for field in to_node   
-       form.append('<input type="hidden" name="for_node[]" value="' + field + '"/>')    
+     for field in to_node
+       form.append('<input type="hidden" name="for_node[]" value="' + field + '"/>')
 
 
-   
+
    $(".toggle .ui-icon").click () ->
      $(this).toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s")
-     $(this).parents().next('.toggable').slideToggle("fast")  
+     $(this).parents().next('.toggable').slideToggle("fast")
 
 
    $("#tabs-2").children("ul").treeview

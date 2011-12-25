@@ -37,15 +37,17 @@ class Role < ChefBase
   end
 
   def available_roles
-    @available_roles || []
+    Role.all.map(&:name).flatten.map{|x| "role[#{x}]"} - self.run_list
   end
 
   def available_recipes
-    @available_recipes || []
+    Cookbook.all.map(&:recipes_name).flatten.map{|x| "recipe[#{x}]"} - self.run_list
   end
 
   def extended_run_list
-    @extended_run_list || []
+    rl = []
+    self.run_list.each{|x| rl << RunListItem.new(x)}
+    rl.flatten.uniq
   end
 
   def self.name_of_role(role)

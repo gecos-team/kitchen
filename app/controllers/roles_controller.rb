@@ -11,11 +11,14 @@ class RolesController < ApplicationController
   end
 
   def update
-    @group = Role.find(params[:id])
-    @group.nodes.each do |node|
-      node.run_list = (["recipe[ohai]"] + [node.run_list] + [params[:for_node]]).flatten.uniq.compact
-      node.save
-    end
+    @role = Role.find(params[:id])
+    # @role.nodes.each do |node|
+    #   node.run_list = (["recipe[ohai]"] + [node.run_list] + [params[:for_node]]).flatten.uniq.compact
+    #   node.save
+    # end
+    debugger
+    @role.run_list = ["recipe[ohai]"] + params[:for_node]
+    @role.save
     redirect_to role_path(@group)
   end
 end
