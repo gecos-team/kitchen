@@ -21,6 +21,7 @@ class HomeUsersController < ApplicationController
       params[:databag][multiple][attribute] = params[:databag][multiple].values.map{|x| x.values}.flatten
     end
 
+
     Usermanagement.update(params[:databag])
 
     redirect_to edit_home_user_path(@user.username)

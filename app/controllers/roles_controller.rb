@@ -16,7 +16,6 @@ class RolesController < ApplicationController
     #   node.run_list = (["recipe[ohai]"] + [node.run_list] + [params[:for_node]]).flatten.uniq.compact
     #   node.save
     # end
-    debugger
     @role.run_list = ["recipe[ohai]"] + params[:for_node]
     @role.save
     redirect_to role_path(@group)

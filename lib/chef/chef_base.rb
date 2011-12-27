@@ -142,15 +142,13 @@ class ChefBase
     self::API_ROUTE || ('/' + self.name.to_s.downcase.pluralize)
   end
 
-
-
   def self.create(attributes={})
     new(attributes).save
   end
 
   def self.update(options={})
     # path = '/' + self.name.to_s.downcase.pluralize
-    name = options["name"]
+    name = options["name"] || options["id"]
     ChefAPI.put("#{self.api_path}/#{name}", options)
   end
 
