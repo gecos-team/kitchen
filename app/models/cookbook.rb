@@ -38,4 +38,23 @@ class Cookbook < ChefBase
     self.versions.first.metadata["recipes"].keys
   end
 
+  def self.is_advanced_recipe?(recipe)
+    cookbook_name, recipe_name = recipe.split("::")
+    cookbook_attributes = Cookbook.find(cookbook_name).versions.first.metadata["attributes"]
+    return false if cookbook_attributes.blank? or cookbook_name == "usermanagement"
+    return true if cookbook_attributes.keys.map{|x| x.split("/")[0] == recipe_name}.include?(true) or (recipe_name.blank? and !cookbook_attributes.blank?)
+  end
+
+  def self.skel_for(recipe)
+    self.find(recipe).versions.first.grouped_attributes
+  end
+
+  def self.multiple_in_skel_for(recipe)
+    self.find(recipe).versions.first.multiple_attributes
+  end
+
+  def self.initialize_attributes_for(recipe)
+    Cookbook.find(recipe).versions.first.initialize_attributes
+  end
+
 end

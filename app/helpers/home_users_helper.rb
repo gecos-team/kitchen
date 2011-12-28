@@ -18,7 +18,7 @@ def render_base_attribute(field)
 
 end
 
-def render_fieldset(field,data)
+def render_fieldset(field,data,parent_name = "[databag]")
   field_title = field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   out << "(Multiple)" if !field[1][:principal].blank?
@@ -29,7 +29,7 @@ def render_fieldset(field,data)
       out << "<div id = #{field_title}_#{index}>"
       out << "<div id = 'fields'>"
       field[1][:attributes].each do |x|
-        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], index)
+        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], index, parent_name)
       end
 
       out << "</div>"
@@ -41,14 +41,14 @@ def render_fieldset(field,data)
   else
 
   field[1][:attributes].each do |x|
-    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]])
+    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name)
   end
 end
 
   out << "</fieldset><br/>"
 end
 
-def render_attribute(key,properties,data = "",index = nil)
+def render_attribute(key,properties,data = "",index = nil, parent_name = "[databag]")
    size = case data.size
    when 1..10
      out = "<p class = 'short'>"
@@ -74,7 +74,7 @@ def render_attribute(key,properties,data = "",index = nil)
    else
      field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[#{index}]").join
    end
-    field_id = "[databag]"+ field_id
+    field_id = parent_name+ field_id
 
    if !properties["choice"].blank?
      out << select_tag(field_id, options_for_select(properties["choice"], data))

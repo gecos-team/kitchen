@@ -62,7 +62,10 @@ Kitchen::Application.routes.draw do
 
   resources :search
 
-  resources :nodes
+  resources :nodes do
+      get 'check_recipe', :on => :collection
+      get 'advanced_data', :on => :member
+  end
   resources :clients
   resources :cookbooks
   resources :home_users

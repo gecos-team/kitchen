@@ -24,4 +24,22 @@ class CookbookVersion < ChefBase
     self.grouped_attributes.select{|x,y| !y[:principal].blank?}.map{|x| x[0]}
   end
 
+  def initialize_attributes
+    grouped = {}
+    metadata["attributes"].each_pair do |key,value|
+      cookbook, attribute, subattribute = key.split("/")
+      grouped[cookbook] = {} if grouped[cookbook].blank?
+
+      if !subattribute.blank?
+        grouped[cookbook][attribute] = {} if grouped[cookbook][attribute].blank?
+        grouped[cookbook][attribute][subattribute] = ""
+      else
+        grouped[cookbook][attribute] = ""  if grouped[cookbook][attribute].blank?
+      end
+
+
+    end
+    grouped
+  end
+
 end

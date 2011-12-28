@@ -1,0 +1,5 @@
+= form_tag node_path(@node.name), :method => :put, :id => "edit_node" do
+  - @skel.each do |attribute|
+    = raw render_fieldset(attribute, @data[attribute[0]], "[node][normal]")
+
+  = submit_tag

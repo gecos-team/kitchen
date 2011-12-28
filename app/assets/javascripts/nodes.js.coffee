@@ -7,6 +7,10 @@ $(document).ready ->
    $("#run-list ul").sortable
      connectWith: ["#recipes ul", "#roles ul"],
      dropOnEmpty: true
+     receive: (e,ui) ->
+       recipe = ui.item.text().trim()
+       $.getJSON ("/nodes/check_recipe?recipe="+recipe), (data) ->
+         alert data
 
    $("#roles ul").sortable
      connectWith: "#run-list ul",
