@@ -37,7 +37,7 @@ def render_fieldset(field,data)
       out << "<div class = 'clear'></div></div>"
     end
     # out << "<div id = #{field_title}_fill></div>"
-    out << link_to_function (image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
+    out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
   else
 
   field[1][:attributes].each do |x|
@@ -80,7 +80,7 @@ def render_attribute(key,properties,data = "",index = nil)
      out << select_tag(field_id, options_for_select(properties["choice"], data))
    else
      input_class += " #{properties["validation"]}"
-     out << text_field_tag(field_id, data, :class => input_class)
+     out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"]})
    end
    # out << "</p>"
    out << "<br/><i class = 'hint'>#{properties['description']}</i>"

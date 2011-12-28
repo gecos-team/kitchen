@@ -27,9 +27,16 @@ $(document).ready ->
       val > 0 && val < 65536
     "Please enter a valid number between 0 and 65335"
 
+  jQuery.validator.addMethod "custom",
+    (val, elem) ->
+      exp = new RegExp($(elem).attr("custom"))
+      exp.test(val)
+    "This field is invalid"
+
 
   $("#edit_user").validate
     rules:
+        custom: "custom"
         ip: "ip"
         uri: "uri"
         integer:
