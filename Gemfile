@@ -7,19 +7,20 @@ gem 'rails'
 
 # gem 'sqlite3'
 
-gem 'json'   
-gem 'spice'     
-gem 'yajl-ruby', :require => 'yajl' 
+gem 'json'
+gem 'spice'
+gem 'yajl-ruby', :require => 'yajl'
 gem 'rest-client'
 gem 'mixlib-authentication', :require =>'mixlib/authentication'
-gem 'haml'  
+gem 'haml'
 gem 'mongrel'
 gem 'pakunok'
-gem 'mysql2' 
-gem 'devise'  
+gem 'mysql2'
+gem 'devise'
 gem "friendly_id", "~> 4.0.0.beta14"
-gem 'bluecloth' 
+gem 'bluecloth'
 gem 'formtastic'
+gem 'facebox-rails'
 
 
 gem "nifty-generators", :group => :development
@@ -30,7 +31,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-end   
+end
 
 group :development do
   gem 'hpricot'
@@ -49,7 +50,7 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-gem 'ruby-debug'    
+gem 'ruby-debug'
 
 
 

@@ -12,4 +12,5 @@
 //= require pakunok/jquery-ui/pack/sortable
 //= require pakunok/jquery-ui/pack/accordion
 //= require pakunok/jquery-ui/pack/tabs
+//= require jquery.facebox
 //= require_tree .

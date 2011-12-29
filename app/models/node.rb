@@ -69,4 +69,14 @@ class Node < ChefBase
     save
   end
 
+
+  def advanced_data_empty_for?(recipe)
+    cookbook,recipe = recipe.split("::")
+    data = self.normal
+    skel = Cookbook.initialize_attributes_for(cookbook)[recipe]
+
+    return true if data[recipe].blank?
+    skel == data[recipe]
+  end
+
 end

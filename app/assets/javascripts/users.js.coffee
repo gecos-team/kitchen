@@ -34,7 +34,7 @@ $(document).ready ->
     "This field is invalid"
 
 
-  $("#edit_user, #edit_node").validate
+  $("#edit_user, #edit_node_attributes").validate
     rules:
         custom: "custom"
         ip: "ip"
