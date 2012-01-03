@@ -62,6 +62,7 @@ class ChefBase
 
 
   def save
+    self.before_save if !defined?(self.before_save).nil?
     if @new_record
       create
     else

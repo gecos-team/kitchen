@@ -1,4 +1,4 @@
-%h1 Nodos
+%h1 Workstations
 
 / #search-node
 /   = form_tag(nodes_path, {:method => :get}) do
@@ -7,11 +7,13 @@
 /     = link_to "Save as new group", new_role_path(params[:search]) if !params[:search].blank?
 /
 
-- if params.include?(:table_view)
-  = render :partial => 'nodes/table_view', :locals => {:nodes => @nodes}
-- else
-  .float_right
-    = link_to "Table view", nodes_path+"?table_view"
-  .clear
-  #nodes
-    = render @nodes
+/ - if params.include?(:table_view)
+/   = render :partial => 'nodes/table_view', :locals => {:nodes => @nodes}
+/ - else
+/   .float_right
+/     = link_to "Table view", nodes_path+"?table_view"
+/   .clear
+
+#nodes
+  / = render @nodes
+  = render :partial => 'nodes/table_view', :locals => {:nodes => @nodes, :normal => false}

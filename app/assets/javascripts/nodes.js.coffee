@@ -40,7 +40,10 @@ $(document).ready ->
     dropOnEmpty: true
     receive: (e, ui) ->
       ui.sender.sortable('cancel') if not ui.item.context.classList.contains("recipe")
-      ui.item.find("a[rel*=facebox]").parent().addClass("hidden")
+      ui.item.find("a[rel*=facebox]").parent().remove()
+      # url = window.location.pathname
+      # recipe = ui.item.text().trim()
+      # $.post (url+"/clean_data?recipe="+recipe)
 
   $("#run-list ul").disableSelection()
   $("#run-list ul").disableSelection()
@@ -60,8 +63,17 @@ $(document).ready ->
     $(this).toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s")
     $(this).parents().next('.toggable').slideToggle("fast")
 
+  # $("input.disabled").live 'click', ->
+  #   $(this).removeAttr("disabled")
 
   $("#tabs-2").children("ul").treeview
-    collapsed: true
+      collapsed: true
 
   $("a[rel*=facebox]").facebox()
+
+  $("table.tablesorter").dataTable
+    "bJQueryUI": true
+    "bLengthChange": false
+    "iDisplayLength": 5
+    "sPaginationType": "full_numbers"
+

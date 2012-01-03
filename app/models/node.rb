@@ -1,5 +1,9 @@
 class Node < ChefBase
 
+  def before_save
+    @run_list = (["recipe[ohai]"] + @run_list + Cookbook.find("usermanagement").recipes_list).flatten.uniq.compact
+  end
+
   [:patform, :hostname, :ip].each do |method|
    define_method method do
       self.automatic["method"]
@@ -59,7 +63,7 @@ class Node < ChefBase
 
   def add_to_role_and_save(role)
     rolename = Role.name_of_role(role)
-    @run_list << rolename unless @run_list.include? rolename
+    @run_list.insert(1, rolename) unless @run_list.include?(rolename)
     save
   end
 
@@ -74,9 +78,16 @@ class Node < ChefBase
     cookbook,recipe = recipe.split("::")
     data = self.normal
     skel = Cookbook.initialize_attributes_for(cookbook)[recipe]
-
     return true if data[recipe].blank?
     skel == data[recipe]
+  end
+
+  def clean_advanced_data(recipe)
+    cookbook,recipe = recipe.split("::")
+    data = self.normal
+    data[cookbook].delete(recipe)
+    data.delete(cookbook) if data[cookbook].blank?
+    self.save
   end
 
 end

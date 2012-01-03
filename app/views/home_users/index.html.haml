@@ -1,3 +1,15 @@
 %h1 Users
 #users
-  = render :partial => "home_users/home_user", :collection => @users
+  %table.full.tablesorter
+    %thead
+      %th Name
+      %th Machines
+    %body
+      - @users.each do |home_user|
+        %tr
+          %td= link_to home_user.username, edit_home_user_path(home_user.username)
+          %td
+            - home_user.nodes.each do |node|
+              =link_to node[:name], node_path(node[:name])
+
+  / = render :partial => "home_users/home_user", :collection => @users

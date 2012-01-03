@@ -6,11 +6,12 @@
       #recipes.box_info.sortable
         %ul
           - @recipes.each do |recipe|
-            %li.recipe{:id => recipe}
-              - recipe_name = normalize_item(recipe)
+            - recipe_name = normalize_item(recipe)
+            %li.recipe{:id => recipe, :class => visible?(recipe_name)}
+
               %span= recipe_name
               / - if Cookbook.is_advanced_recipe?(recipe_name)
-              /   %span.hidden= link_to "#", advanced_data_node_path(@node.name, :recipe => recipe_name), :rel => "facebox"
+              /   %span= link_to "#", advanced_data_node_path(@node.name, :recipe => recipe_name), :rel => "facebox"
 
 
     .float_right
@@ -20,7 +21,7 @@
         #run-list.box_info.sortable
           %ul
             -@node.extended_run_list.each do |run_list_item|
-              %li.item{:class => run_list_item.type, :id => run_list_item.to_s}
+              %li.item{:class => "#{run_list_item.type} #{visible?(run_list_item.name)}" , :id => run_list_item.to_s}
                 %span= run_list_item.name
                 - if run_list_item.is_advanced?
                   %span= link_to "Edit", advanced_data_node_path(@node.name, :recipe => run_list_item.name), :rel => "facebox"

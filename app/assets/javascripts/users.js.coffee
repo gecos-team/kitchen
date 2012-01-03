@@ -42,6 +42,13 @@ $(document).ready ->
         integer:
           numeric: true
           integer: true
+    # submitHandler: (form) ->
+    #   $("input.disabled").attr("disabled", "disabled")
+    #   $(this).ajaxSubmit()
+    #   return false
+
+  $("input.disabled").click () ->
+    $(this).removeClass("disabled")
 
 
 ` function clone_attribute(attribute){

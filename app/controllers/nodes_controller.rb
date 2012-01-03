@@ -27,7 +27,7 @@ class NodesController < ApplicationController
     if (!params[:node].blank? and !params[:node][:normal].blank?)
       @node.normal = @node.normal.merge(params[:node][:normal])
     elsif !params[:for_node].blank?
-      @node.run_list = (["recipe[ohai]"] + [params[:for_node]]).flatten.uniq.compact
+      @node.run_list = params[:for_node]
     end
 
     @node.save
@@ -51,11 +51,17 @@ class NodesController < ApplicationController
   def advanced_data
     cookbook, recipe = params[:recipe].split("::")
     @skel = Cookbook.skel_for(cookbook)
-    @data = Cookbook.initialize_attributes_for(recipe).merge(@node.normal)
+    @defaults = Cookbook.initialize_attributes_for(recipe)
+    @data = @defaults.merge(@node.normal)
     respond_to do |format|
       format.html { render :layout => false}
       format.js { render :layout => false }
     end
+  end
+
+  def clean_data
+    @node.clean_advanced_data(params[:recipe])
+    render :nothing => true
   end
 
 

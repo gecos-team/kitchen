@@ -18,7 +18,7 @@ def render_base_attribute(field)
 
 end
 
-def render_fieldset(field,data,parent_name = "[databag]")
+def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
   field_title = field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   out << "(Multiple)" if !field[1][:principal].blank?
@@ -62,10 +62,16 @@ def render_attribute(key,properties,data = "",index = nil, parent_name = "[datab
      out = "<p class = 'medium'>"
    end
 
-
    display_label = properties["display_name"]
    display_label += "* " if properties["required"]
-   input_class = "required"if properties["required"]
+   input_class = "required" if properties["required"]
+
+   if (data == "" and !properties["default"].blank?)
+     data = properties["default"]
+     input_class += " disabled"
+     disabled = true
+
+   end
 
    out << label_tag(key, display_label)
 
@@ -83,7 +89,7 @@ def render_attribute(key,properties,data = "",index = nil, parent_name = "[datab
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"]})
    end
    # out << "</p>"
-   out << "<br/><i class = 'hint'>#{properties['description']}</i>"
+   out << "<br/><i class = 'hint'>#{properties['description']}</i></p>"
 
 end
 

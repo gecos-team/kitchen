@@ -10,9 +10,9 @@
 
 @media screen, projection
 {
-  /** 
-   * (en) Forcing vertical scrollbars in IE8, Firefox, Webkit & Opera 
-   * (de) Erzwingen vertikaler Scrollbalken in IE8, Firefox, Webkit & Opera 
+  /**
+   * (en) Forcing vertical scrollbars in IE8, Firefox, Webkit & Opera
+   * (de) Erzwingen vertikaler Scrollbalken in IE8, Firefox, Webkit & Opera
    *
    * @workaround
    * @affected IE8, FF, Webkit, Opera
@@ -26,43 +26,43 @@
 
   /* (en) Marginal areas & page background */
   /* (de) Randbereiche & Seitenhintergrund */
-  body { 
-	background-color:#fafafa;
-	margin:0px;
-	}
+  body {
+  background-color:#fafafa;
+  margin:0px;
+  }
 
   /* Layout Alignment | Layout-Ausrichtung */
-  .page_margins { margin: 0 auto; }
+  .page_margins { margin: 0; }
 
   /* Layout Properties | Layout-Eigenschaften */
   .page_margins { width: auto;}
   .page { }
-  #header { 
-//	margin-top:65px;
+  #header {
+//  margin-top:65px;
 
-	}  
-	
-  #topnav { position:absolute; top:10px; text-align:left; color: #aaa; background: transparent; } 
+  }
+
+  #topnav { position:absolute; top:10px; text-align:left; color: #aaa; background: transparent; }
   #topnav h1 {margin:0 auto;}
-  #nav { overflow:hidden; 
-	background: #7abcff; /* Old browsers */
-	background: -moz-linear-gradient(top,  #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
-	background: linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+  #nav { overflow:hidden;
+  background: #7abcff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
+  background: linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
 
 
 
-	}
-  
-  #main { margin: 10px auto; width:960px; display:block;}
+  }
+
+  #main { margin: 10px auto; width:100%; max-width:1024px; display:block;}
   #footer { padding: 10px 20px; color:#666; background: #f9f9f9; border-top: 5px #efefef solid; }
 
-  
-  
+
+
 
   /*-------------------------------------------------------------------------*/
 
@@ -72,13 +72,13 @@
    *
    */
 
-  #col1 { float: left; width: 10%;  margin:0 }
-  #col2 { float: right; width: 10%;  margin:0 }
-  #col3 { width: auto; margin: 0 10% 0 10%}
+  #col1 { float: left; width: auto;  max-width:20%; margin:0 }
+  #col2 { float: right; width: auto;  max-width:20%;  margin:0 }
+  #col3 { width: 100%; margin: 0}
   #col1_content { padding: 0 10px 0 20px }
   #col2_content { padding: 0 20px 0 10px }
   #col3_content { padding: 0 10px }
-	
+
   /*-------------------------------------------------------------------------*/
 }
 
@@ -93,7 +93,7 @@
 /**
 * ------------------------------------------------------------------------------------------------- #
 *
-* Skiplinks 
+* Skiplinks
 *
 * (en) Visual styling for skiplink navigation
 * (de) Visuelle Gestaltung der Skiplink-Navigation
@@ -102,13 +102,13 @@
 */
 
 #skiplinks a.skip:focus,
-#skiplinks a.skip:active { 
-  color:#fff; 
-  background:#333; 
+#skiplinks a.skip:active {
+  color:#fff;
+  background:#333;
   border-bottom:1px #000 solid;
   padding:10px 0;
   text-decoration:none;
-}     
+}
 
 /**
 * Fonts
@@ -170,7 +170,7 @@ ol ol { list-style-type:lower-latin; margin-bottom:0; }
 li { margin:0; padding:0; line-height:1.5em; list-style:none; margin-left:5px;}
 
 dt { font-weight:bold; }
-dd { margin:0 0 1em 0.8em; }   
+dd { margin:0 0 1em 0.8em; }
 
 /* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
 
@@ -210,7 +210,7 @@ hr {
   padding:0 0 0.5em 0;
   border:0;
   border-bottom:1px #eee solid;
-}     
+}
 
 /*--- Links ----------------------------------------------------------------------------------------- */
 
@@ -232,7 +232,7 @@ p.icaption_left img,
 p.icaption_right img { padding:0; border:1px #888 solid; }
 
 p.icaption_left strong,
-p.icaption_right strong { display:block; overflow:hidden; margin-top:2px; padding:0.3em 0.5em; background:#eee; font-weight:normal; font-size:91.667%; } 
+p.icaption_right strong { display:block; overflow:hidden; margin-top:2px; padding:0.3em 0.5em; background:#eee; font-weight:normal; font-size:91.667%; }
 
 /**
 * ------------------------------------------------------------------------------------------------- #
@@ -256,9 +256,9 @@ p.icaption_right strong { display:block; overflow:hidden; margin-top:2px; paddin
 
 .float_left { float:left; display:inline; margin-right:1em; margin-bottom:0.15em; }
 .float_right { float:right; display:inline; margin-left:1em; margin-bottom:0.15em; }
-.center { display:block; text-align:center; margin:0.5em auto; }    
+.center { display:block; text-align:center; margin:0.5em auto; }
 .clear {clear:both;}
-                           
+
 /**
 * ------------------------------------------------------------------------------------------------- #
 *
@@ -282,7 +282,7 @@ tbody th[scope="row"], tbody th.sub { background:#f0f0f0; }
 
 tbody th { text-align:center; }
 
-tbody tr.odd { } 
+tbody tr.odd { }
 tbody tr.even { background-color:#e6e6e6; }
 
 tbody tr:hover th[scope="row"],

@@ -93,7 +93,7 @@
   border-radius: 10px;
   float:left;
   margin-right:50px;
-  background-color:#60abf8;
+  background-color:#7ABCFF;
 }
 
 .box ul {
@@ -116,7 +116,7 @@
   border-radius: 10px;
   float:left;
   margin-right:50px;
-  background-color:#60abf8;
+  background-color:#7ABCFF;
   width:100%;
   padding-right:0;
 
@@ -124,19 +124,19 @@
 
 
 .small_box.on {
-     background: url("small_on.png") no-repeat scroll 8px center #60ABF8 !important;
+     background: url("small_on.png") no-repeat scroll 8px center #7ABCFF !important;
    }
 
 .small_box.off {
-  background: url("small_off.png") no-repeat scroll 8px center #60ABF8 !important;
+  background: url("small_off.png") no-repeat scroll 8px center #7ABCFF !important;
   }
 
 .small_box.error {
-  background: url("small_error.png") no-repeat scroll 8px center #60ABF8 !important;
+  background: url("small_error.png") no-repeat scroll 8px center #7ABCFF !important;
 }
 
 .box_info ul li.on {
-     background: url("mini_on.png") no-repeat scroll 8px center #60ABF8 !important;
+     background: url("mini_on.png") no-repeat scroll 8px center #7ABCFF !important;
    }
 
 .small_box ul {
@@ -212,7 +212,7 @@
 
 
 input[type=submit] {
-  background-color: #60ABF8;
+  background-color: #7ABCFF;
   color: #fff;
   font-size: 12px;
   border: none;

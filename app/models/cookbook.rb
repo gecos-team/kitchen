@@ -1,5 +1,7 @@
 class Cookbook < ChefBase
 
+  HIDDEN = ["ohai", "usermanagement", "ohai-gecos"]
+
 
   def initialize(attributes = {})
     metaclass.send :attr_accessor, :name
@@ -38,9 +40,15 @@ class Cookbook < ChefBase
     self.versions.first.metadata["recipes"].keys
   end
 
+  def recipes_list
+    self.recipes_name.delete_if{|x| !x.include?("::")}.map{|x| "recipe[#{x}]"}
+  end
+
   def self.is_advanced_recipe?(recipe)
     cookbook_name, recipe_name = recipe.split("::")
-    cookbook_attributes = Cookbook.find(cookbook_name).versions.first.metadata["attributes"]
+    cookbook = Cookbook.find(cookbook_name)
+    return false if cookbook.blank?
+    cookbook_attributes = cookbook.versions.first.metadata["attributes"]
     return false if cookbook_attributes.blank? or cookbook_name == "usermanagement"
     return true if cookbook_attributes.keys.map{|x| x.split("/")[0] == recipe_name}.include?(true) or (recipe_name.blank? and !cookbook_attributes.blank?)
   end
@@ -53,8 +61,8 @@ class Cookbook < ChefBase
     self.find(recipe).versions.first.multiple_attributes
   end
 
-  def self.initialize_attributes_for(recipe)
-    Cookbook.find(recipe).versions.first.initialize_attributes
+  def self.initialize_attributes_for(recipe, defaults = false)
+    Cookbook.find(recipe).versions.first.initialize_attributes(defaults)
   end
 
 end

@@ -21,6 +21,8 @@ gem "friendly_id", "~> 4.0.0.beta14"
 gem 'bluecloth'
 gem 'formtastic'
 gem 'facebox-rails'
+gem 'rest-client-components'
+gem "rack-cache"
 
 
 gem "nifty-generators", :group => :development

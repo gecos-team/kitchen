@@ -64,8 +64,11 @@ Kitchen::Application.routes.draw do
 
   resources :nodes do
       get 'check_recipe', :on => :collection
-      get 'advanced_data', :on => :member
-      get 'check_data', :on => :member
+      member do
+        get 'advanced_data'
+        get 'check_data'
+        post 'clean_data'
+      end
   end
   resources :clients
   resources :cookbooks
