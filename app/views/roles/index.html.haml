@@ -3,12 +3,5 @@
 / #groups
 /   = render @roles
 #groups
-  %table.full.tablesorter
-    %thead
-      %th Name
-      %th Members
-    %body
-      - @roles.each do |role|
-        %tr
-          %td= link_to role.name, role_path(role.name)
-          %td= role.nodes.size
+  = render :partial => "groups", :locals => {:roles => @roles}
+

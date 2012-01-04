@@ -9,7 +9,7 @@ $(document).ready ->
     dropOnEmpty: true
     receive: (e,ui) ->
       recipe = ui.item.text().trim()
-      $.getJSON ("/nodes/check_recipe?recipe="+recipe), (data) ->
+      $.getJSON ("/cookbooks/check_recipe?recipe="+recipe), (data) ->
         if data is true
           url = window.location.pathname
           ui.item.append("<span><a href="+url+"/advanced_data?recipe="+recipe+" rel=facebox>Edit</a></span>")
@@ -74,6 +74,6 @@ $(document).ready ->
   $("table.tablesorter").dataTable
     "bJQueryUI": true
     "bLengthChange": false
-    "iDisplayLength": 5
+    "iDisplayLength": 20
     "sPaginationType": "full_numbers"
 

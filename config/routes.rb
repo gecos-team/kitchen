@@ -60,20 +60,31 @@ Kitchen::Application.routes.draw do
 
   root :to => 'nodes#index'
 
-  resources :search
+  # resources :search
 
   resources :nodes do
-      get 'check_recipe', :on => :collection
+      # get 'check_recipe', :on => :collection
       member do
         get 'advanced_data'
         get 'check_data'
         post 'clean_data'
       end
   end
-  resources :clients
-  resources :cookbooks
+  #resources :clients
+
+  resources :cookbooks do
+    get 'check_recipe', :on => :collection
+  end
+
   resources :home_users
-  resources :roles
+
+  resources :roles do
+    member do
+      get 'advanced_data'
+      get 'check_data'
+      post 'clean_data'
+    end
+  end
 
   namespace :admin do
     root :to => 'home#index'

@@ -38,10 +38,6 @@ class NodesController < ApplicationController
   end
 
 
-  def check_recipe
-    recipe = params[:recipe]
-    render :json => Cookbook.is_advanced_recipe?(recipe)
-  end
 
   def check_data
     recipe = params[:recipe]

@@ -40,7 +40,8 @@
 #tabs
   %ul
     %li= link_to  "Run List", "#tabs-1"
-    %li= link_to "Workstation details", "#tabs-2"
+    / %li= link_to "Workstation details", "#tabs-2"
+    %li= link_to "Groups", "#tabs-2"
     - if @node.error?
       %li= link_to "Errors", "#tabs-3"
 
@@ -49,7 +50,10 @@
     .clear
 
   #tabs-2
-    / = raw @node.to_html
+    = render :partial => "roles/groups", :locals => {:roles => @node.roles}
+
+  / #tabs-2
+  /   = raw @node.to_html
   - if @node.error?
     #tabs-3.ui-state-error.ui-corner-all
       %pre.ui-state-error.ui-corner-all= @node.normal["last_run_status_bt"]

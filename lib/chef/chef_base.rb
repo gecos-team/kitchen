@@ -157,6 +157,23 @@ class ChefBase
     ChefAPI.delete("#{self.api_path}/#{name}")
   end
 
+  def advanced_data_empty_for?(recipe)
+    cookbook,recipe = recipe.split("::")
+    data = self.class.name == "Node" ? self.normal : self.default_attributes
+    # data = self.normal
+    skel = Cookbook.initialize_attributes_for(cookbook)[recipe]
+    return true if data[recipe].blank?
+    skel == data[recipe]
+  end
+
+  def clean_advanced_data(recipe)
+    cookbook,recipe = recipe.split("::")
+    data = self.class.name == "Node" ? self.normal : self.default_attributes
+    data[cookbook].delete(recipe)
+    data.delete(cookbook) if data[cookbook].blank?
+    self.save
+  end
+
   private
 
   def update

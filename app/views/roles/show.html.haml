@@ -1,5 +1,7 @@
 %h1= @role.name
 
+%p.description= @role.description
+
 - if current_user.admin?
   .float_right
     = link_to "Edit group", edit_admin_role_path(@role.name)

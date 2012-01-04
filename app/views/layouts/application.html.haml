@@ -31,9 +31,9 @@
             = link_to "Logout", destroy_user_session_path, :method => :delete
           - else
             = link_to "Login", new_user_session_path
-        #search
-          = form_tag(search_index_path(@search), {:method => :get}) do
-            = search_field_tag :id
+        / #search
+        /   = form_tag(search_index_path(@search), {:method => :get}) do
+        /     = search_field_tag :id
 
 
     #main

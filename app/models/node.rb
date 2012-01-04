@@ -73,21 +73,13 @@ class Node < ChefBase
     save
   end
 
+  def roles
+    self.run_list.select{|x| x.split("[")[0] == "role"}.map do |role|
+      Role.find(%r{^role\[([^\]]+)\]$}.match(role)[1])
 
-  def advanced_data_empty_for?(recipe)
-    cookbook,recipe = recipe.split("::")
-    data = self.normal
-    skel = Cookbook.initialize_attributes_for(cookbook)[recipe]
-    return true if data[recipe].blank?
-    skel == data[recipe]
+    end
   end
 
-  def clean_advanced_data(recipe)
-    cookbook,recipe = recipe.split("::")
-    data = self.normal
-    data[cookbook].delete(recipe)
-    data.delete(cookbook) if data[cookbook].blank?
-    self.save
-  end
+
 
 end

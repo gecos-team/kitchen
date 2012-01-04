@@ -46,25 +46,25 @@
       }
 
 #nav  ul  li.last {
-          border-right:1px solid black;
+        border-right:1px solid black;
         padding-right:20px;
       }
 
 #nav  ul  li.active a{
-        color:black !important;
-        text-shadow:1px 1px 2px #FAFAFA;
+        color:white !important;
+        text-shadow:1px 1px 2px #333333;
       }
 
 
 #nav  ul  li a{
-        color:white !important;
+        color:#333333 !important;
           text-transform: uppercase;
-        text-shadow:2px 2px 2px #000000;
+        text-shadow:1px 1px 1px #CECECE;
           }
 
 #nav  ul  li a:hover {
-        color:black !important;
-        text-shadow:1px 1px 1px #FAFAFA;
+        color:white !important;
+        text-shadow:1px 1px 1px #333333;
       }
 
 
@@ -94,6 +94,7 @@
   float:left;
   margin-right:50px;
   background-color:#7ABCFF;
+  color: #333333;
 }
 
 .box ul {
@@ -109,11 +110,11 @@
 
 .small_box {
 /*    width: 180px;*/
-    height:20px;
-  padding:10px;
+    height:10px;
+  padding: 5px 0 10px 10px;
   box-shadow:3px 3px 7px #0f0f0f;
    -moz-border-radius: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   float:left;
   margin-right:50px;
   background-color:#7ABCFF;
@@ -165,7 +166,7 @@
   box-shadow:1px 1px 3px #0f0f0f;
   padding-top:10px;
   padding-bottom:5px;
-  margin-top:40px;
+  margin-top:25px;
 /*  width:95%;       */
   margin-left:10px;
 
@@ -218,4 +219,10 @@ input[type=submit] {
   border: none;
   padding: 4px;
 }
+
+/*.ui-widget {
+    font-size: 95% !important;
+  }   */
+
+
 

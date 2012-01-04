@@ -31,17 +31,18 @@ background: #7abcff;
  -moz-border-radius: 10px;
 border-radius: 10px;
 
-padding-left:100px;
+padding-left:105px;
 margin-bottom:20px;
+color:#333333 !important;
 
 }
 
 #node-info ul {
-  border-right: 1px solid black;
+  border-right: 1px solid #333333;
   float:left;
   height:100%;
-  padding-right:40px;
-  padding-left:40px;
+  padding-right:30px;
+  padding-left:30px;
 }
 
 #node-info li{
@@ -102,10 +103,21 @@ margin-bottom:20px;
   float:left;
 //  margin-right:80px;
   width:400px;
-    margin-left:20px;
+    margin-left:10px;
   margin-right:20px;
   margin-bottom:20px;
   height:100%;
+
+
+}
+
+#runlistseparator {
+  float:left;
+  background: url("change.png") no-repeat scroll center top;
+  width:95px;
+  height:115px;
+//  margin-top:50px;
+
 }
 
 li.recipe {
@@ -117,9 +129,14 @@ li.role {
   display:none;
 }
 
+li.recipe, li.role, li.run-list {
+  cursor:move;
+}
 
 li.recipe span, li.role span, li.run-list span{
   margin-left:30px;
+
+
 }
 
 
@@ -134,6 +151,7 @@ li.recipe span, li.role span, li.run-list span{
 
 .dataTables_info {
   float: left;
+  color:#333333;
 }
 .dataTables_paginate {
   float: right
@@ -160,7 +178,7 @@ span.fg-button {
 
 th.ui-state-default {
   background: url("images/ui-bg_flat_55_7abcff_40x100.png") repeat-x scroll 50% 50% #7ABCFF !important;
-  color:white !important;
+  color:#333333 !important;
 }
 
 //.ui-state-default .ui-icon {
