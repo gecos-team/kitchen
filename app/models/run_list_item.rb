@@ -68,4 +68,8 @@ class RunListItem
     end
   end
 
+  def is_advanced?
+    Cookbook.is_advanced_recipe?(self.name)
+  end
+
 end

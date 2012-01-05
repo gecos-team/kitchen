@@ -2,188 +2,199 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-                               
 
 
 
 
 
-.on { 
-     background: url("on.png") no-repeat scroll left center #60abf8 !important; 	
-	 }                          
 
-.off { 
-	background: url("off.png") no-repeat scroll left center #60abf8 !important;  
-	}
+.on {
+     background: url("on.png") no-repeat scroll left center #7ABCFF !important;
+   }
+
+.off {
+  background: url("off.png") no-repeat scroll left center #7ABCFF !important;
+  }
 
 .error {
-	background: url("error.png") no-repeat scroll left center #60abf8 !important;  
-}   
+  background: url("error.png") no-repeat scroll left center #7ABCFF !important;
+}
 
-                        
-  
+
+
 #node-info {
   max-width: 100%;
   height:70px;
-padding:10px;     
+padding:10px;
 box-shadow:3px 3px 7px #0f0f0f;
-background: #7abcff; 
+background: #7abcff;
  -moz-border-radius: 10px;
-border-radius: 10px;   
+border-radius: 10px;
 
-padding-left:100px;  
-margin-bottom:20px; 
-	
+padding-left:105px;
+margin-bottom:20px;
+color:#333333 !important;
+
 }
 
 #node-info ul {
-	border-right: 1px solid black;   
-	float:left;    
-	height:100%; 
-	padding-right:40px;
-	padding-left:40px;
-}          
+  border-right: 1px solid #333333;
+  float:left;
+  height:100%;
+  padding-right:30px;
+  padding-left:30px;
+}
 
 #node-info li{
-	margin-left:0.25em;
+  margin-left:0.25em;
 }
 
 
-#errors { 
-	
+#errors {
+
    color:white;
- 
+
    max-width: 100%;
 
-	padding:10px;     
-	box-shadow:3px 3px 7px #0f0f0f;
-	background: #7abcff; 
-	 -moz-border-radius: 10px;
-	border-radius: 10px;   
+  padding:10px;
+  box-shadow:3px 3px 7px #0f0f0f;
+  background: #7abcff;
+   -moz-border-radius: 10px;
+  border-radius: 10px;
 
-	padding-left:100px;
-	
-	background: #ff3019; /* Old browsers */
-	background: -moz-linear-gradient(top,  #ff3019 0%, #cf0404 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff3019), color-stop(100%,#cf0404)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* IE10+ */
-	background: linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-9 */
-	
-	margin-bottom:20px;
-	
-} 
+  padding-left:100px;
 
-#error_details { 
-	clear:both;
-    width:500px;
-	background:#7abcff;
-	margin-left:10px;       
-	box-shadow:1px 1px 3px #0f0f0f;  
-	padding-top:12px; 
-	padding-bottom:5px;
+  background: #ff3019; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ff3019 0%, #cf0404 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff3019), color-stop(100%,#cf0404)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* IE10+ */
+  background: linear-gradient(top,  #ff3019 0%,#cf0404 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-9 */
+
+  margin-bottom:20px;
 
 }
-        
+
+#error_details {
+  clear:both;
+    width:500px;
+  background:#7abcff;
+  margin-left:10px;
+  box-shadow:1px 1px 3px #0f0f0f;
+  padding-top:12px;
+  padding-bottom:5px;
+
+}
+
 
 #runlistform {
-//	width:700px; 
-//	height:300px;
-	margin:0 auto;
-	
+//  width:700px;
+//  height:300px;
+  margin:0 auto;
+
 }
-
-//#itemscontainer {
-//	width:280px;  
-//    margin-bottom:20px;
-//    float:left;
-//}
-//
-//#runlistcontainer {
-//	float:right;
-//}
-//
-//.list-header {
-//
-//padding:10px;     
-//box-shadow:3px 3px 7px #0f0f0f;
-//background: #7abcff; 
-// -moz-border-radius: 10px;
-//border-radius: 10px;  
-//float:left; 
-//width:100%;
-//                      
-//
-//	
-//}   
-//
-//#roles, #recipes, #run-list {
-//clear:both;
-//
-//background:#7abcff;
-//margin-left:10px;       
-//box-shadow:1px 1px 3px #0f0f0f;  
-//padding-top:20px; 
-//padding-bottom:5px;  
-//height:100px;
-//}    
-//
-//
-//#roles, #recipes {
-//margin-bottom:20px; 
-//width:280px;  
-// 	
-//}     
-//
-//#run-list {
-//	height:300px;
-//	width:300px; 	
-//}
-// 
-//#roles ul, #recipes ul {
-//min-height:50px;                      
-//}
-//#run-list ul {
-//min-height:150px;	
-//}
-//     
-
-//#run-list li, #roles li, #recipes li {	
-//	 width: 170px;
-//	 box-shadow:1px 1px 1px #0f0f0f;
-//	 -moz-border-radius: 10px;
-//	 border-radius: 10px;
-//	 
-//	 background:#60ABF8; 
-//	 margin: 0 auto;
-//	margin-bottom:10px; 
-//}     
 
 
 
 
 #runlistcontainer{
-	float:left;   
-//	margin-right:80px;
-	width:400px; 
-    margin-left:20px;
-	margin-right:20px;
-	margin-bottom:20px; 
-	height:100%; 
-}  
+  float:left;
+//  margin-right:80px;
+  width:400px;
+    margin-left:5px;
+  margin-right:20px;
+  margin-bottom:20px;
+  height:100%;
+
+
+}
+
+#runlistseparator {
+  float:left;
+  background: url("change.png") no-repeat scroll center top;
+  width:95px;
+  height:115px;
+//  margin-top:50px;
+
+}
 
 li.recipe {
-	background: url("recipe.png") no-repeat scroll 5px center #60ABF8 !important; 
-}  
+  background: url("recipe.png") no-repeat scroll 5px center #60ABF8 !important;
+}
 
 li.role {
-	background: url("role.png") no-repeat scroll 5px center #60ABF8 !important; 
-}  
+  background: url("role.png") no-repeat scroll 5px center #60ABF8 !important;
+  display:none;
+}
+
+li.recipe, li.role, li.run-list {
+  cursor:move;
+}
 
 li.recipe span, li.role span, li.run-list span{
-	margin-left:30px;
+  margin-left:30px;
+
+
 }
+
+
+.dataTables_filter {
+  padding:5px;
+  float:right;
+}
+
+.fg-toolbar {
+  padding: 5px;
+}
+
+.dataTables_info {
+  float: left;
+  color:#333333;
+}
+.dataTables_paginate {
+  float: right
+}
+
+.dataTables_paginate span {
+  margin-right: 3px;
+}
+
+
+span.fg-button {
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    margin: 0 3px;
+    padding: 2px 5px;
+}
+
+.dataTables_wrapper .fg-toolbar.ui-toolbar.ui-widget-header.ui-corner-tl.ui-corner-tr.ui-helper-clearfix {
+  background: none;
+  border:none;
+  color: black;
+}
+
+th.ui-state-default {
+  background: #7ABCFF !important;
+  color:#333333 !important;
+}
+
+//.ui-state-default .ui-icon {
+//    background-image: url("images/ui-icons_2e83ff_256x240.png") !important;
+//}
+
+.tablesorter {
+  border-collapse: none;
+  margin-bottom:2px;
+}
+
+.tablesorter thead th,
+.tablesorter span {
+  color: white;
+}
+
+
 
 

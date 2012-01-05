@@ -1,212 +1,329 @@
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope. 
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
+ *= require jquery.facebox
+ *= require_tree .
 */
 
 #user-panel {
-	float:right;
-	margin-right:2%;   
-	margin-top: 2px;
+  float:right;
+  margin-right:2%;
+  margin-top: 2px;
 }
 
-#search { 
-	float:right; 
-	margin-right:2%;
-/*	margin-bottom:10px;*/
-	}  
-#search	input {
-		border:none;  
-		background: url("search.gif") no-repeat scroll left center white;
-		padding-left:16px;
-	}
-        
+#search {
+  float:right;
+  margin-right:2%;
+/*  margin-bottom:10px;*/
+  }
+#search  input {
+    border:none;
+    background: url("search.gif") no-repeat scroll left center white;
+    padding-left:16px;
+  }
 
 
-  
+
+
 #nav {
-	padding-bottom: 8px;
+  padding-bottom: 8px;
     padding-top: 8px;
 }
 #nav  ul {
-		list-style:none;
-/*		margin-top:6px; */
-		margin-left:7%;
-	} 
+    list-style:none;
+/*    margin-top:6px; */
+    margin-left:7%;
+  }
 #nav  ul  li{
-			float:left;
-			text-decoration:none;  
-			margin-right:10px;
-			border-left:1px solid black;
-			padding-left:20px;  
+      float:left;
+      text-decoration:none;
+      margin-right:10px;
+      border-left:1px solid black;
+      padding-left:20px;
 
-			}
-			
+      }
+
 #nav  ul  li.last {
-			  	border-right:1px solid black;
-				padding-right:20px;  
-			}
-			
-#nav  ul  li.active a{
-				color:black !important;
-				text-shadow:1px 1px 2px #FAFAFA; 
-			}
+        border-right:1px solid black;
+        padding-right:20px;
+      }
 
-			
+#nav  ul  li.active a{
+        color:white !important;
+        text-shadow:1px 1px 2px #333333;
+      }
+
+
 #nav  ul  li a{
-				color:white !important; 
-			    text-transform: uppercase;  
-				text-shadow:2px 2px 2px #000000;
-		      }
-		
+        color:#333333 !important;
+          text-transform: uppercase;
+        text-shadow:1px 1px 1px #CECECE;
+          }
+
 #nav  ul  li a:hover {
-				color:black !important;
-				text-shadow:1px 1px 1px #FAFAFA;
-			}    
-			
-			
-#topnav h1 {float:left;}         
+        color:white !important;
+        text-shadow:1px 1px 1px #333333;
+      }
+
+
+#topnav h1 {float:left;}
 
 #box-border {
-	float:left;   
-	margin-right:40px;
-	min-width:180px; 
-	max-width:200px; 
-	margin-bottom:20px;
-}  
+  float:left;
+  margin-right:40px;
+  min-width:180px;
+  max-width:200px;
+  margin-bottom:20px;
+}
 
 #node-border {
-	float:left;   
-	margin-right:20px;
-	margin-bottom:20px;
+  float:left;
+  margin-right:20px;
+  margin-bottom:20px;
 }
 
 .box {
-	  width: 280px;
-	  height:70px;
-	padding:10px;     
-	box-shadow:3px 3px 7px #0f0f0f;
-	 -moz-border-radius: 10px;
-	border-radius: 10px;   
-	float:left;  
-	margin-right:50px;   
-	background-color:#60abf8;
+    width: 280px;
+    height:70px;
+  padding:10px;
+  box-shadow:3px 3px 7px #0f0f0f;
+   -moz-border-radius: 10px;
+  border-radius: 10px;
+  float:left;
+  margin-right:50px;
+  background-color:#7ABCFF;
+  color: #333333;
 }
-   
+
 .box ul {
-	float:right;
-	width:150px; 
+  float:right;
+  width:150px;
 }
 
 .small {
-  height:20px;  
-}  
+  height:20px;
+}
 
 
 
-.small_box {  
-/*	  width: 180px;*/
-	  height:20px;
-	padding:10px;     
-	box-shadow:3px 3px 7px #0f0f0f;
-	 -moz-border-radius: 10px;
-	border-radius: 10px;   
-	float:left;  
-	margin-right:50px;   
-	background-color:#60abf8;    
-	width:100%;
-	padding-right:0;
+.small_box {
+/*    width: 180px;*/
+    height:10px;
+  padding: 5px 0 10px 10px;
+  box-shadow:3px 3px 7px #0f0f0f;
+   -moz-border-radius: 10px;
+  border-radius: 5px;
+  float:left;
+  margin-right:50px;
+  background-color:#7ABCFF;
+  width:100%;
+  padding-right:0;
 
 }
 
 
-.small_box.on { 
-     background: url("small_on.png") no-repeat scroll 8px center #60ABF8 !important; 	
-	 }                          
+.small_box.on {
+     background: url("small_on.png") no-repeat scroll 8px center #7ABCFF !important;
+   }
 
-.small_box.off { 
-	background: url("small_off.png") no-repeat scroll 8px center #60ABF8 !important;  
-	}
+.small_box.off {
+  background: url("small_off.png") no-repeat scroll 8px center #7ABCFF !important;
+  }
 
 .small_box.error {
-	background: url("small_error.png") no-repeat scroll 8px center #60ABF8 !important;  
+  background: url("small_error.png") no-repeat scroll 8px center #7ABCFF !important;
 }
 
-.box_info ul li.on { 
-     background: url("mini_on.png") no-repeat scroll 8px center #60ABF8 !important; 	
-	 }    
+.box_info ul li.on {
+     background: url("mini_on.png") no-repeat scroll 8px center #7ABCFF !important;
+   }
 
-.small_box ul {       
-	margin-left:70px;  
-	padding:0;  
-	margin-right:0;
-/*	width:100px;*/
+.small_box ul {
+  margin-left:70px;
+  padding:0;
+  margin-right:0;
+/*  width:100px;*/
 }
-      
+
 .toggle ul li{
-	float:left;
-}    
+  float:left;
+}
 
 .ui-icon {
-	background-image: url("ui-icons_d8e7f3_256x240.png") !important;
+  background-image: url("ui-icons_d8e7f3_256x240.png") !important;
     height: 16px;
     width: 16px;
     background-repeat: no-repeat;
     display:block;
-    text-indent: -99999px;   
-	float:right;
+    text-indent: -99999px;
+  float:right;
 }
 
-.box_info { 
-	background:#7abcff;
-	box-shadow:1px 1px 3px #0f0f0f;  
-	padding-top:10px; 
-	padding-bottom:5px;  
-	margin-top:40px;     
-/*	width:95%;       */
-	margin-left:10px;  
-	
+.box_info {
+  background:#7abcff;
+  box-shadow:1px 1px 3px #0f0f0f;
+  padding-top:10px;
+  padding-bottom:5px;
+  margin-top:25px;
+/*  width:95%;       */
+  margin-left:10px;
 
-}   
+
+}
 
 .box_info ul{
-     margin: 0 6%; 
-  	 min-height:20px; 
-	 padding-bottom:10px;
-/*	 min-height:100%; */
-}  
+     margin: 0 6%;
+     min-height:20px;
+   padding-bottom:10px;
+/*   min-height:100%; */
+}
 
 .box_info li {
 /*  width: 170px;*/
   box-shadow:1px 1px 1px #0f0f0f;
   -moz-border-radius: 3px;
   border-radius: 3px;
- 
-  background:#60ABF8; 
+
+  background:#60ABF8;
   margin: 0 auto;
-  margin-bottom:5px;  
+  margin-bottom:5px;
 }
 
 .box_info ul li a{
-     margin-left:30px;   
-}  
-
-.box_info ul li.on { 
-     background: url("mini_on.png") no-repeat scroll 8px center #60ABF8 !important; 	
-	 }
-	
-.box_info ul li.off { 
-     background: url("mini_off.png") no-repeat scroll 8px center #60ABF8 !important; 	
-	 }
-	
-.box_info ul li.error { 
-     background: url("mini_error.png") no-repeat scroll 8px center #60ABF8 !important; 	
-	 }  
-
-.toggable {
-	display:none;
+     margin-left:30px;
 }
 
+.box_info ul li.on {
+     background: url("mini_on.png") no-repeat scroll 8px center #60ABF8 !important;
+   }
+
+.box_info ul li.off {
+     background: url("mini_off.png") no-repeat scroll 8px center #60ABF8 !important;
+   }
+
+.box_info ul li.error {
+     background: url("mini_error.png") no-repeat scroll 8px center #60ABF8 !important;
+   }
+
+.toggable {
+  display:none;
+}
+
+form a {
+  color: #000;
+}
+
+form p label {
+  font-size: 12px;
+  width: 135px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.dataTables_filter input[type=text],
+form p input[type=text],
+form p input[type=url],
+form p input[type=number],
+form p textarea {
+  border: 1px solid #809db9;
+  font-size: 12px;
+  padding: 2px 4px;
+  vertical-align: top;
+  width: 130px;
+}
+
+
+form p input.error[type=text],
+form p input.error[type=url],
+form p input.error[type=number] {
+  border: 1px solid red !important;
+  background:none !important;
+}
+
+label.error {
+  color:red;
+  background:none !important;
+  padding-left: 10px;
+  width: 250px !important;
+
+}
+
+form p input[type=radio] {
+  margin-left: 10px;
+}
+
+form p input[type=button] {
+  background-color: #66a0d0;
+  color: #fff;
+  border: none;
+  margin-left: 10px;
+  font-weight: bold;
+  padding: 4px;
+}
+
+form select {
+  vertical-align: top;
+}
+
+label.required {
+}
+
+i.hint {
+  font-size: 10px !important;
+  font-style: italic;
+  margin-top: -10px;
+}
+
+p.long input
+{
+  width:420px !important;
+}
+
+p.long textarea {
+  width:420px !important;
+  height:100px;
+}
+
+p.giant input{
+   width:700px !important;
+}
+
+p.medium input{
+  width:200px !important;
+}
+
+
+
+p.short input{
+  width:75px !important;
+}
+
+.hidden{
+  display:none;
+  visibility: hidden;
+}
+
+
+a.add {
+  float:right;
+}
+
+
+input[type=submit] {
+  background-color: #7ABCFF;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  padding: 4px;
+}
+
+/*.ui-widget {
+    font-size: 95% !important;
+  }   */
+
+.dataTables_wrapper {
+  margin-bottom:10px;
+}
 

@@ -1,0 +1,12 @@
+%h1= "Edit user #{@user.username}"
+
+#attr_base
+  - @user.skel.each do |attribute|
+    = raw render_base_attribute(attribute)
+
+= form_tag home_user_path(@user.username), :method => :put, :id => "edit_user" do
+  - @user.skel.each do |attribute|
+    = raw render_fieldset(attribute, @user.databag.send(attribute[0]))
+
+
+  = submit_tag

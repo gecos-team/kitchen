@@ -1,24 +1,23 @@
 / #node-border
-/   #user 
+/   #user
 /     %ul
 /       %li
-/         %h3= home_user.username 
-/ 
+/         %h3= home_user.username
+/
 /   #user_nodes
 /     %ul#node_list
 /       - home_user.nodes.each do |node|
-/         %li.on=link_to node[:name], node_path(node[:name]), :alt => node["hostname"]         
-        
-        
-        
+/         %li.on=link_to node[:name], node_path(node[:name]), :alt => node["hostname"]
+
+
+
 #box-border
-  .small_box#user.toggle  
+  .small_box#user.toggle
     %ul
       %li
-        %strong=home_user.username  
-    %span.ui-icon.ui-icon-triangle-1-e 
+        %strong=link_to home_user.username, edit_home_user_path(home_user.username)
+    %span.ui-icon.ui-icon-triangle-1-e
   .box_info.toggable
     %ul
-      - home_user.nodes.each do |node|   
-        %li.on=link_to node[:name], node_path(node[:name]), :alt => node["hostname"] 
-  
+      - home_user.nodes.each do |node|
+        %li.on=link_to node[:name], node_path(node[:name]), :alt => node["hostname"]

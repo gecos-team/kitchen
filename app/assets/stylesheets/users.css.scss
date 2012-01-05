@@ -6,68 +6,90 @@
 //  width: 280px;
 //  height:70px;
 //
-//padding:10px;     
+//padding:10px;
 //box-shadow:3px 3px 7px #0f0f0f;
 //
-////border: 1px solid #4c4c4c;   
+////border: 1px solid #4c4c4c;
 //
 //
-//background: #7abcff; 
+//background: #7abcff;
 //
 //
 // -moz-border-radius: 5px;
 //border-radius: 5px;
 //
 //
-//float:left;  
-//margin-right:50px;    
+//float:left;
+//margin-right:50px;
 
 background: url("small_user.png") no-repeat scroll left center #60abf8 !important;
-	
-}   
+
+}
 
 //#user ul {
-//	float:right;
-//	width:150px; 
-//}     
+//  float:right;
+//  width:150px;
+//}
 
-  
+
 
 #user_nodes ul{
-	margin-top:5px;
+  margin-top:5px;
 }
-#node_list li {	
-	 width: 170px;
-	 box-shadow:1px 1px 1px #0f0f0f;
-	 -moz-border-radius: 10px;
-	 border-radius: 10px;
-	 margin-bottom:10px; 
-	 background:#60ABF8;
+#node_list li {
+   width: 170px;
+   box-shadow:1px 1px 1px #0f0f0f;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   margin-bottom:10px;
+   background:#60ABF8;
 }
 
 
-#node_list li.on { 
-     background: url("mini_on.png") no-repeat scroll 8px center #60ABF8 !important; 	
-	 }                          
+#node_list li.on {
+     background: url("mini_on.png") no-repeat scroll 8px center #60ABF8 !important;
+   }
 
-#node_list li.off { 
-	background: url("mini_off.png") no-repeat scroll 8px center #60ABF8 !important;  
-	}
+#node_list li.off {
+  background: url("mini_off.png") no-repeat scroll 8px center #60ABF8 !important;
+  }
 
 #node_list li.error {
-	background: url("mini_error.png") no-repeat scroll 8px center #60ABF8 !important;  
-}   
+  background: url("mini_error.png") no-repeat scroll 8px center #60ABF8 !important;
+}
 
 #node_list li a {
-	margin-left:40px;
-}   
+  margin-left:40px;
+}
 
-#user_nodes { 
-	clear:both;
-	width:280px;
-	background:#7abcff;
-	margin-left:10px;       
-	box-shadow:1px 1px 3px #0f0f0f;  
-	padding-top:10px; 
-	padding-bottom:5px;
+#user_nodes {
+  clear:both;
+  width:280px;
+  background:#7abcff;
+  margin-left:10px;
+  box-shadow:1px 1px 3px #0f0f0f;
+  padding-top:10px;
+  padding-bottom:5px;
+}
+
+
+//form p {
+//  padding: 7px 0;
+//  font-size: 12px;
+//}
+
+
+
+form#edit_user div {
+  width:100%;
+}
+
+
+form#edit_user div#fields p {
+  float:left;
+  margin-right:10px;
+}
+
+input.disabled {
+  background-color:#CCCCCC;
 }

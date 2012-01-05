@@ -1,0 +1,7 @@
+%h1 Groups
+
+/ #groups
+/   = render @roles
+#groups
+  = render :partial => "groups", :locals => {:roles => @roles}
+

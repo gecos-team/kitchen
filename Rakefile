@@ -5,4 +5,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake/dsl_definition'
 
-Ironchef::Application.load_tasks
+Kitchen::Application.load_tasks

@@ -1,0 +1,22 @@
+%p.long
+  = f.label :name, "Name"
+  = f.text_field :name
+%p.long
+  = f.label :description, "Description"
+  = f.text_area :description
+
+%table.full.tablesorterdom
+  %thead
+    %th
+    %th Name
+    %th Hostname
+    %th Ip
+    %th Users
+  %tbody
+    - @nodes.each do |node|
+      %tr{:class => cycle("odd", "even")}
+        %td= check_box "role[nodes]", node.name ,:checked => ('checked' if @role.node_list.include?(node.name))
+        %td= node.name
+        %td= node.hostname
+        %td= node.ip
+        %td= node.users

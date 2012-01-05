@@ -1,5 +1,4 @@
-
-Ironchef::Application.routes.draw do
+Kitchen::Application.routes.draw do
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -57,21 +56,39 @@ Ironchef::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'     
-  
+  # match ':controller(/:action(/:id(.:format)))'
+
   root :to => 'nodes#index'
-  
-  resources :search
-  
-  resources :nodes        
-  resources :clients
-  resources :cookbooks
-  resources :home_users
-  resources :groups
-  
-  namespace :admin do    
-    root :to => 'home#index'
-    resources :groups
+
+  # resources :search
+
+  resources :nodes do
+      # get 'check_recipe', :on => :collection
+      member do
+        get 'advanced_data'
+        get 'check_data'
+        post 'clean_data'
+      end
   end
-  
+  #resources :clients
+
+  resources :cookbooks do
+    get 'check_recipe', :on => :collection
+  end
+
+  resources :home_users
+
+  resources :roles do
+    member do
+      get 'advanced_data'
+      get 'check_data'
+      post 'clean_data'
+    end
+  end
+
+  namespace :admin do
+    root :to => 'home#index'
+    resources :roles
+  end
+
 end
