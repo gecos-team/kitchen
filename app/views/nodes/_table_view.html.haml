@@ -1,14 +1,15 @@
 .float_right
-  = link_to "Normal view", nodes_path
+  = link_to "Normal view", nodes_path if !defined?(normal)
 
-%table.full
+%table.full.tablesorter
   %thead
     %th Name
     %th Hostname
     %th Ip
   %body
     - nodes.each do |node|
-      %tr{:class => cycle("odd", "even")}
-        %td= link_to node.name, node_path(node.name) 
+      %tr
+        %td= link_to node.name, node_path(node.name)
         %td= node.hostname
-        %td= node.ip                                  
+        %td= node.ip
+

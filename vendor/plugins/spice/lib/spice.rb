@@ -37,35 +37,35 @@ module Spice
     def default_host
       @default_host ||= "localhost"
     end
-    
+
     def default_port
       @default_port ||= "4000"
     end
-    
+
     def default_scheme
       @default_scheme ||= "http"
     end
-    
+
     def server_url
       @server_url || default_server_url
     end
-    
+
     def url_path
       @url_path || default_url_path
     end
-    
+
     def host
       @host || default_host
     end
-    
+
     def port
       @port || default_port
     end
-    
+
     def scheme
       @scheme || default_scheme
     end
-    
+
     def client_name
       @client_name
     end
@@ -88,7 +88,7 @@ module Spice
     def default_chef_version
       @default_chef_version ||= "0.10.4"
     end
-    
+
     def chef_version
       @chef_version || default_chef_version
     end
@@ -137,13 +137,13 @@ module Spice
     #   path ||= "~/.chef/"
     #   knife = File.exist?("~/.chef/knife.rb") && File.expand_path(path + "~/.chef/knife.rb")
     #   client = File.exist?("/etc/chef/client.rb") && File.expand_path("/etc/chef/client.rb")
-    #   
+    #
     #   if knife
     #     raw_config = IO.read(knife)
     #   elsif
     #     raw_config = IO.read(client)
     #   end
-    #   
+    #
     #   @values = {}
     #   raw_config.each_line do |line|
     #     if line =~ /^chef_server_url.*/
@@ -155,7 +155,7 @@ module Spice
     #     end
     #   end
     # end
-    
+
     private
 
     def assert_valid_key_format!(raw_key)
@@ -166,7 +166,7 @@ module Spice
         raise ArgumentError, msg
       end
     end
-    
+
     def parse_line(line)
       line.strip.split.last.gsub("'", "")
     end

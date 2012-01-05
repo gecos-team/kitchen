@@ -1,0 +1,2 @@
+class ChefException < Exception
+end

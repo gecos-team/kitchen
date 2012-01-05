@@ -3,56 +3,56 @@
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}/
     %title Gecos-Kitchen
-    / add your meta tags here    
+    / add your meta tags here
     = stylesheet_link_tag "application"
     = javascript_include_tag :application
     = csrf_meta_tag
   %body
     #header
       #topnav
-        / %h1 Gecos-Kitchen                                        
-      #nav  
+        / %h1 Gecos-Kitchen
+      #nav
         %ul
-          - isadmin = (current_user and current_user.admin?) 
-          = active_menu_to "groups", groups_path, :active => {:when => :self} 
-          = active_menu_to "Workstations", nodes_path, :active => {:when => :self} 
-          = active_menu_to "users", home_users_path, :active => {:when => :self}, :class => ("last" if !isadmin) 
+          - isadmin = (current_user and current_user.admin?)
+          = active_menu_to "groups", roles_path, :active => {:when => :self}
+          = active_menu_to "Workstations", nodes_path, :active => {:when => :self}
+          = active_menu_to "users", home_users_path, :active => {:when => :self}, :class => ("last" if !isadmin)
           - if isadmin
             = active_menu_to "ADMIN", admin_root_path, :active => {:when => :self}, :class => "last"
-   
-          
- 
-        #user-panel 
+
+
+
+        #user-panel
           - if user_signed_in?
 
             Conected as:
             = current_user.email
             |
-            = link_to "Logout", destroy_user_session_path, :method => :delete  
+            = link_to "Logout", destroy_user_session_path, :method => :delete
           - else
             = link_to "Login", new_user_session_path
-        #search
-          = form_tag(search_index_path(@search), {:method => :get}) do
-            = search_field_tag :id
-            
+        / #search
+        /   = form_tag(search_index_path(@search), {:method => :get}) do
+        /     = search_field_tag :id
 
-    #main2
+
+    #main
       #col1
-        #col1_content.clearfix   
+        #col1_content.clearfix
 
       #col2
-        #col2_content.clearfix  
+        #col2_content.clearfix
 
       #col3
-        #col3_content.clearfix   
+        #col3_content.clearfix
           %p.notice= notice
           %p.alert= alert
           = content_tag :h1, yield(:title) if show_title?
-          = yield    
-          
+          = yield
+
           / add your content here
         / IE Column Clearing
         #ie_clearing  
     / begin: #footer
-    / #footer       
+    / #footer
 

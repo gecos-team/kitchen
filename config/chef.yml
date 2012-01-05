@@ -1,21 +1,21 @@
 # development:
 #     uri: http://chef:4000/
 #     client_name: gecos-kitchen
-#     keyfile: config/chef/kitchen.pem    
+#     keyfile: config/chef/kitchen.pem
 development:
     uri: http://chef:4000/
     client_name: k2
-    keyfile: config/chef/k2.pem      
+    keyfile: config/chef/k2.pem
+    couchdb: http://chef:5984/chef/
 
 production:
     uri: http://chef:4000/
-    client_name: k2
-    keyfile: config/chef/k2.pem   
-    
+    client_name: kk
+    keyfile: config/chef/kk.pem
+    couchdb: http://chef:5984/chef/
+
 pre:
     uri: https://10.240.194.220/
     client_name: kitchen2
     keyfile: config/chef/kitchen2.pem
-    
-    
-     
+    couchdb: http://chef:5984/chef/

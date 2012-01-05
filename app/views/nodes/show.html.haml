@@ -1,31 +1,31 @@
 %h1 Workstation info
-  
-- if @node.error?   
+
+- if @node.error?
   #errors
-    = @node.error 
+    = @node.error
 / #error_details
 /   = @node.normal["last_run_status_bt"]
 
-#node-info{:class => @node.error? ? "error" : @node.status} 
+#node-info{:class => @node.error? ? "error" : @node.status}
   %ul
     %h3 Info
-    %li 
+    %li
       %strong Name:
       = @node.name
     %li
       %strong Hostname:
-      = @node.hostname  
+      = @node.hostname
   %ul
     %h3 Users
     -if !@node.users.blank?
       - @node.users.each do |user|
         %li= user
-        / %li= link_to user, home_user_path(user)     
+        / %li= link_to user, home_user_path(user)
   %ul
     %h3 Net
     %li
       %strong Ip:
-      = @node.ip 
+      = @node.ip
     %li
       %stronc Mac:
       = @node.automatic["macaddress"]
@@ -33,25 +33,29 @@
     %h3 Others
     %li
       %strong Uptime
-      = @node.automatic["uptime"]   
-    
-.clear  
+      = @node.automatic["uptime"]
+
+.clear
 
 #tabs
   %ul
-    %li= link_to  "Run List", "#tabs-1" 
-    %li= link_to "Workstation details", "#tabs-2" 
-    - if @node.error?   
+    %li= link_to  "Run List", "#tabs-1"
+    / %li= link_to "Workstation details", "#tabs-2"
+    %li= link_to "Groups", "#tabs-2"
+    - if @node.error?
       %li= link_to "Errors", "#tabs-3"
-    
-  #tabs-1
-    = render :partial => "run_list"  
-    .clear   
-    
-  #tabs-2
-    = raw @node.to_html  
-  - if @node.error?  
-    #tabs-3.ui-state-error.ui-corner-all   
-      %pre.ui-state-error.ui-corner-all= @node.normal["last_run_status_bt"]  
 
-  
+  #tabs-1
+    = render :partial => "run_list"
+    .clear
+
+  #tabs-2
+    = render :partial => "roles/groups", :locals => {:roles => @node.roles}
+
+  / #tabs-2
+  /   = raw @node.to_html
+  - if @node.error?
+    #tabs-3.ui-state-error.ui-corner-all
+      %pre.ui-state-error.ui-corner-all= @node.normal["last_run_status_bt"]
+
+

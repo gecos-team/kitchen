@@ -1,11 +1,11 @@
 #box-border
-  .small_box#node.toggle{:class => node.error? ? "error" : node.status , :title => node.error}  
+  .small_box#node.toggle{:class => node.error? ? "error" : node.status , :title => node.error}
     %ul
       %li
-        %strong=link_to node.name, node_path(node.name)    
-    %span.ui-icon.ui-icon-triangle-1-e 
-  .box_info.toggable  
+        %strong=link_to node.name, node_path(node.name)
+    %span.ui-icon.ui-icon-triangle-1-e
+  .box_info.toggable
     %ul
-      - (node.run_list - group_run_list).each do |rl|
-        %li= normalize_item(rl)    
-                                         
+      - (node.extended_run_list).each do |rl|
+        %li.item{:class => rl.type}
+          %span= rl.name
