@@ -69,7 +69,6 @@ $(document).ready ->
   $("#tabs-2").children("ul").treeview
       collapsed: true
 
-  $("a[rel*=facebox]").facebox()
 
   $("table.tablesorter").dataTable
     "bJQueryUI": true
@@ -77,3 +76,20 @@ $(document).ready ->
     "iDisplayLength": 20
     "sPaginationType": "full_numbers"
 
+
+  $("table.tablesorterdom").dataTable
+    "bJQueryUI": true
+    "bLengthChange": false
+    "iDisplayLength": 20
+    "sPaginationType": "full_numbers"
+    "aaSorting": [ [0,'asc'], [1,'asc'] ]
+    "aoColumns": [
+      { "sSortDataType": "dom-checkbox" },
+      null,
+      null,
+      null,
+      null,
+      ]
+
+
+  $("a[rel*=facebox]").facebox()
