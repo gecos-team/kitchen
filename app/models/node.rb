@@ -1,7 +1,7 @@
 class Node < ChefBase
 
   def before_save
-    @run_list = (["recipe[ohai]"] + @run_list + Cookbook.find("usermanagement").recipes_list).flatten.uniq.compact
+    @run_list = (["recipe[ohai-gecos]"] + @run_list + Cookbook.find("usermanagement").recipes_list).flatten.uniq.compact
   end
 
   [:patform, :hostname, :ip].each do |method|

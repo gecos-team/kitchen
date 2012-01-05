@@ -2,7 +2,7 @@ class Role < ChefBase
   allowed_attributes :name, :chef_type, :json_class, :default_attributes, :description, :run_list, :override_attributes
 
   def before_save
-    @run_list = (["recipe[ohai]"] + @run_list).flatten.uniq.compact
+    @run_list = (["recipe[ohai-gecos]"] + @run_list).flatten.uniq.compact
   end
 
   def initialize(attributes={})
