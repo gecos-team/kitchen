@@ -1,6 +1,6 @@
 .box#group
   %ul
-    %li= link_to role.name, role_path(role)
+    %li= link_to role.name.gsub('_',' '), role_path(role)
     %li
       Members:
       = role.nodes.size
