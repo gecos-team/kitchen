@@ -47,7 +47,7 @@ class NodesController < ApplicationController
   def advanced_data
     cookbook, recipe = params[:recipe].split("::")
     @skel = Cookbook.skel_for(cookbook)
-    @defaults = Cookbook.initialize_attributes_for(recipe)
+    @defaults = Cookbook.initialize_attributes_for(cookbook)
     @data = @defaults.merge(@node.normal)
     respond_to do |format|
       format.html { render :layout => false}
