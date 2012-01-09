@@ -195,6 +195,10 @@ th.ui-state-default {
   color: white;
 }
 
+td.node-ok {
+  background: url("node-ok.png") no-repeat right center;
+}
 
-
-
+td.node-error {
+  background: url("node-error.png") no-repeat right center;
+}

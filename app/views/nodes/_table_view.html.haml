@@ -3,13 +3,15 @@
 
 %table.full.tablesorter
   %thead
+    %th &#10003;/&#10007;
     %th Name
     %th Hostname
     %th Ip
   %body
     - nodes.each do |node|
       %tr
+        %td{:class => node.error? ? "node-error" : "node-ok", :title => node.error}
+          %span.hidden= node.error? ? "error" : "ok"
         %td= link_to node.name, node_path(node.name)
         %td= node.hostname
         %td= node.ip
-
