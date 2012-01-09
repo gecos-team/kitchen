@@ -27,7 +27,7 @@ class HomeUser < ChefBase
 
   def self.all
     all = []
-    Node.search("users:*").each do |node|
+    Node.search("users_username:*").each do |node|
       node_info = {:name => node.name, :hostname => node.hostname, :errors => node.error?}
       node.automatic["users"].map{|x| all << self.new(x.merge!({"nodes" => [node_info]}))}
     end
