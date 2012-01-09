@@ -3,10 +3,9 @@
 / #groups
 /   = render @roles
 
-.float_right
-  = link_to "New group", new_admin_role_path()
-.clear
 #groups
+  .float_left
+    = link_to "New group", new_admin_role_path()
   %table.full.tablesorter
     %thead
       %th Name
