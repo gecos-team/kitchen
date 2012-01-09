@@ -1,6 +1,9 @@
 %p.long
   = f.label :name, "Name"
-  = f.text_field :name, :value => @role.name.gsub('_',' ')
+  - if @role.name.nil?
+    = f.text_field :name
+  - else
+    = f.text_field :name, :value => @role.name.gsub('_',' ')
 %p.long
   = f.label :description, "Description"
   = f.text_area :description
