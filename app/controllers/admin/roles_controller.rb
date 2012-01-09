@@ -13,6 +13,8 @@ class Admin::RolesController < ApplicationController
   def create
     params[:role][:node_list] = params[:role][:nodes].reject {|key,value| value == "0" }.keys
     params[:role].delete(:nodes)
+    #HACK: Roles doesn't support spaces, so they are replaced by _
+    params[:role][:name].gsub!(/ /,'_')
     @role = Role.new(params[:role])
     @role.assign_nodes(params[:role][:node_list])
     @role.save
@@ -30,6 +32,7 @@ class Admin::RolesController < ApplicationController
   def update
     @role = Role.find(params[:id])
     params[:role][:node_list] = params[:role][:nodes].reject {|key,value| value == "0" }.keys
+    params[:role][:name].gsub!(/ /,'_')
     @role.update_attributes(params[:role])
     redirect_to role_path(@role)
   end

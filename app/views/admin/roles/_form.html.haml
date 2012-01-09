@@ -1,6 +1,6 @@
 %p.long
   = f.label :name, "Name"
-  = f.text_field :name
+  = f.text_field :name, :value => @role.name.gsub('_',' ')
 %p.long
   = f.label :description, "Description"
   = f.text_area :description
@@ -19,4 +19,4 @@
         %td= node.name
         %td= node.hostname
         %td= node.ip
-        %td= node.users
+        %td= node.users.join(', ') unless node.users.nil?
