@@ -19,4 +19,4 @@
         %td= node.name
         %td= node.hostname
         %td= node.ip
-        %td= node.users
+        %td= node.users.join(', ') unless node.users.nil?
