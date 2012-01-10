@@ -1,0 +1,14 @@
+%h1 Printers
+
+#printers
+  .float_left
+    = link_to "New printer", "" #new_admin_printer_path
+  %table.full.tablesorter
+    %thead
+      %th Name
+      %th Description
+    %body
+      - @printers.each do |role|
+        %tr{:class => cycle("odd", "even")}
+          %td= link_to role.name.gsub('_',' '), edit_admin_role_path(role.name)
+          %td= role.nodes.size
