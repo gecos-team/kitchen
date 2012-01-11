@@ -1,7 +1,7 @@
 #node-border
-  .box#node{:class => node.error? ? "error" : node.status , :title => node.error}  
+  .box#node{:class => node.error? ? "error" : node.status , :title => node.error}
     %ul
       %li
-        %h3=link_to node.name, node_path(node.name)    
-      %li= node.hostname 
-      %li= node.ip  
+        %h3=link_to node.name, node_path(node.name)
+      %li= node.hostname
+      %li= node.ipaddress

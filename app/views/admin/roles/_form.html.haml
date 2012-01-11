@@ -21,5 +21,5 @@
         %td= check_box "role[nodes]", node.name ,:checked => ('checked' if @role.node_list.include?(node.name))
         %td= node.name
         %td= node.hostname
-        %td= node.ip
+        %td= node.ipaddress
         %td= node.users.join(', ') unless node.users.nil?

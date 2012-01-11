@@ -4,7 +4,7 @@ class Node < ChefBase
     @run_list = (["recipe[ohai-gecos]"] + @run_list + Cookbook.find("usermanagement").recipes_list).flatten.uniq.compact
   end
 
-  [:patform, :hostname, :ip].each do |method|
+  [:patform, :hostname, :ipaddress].each do |method|
    define_method method do
       self.automatic[method.to_s]
    end
