@@ -20,8 +20,8 @@
     -if !@node.users.blank?
       = @node.users.join ", "
       /- @node.users.each do |user|
-        /%li= user
-        / %li= link_to user, home_user_path(user)
+      / %li= user
+      / %li= link_to user, home_user_path(user)
   %ul.net
     %h3 Net
     %li
