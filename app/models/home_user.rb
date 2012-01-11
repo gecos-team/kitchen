@@ -31,7 +31,6 @@ class HomeUser < ChefBase
       node_info = {:name => node.name, :hostname => node.hostname, :errors => node.error?}
       node.automatic["users"].map{|x| all << self.new(x.merge!({"nodes" => [node_info]}))}
     end
-    return all.first if all.size == 1
     all
   end
 
