@@ -1,0 +1,22 @@
+- unless params[:action] == "new" || @printer.valid?
+  %div{:id => :errors}= f.error_messages
+
+%p.long
+  = f.label :name, "Name", :class => :required
+  = f.text_field :name, :value => @printer.name.gsub('_',' ')
+
+%p.long
+  = f.label :make, "Make", :class => :required
+  = f.select :make, @makes
+
+%p.long
+  = f.label :model, "Model", :class => :required
+  = f.select :model, []
+
+%p.long
+  = f.label :uri, "URI", :class => :required
+  = f.text_field :uri
+
+%p.long
+  = f.label :ppd, "PPD"
+  = f.file_field :ppd
