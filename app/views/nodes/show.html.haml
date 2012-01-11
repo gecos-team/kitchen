@@ -7,7 +7,7 @@
 /   = @node.normal["last_run_status_bt"]
 
 #node-info{:class => @node.error? ? "error" : @node.status}
-  %ul
+  %ul.names
     %h3 Info
     %li
       %strong Name:
@@ -15,13 +15,13 @@
     %li
       %strong Hostname:
       = @node.hostname
-  %ul
+  %ul.users
     %h3 Users
     -if !@node.users.blank?
       - @node.users.each do |user|
         %li= user
         / %li= link_to user, home_user_path(user)
-  %ul
+  %ul.net
     %h3 Net
     %li
       %strong Ip:
@@ -29,7 +29,7 @@
     %li
       %stronc Mac:
       = @node.automatic["macaddress"]
-  %ul
+  %ul.other
     %h3 Others
     %li
       %strong Uptime
