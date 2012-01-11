@@ -5,3 +5,6 @@
 /log/*
 /tmp
 /config/chef/*.pem
+config/chef.yml
+config/chef/kitchen.pem
+config/database.yml
