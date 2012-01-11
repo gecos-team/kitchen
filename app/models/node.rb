@@ -6,7 +6,7 @@ class Node < ChefBase
 
   [:patform, :hostname, :ip].each do |method|
    define_method method do
-      self.automatic["method"]
+      self.automatic[method.to_s]
    end
   end
 
