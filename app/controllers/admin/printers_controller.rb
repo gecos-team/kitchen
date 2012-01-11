@@ -12,7 +12,7 @@ class Admin::PrintersController < ApplicationController
 
   def create
     @printer = Printer.new(params[:printer])
-    if @printer.valid?
+    if @printer.valid? and @printer.create
       redirect_to admin_printers_path
     else
       # Do not enclose fields with errors in a div.field_with_errors
@@ -21,6 +21,9 @@ class Admin::PrintersController < ApplicationController
         html_tag
       end
       @makes = Databag.find("printers").value.keys.sort
+     if (make = params[:printer][:make]).present?
+        @models = Databag.find("printers/#{make}").value.keys.reject{ |k| k == "id" }.sort
+      end
       render :action => :new
     end
   end

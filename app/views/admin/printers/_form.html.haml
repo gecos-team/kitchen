@@ -7,11 +7,11 @@
 
 %p.long
   = f.label :make, "Make", :class => :required
-  = f.select :make, @makes
+  = f.select :make, @makes, :include_blank => true
 
 %p.long
   = f.label :model, "Model", :class => :required
-  = f.select :model, []
+  = f.select :model, @models || [], :include_blank => true
 
 %p.long
   = f.label :uri, "URI", :class => :required
