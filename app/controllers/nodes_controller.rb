@@ -49,6 +49,9 @@ class NodesController < ApplicationController
     @skel = Cookbook.skel_for(cookbook)
     @defaults = Cookbook.initialize_attributes_for(cookbook)
     @data = @defaults.merge(@node.normal)
+    unless (wizard = Cookbook.wizard_name(cookbook)).nil?
+      return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
+    end
     respond_to do |format|
       format.html { render :layout => false}
       format.js { render :layout => false }
