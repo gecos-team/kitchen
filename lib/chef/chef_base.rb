@@ -18,7 +18,7 @@ class ChefBase
   def initialize(attributes = {})
     attributes.each_pair { |key, value|
       metaclass.send :attr_accessor, key.to_s.gsub("?","")
-      send "#{key.gsub("?","")}=".to_sym, value
+      send "#{key.to_s.gsub("?","")}=".to_sym, value
     }
     @@attributes = attributes
     @new_record = true

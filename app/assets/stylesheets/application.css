@@ -270,6 +270,11 @@ form select {
 label.required {
 }
 
+label.required:after {
+  color: #BB0000;
+  content: " *";
+}
+
 i.hint {
   font-size: 10px !important;
   font-style: italic;
