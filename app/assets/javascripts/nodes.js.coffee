@@ -93,3 +93,8 @@ $(document).ready ->
 
 
   $("a[rel*=facebox]").facebox()
+
+  $('table.tree').treeTable
+    expandable: true
+  $('span.expander').click ->
+    $('tr#' + $(this).attr('toggle')).toggleBranch()

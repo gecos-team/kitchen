@@ -327,3 +327,10 @@ input[type=submit] {
   margin-bottom:10px;
 }
 
+th.first {
+  min-width:50px;
+}
+
+tbody tr.expanded { background-color:#7ABCFF; }
+
+
