@@ -46,12 +46,13 @@ class Cookbook < ChefBase
 
   def self.is_advanced_recipe?(recipe)
     cookbook_name, recipe_name = recipe.split("::")
+    recipe_name = "default" if recipe_name.blank?
     cookbook = Cookbook.find(cookbook_name)
     return false if cookbook.blank?
     cookbook_attributes = cookbook.versions.first.metadata["attributes"]
     included_recipes = cookbook.versions.first.metadata["attributes"].map {|x,y| y["recipes"]}.flatten.uniq.map{|x| x.split("::")[1] == recipe_name}
     return false if cookbook_attributes.blank? or cookbook_name == "usermanagement"
-    return true if included_recipes.include?(true) or (recipe_name.blank? and !cookbook_attributes.blank?)
+    return true if included_recipes.include?(true) or (recipe_name.blank? and (!cookbook_attributes.blank? or !included_recipes.include?(true)))
   end
 
   def self.wizard_name(recipe)
