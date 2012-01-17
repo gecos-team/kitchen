@@ -8,7 +8,7 @@ def render_base_attribute(field, parent_name = "[databag]")
 
     out << "<div id = #{field_title}_base class='hidden'>"
     out << "<div id = 'fields'>"
-    field[1][:attributes].each do |x|
+    field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
       out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name)
     end
     out << "</div>"
@@ -31,7 +31,7 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
     data[field[0]].each do |value|
       out << "<div id = #{field_title}_#{attr_index}>"
       out << "<div id = 'fields'>"
-      field[1][:attributes].each do |x|
+      field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name)
       end
 
@@ -44,7 +44,7 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
   else
 
-  field[1][:attributes].each do |x|
+  field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
     out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name)
   end
 end
