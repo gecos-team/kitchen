@@ -49,6 +49,7 @@ end
 end
 
 def render_attribute(key,properties,data = "",index = nil, parent_name = "[databag]")
+   input_class = ""
    size = case data.size
    when 1..10
      out = "<p class = 'short'>"
@@ -63,8 +64,8 @@ def render_attribute(key,properties,data = "",index = nil, parent_name = "[datab
    end
 
    display_label = properties["display_name"]
-   display_label += "* " if properties["required"]
-   input_class = "required" if properties["required"]
+   display_label += "* " if properties["required"] == "required"
+   input_class = "required" if properties["required"] == "required"
 
    if (data == "" and !properties["default"].blank?)
      data = properties["default"]
