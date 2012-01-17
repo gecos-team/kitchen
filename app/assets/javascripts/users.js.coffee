@@ -42,13 +42,6 @@ $(document).ready ->
         integer:
           numeric: true
           integer: true
-    # submitHandler: (form) ->
-    #   $("input.disabled").attr("disabled", "disabled")
-    #   $(this).ajaxSubmit()
-    #   return false
-
-  $("input.disabled").click () ->
-    $(this).removeClass("disabled")
 
 
 ` function clone_attribute(attribute){
@@ -56,7 +49,7 @@ $(document).ready ->
     fieldset = $("#"+attribute);
     field = $("#"+attribute+"_base");
     clone = field.clone();
-    size = Number($("#shares").children("div:not(.clear)").last().attr("id").split("_").pop())+1
+    size = Number($("#"+attribute).children("div:not(.clear)").last().attr("id").split("_").pop())+1
 
 
     clone.find('input').each(function() {

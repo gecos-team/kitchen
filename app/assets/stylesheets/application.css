@@ -324,6 +324,10 @@ input[type=submit] {
   padding: 4px;
 }
 
+.lock_icon {
+  padding-left:10px;
+}
+
 /*.ui-widget {
     font-size: 95% !important;
   }   */
@@ -338,4 +342,7 @@ th.first {
 
 tbody tr.expanded { background-color:#7ABCFF; }
 
+#facebox .content {
+  width:500px !important;
+}
 

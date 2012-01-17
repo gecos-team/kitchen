@@ -49,8 +49,9 @@ class Cookbook < ChefBase
     cookbook = Cookbook.find(cookbook_name)
     return false if cookbook.blank?
     cookbook_attributes = cookbook.versions.first.metadata["attributes"]
+    included_recipes = cookbook.versions.first.metadata["attributes"].map {|x,y| y["recipes"]}.flatten.uniq.map{|x| x.split("::")[1] == recipe_name}
     return false if cookbook_attributes.blank? or cookbook_name == "usermanagement"
-    return true if cookbook_attributes.keys.map{|x| x.split("/")[0] == recipe_name}.include?(true) or (recipe_name.blank? and !cookbook_attributes.blank?)
+    return true if included_recipes.include?(true) or (recipe_name.blank? and !cookbook_attributes.blank?)
   end
 
   def self.wizard_name(recipe)
@@ -74,16 +75,16 @@ class Cookbook < ChefBase
     end
   end
 
-  def self.skel_for(recipe)
-    self.find(recipe).versions.first.grouped_attributes
+  def self.skel_for(cookbook, recipe, filter = true)
+    self.find(cookbook).versions.first.grouped_attributes("#{cookbook}::#{recipe}", filter)
   end
 
-  def self.multiple_in_skel_for(recipe)
-    self.find(recipe).versions.first.multiple_attributes
+  def self.multiple_in_skel_for(cookbook, recipe)
+    self.find(cookbook).versions.first.multiple_attributes
   end
 
-  def self.initialize_attributes_for(recipe, defaults = false)
-    Cookbook.find(recipe).versions.first.initialize_attributes(defaults)
+  def self.initialize_attributes_for(cookbook, recipe, defaults = false)
+    Cookbook.find(cookbook).versions.first.initialize_attributes("#{cookbook}::#{recipe}", defaults)
   end
 
 end

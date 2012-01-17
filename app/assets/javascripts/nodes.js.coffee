@@ -16,11 +16,29 @@ $(document).ready ->
           link = ui.item.find("a[rel*=facebox]")
           link.facebox()
           link.click()
-          $(document).bind 'afterClose.facebox', ->
-            $.getJSON (url+"/check_data?recipe="+recipe), (data_check) ->
-              if data_check is true
-                ui.sender.sortable('cancel')
-                link.remove()
+          $(".close_image").bind 'click', ->
+            jQuery(document).trigger('close.facebox')
+            ui.sender.sortable('cancel')
+            link.remove()
+            $(this).unbind("click")
+            $("#facebox").remove(".popup")
+            false
+          $("#default_attributes").live 'change', ->
+            inputs = $(this).next("form").find("input[type!='hidden'][type!='submit']")
+            if $(this).attr("class") == "unlock"
+               inputs.attr("disabled", "disabled")
+               $(this).removeClass("unlock")
+            else
+              inputs.removeAttr("disabled")
+              $(this).addClass("unlock")
+              false
+          false
+
+          # $(document).bind 'afterClose.facebox', ->
+          #   $.getJSON (url+"/check_data?recipe="+recipe), (data_check) ->
+          #     if data_check is true
+          #       ui.sender.sortable('cancel')
+          #       link.remove()
 
       # recipe = ui.item.text().trim()
       #   $.getJSON ("/nodes/check_recipe?recipe="+recipe), (data) ->

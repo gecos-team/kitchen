@@ -35,11 +35,11 @@ class HomeUser < ChefBase
   end
 
   def skel
-    Cookbook.skel_for("usermanagement")
+    Cookbook.skel_for("usermanagement", "usermanagement", false)
   end
 
   def multiple_in_skel
-    Cookbook.multiple_in_skel_for("usermanagement")
+    Cookbook.multiple_in_skel_for("usermanagement", "usermanagement", false)
   end
 
 end
