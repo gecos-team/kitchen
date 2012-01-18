@@ -48,10 +48,10 @@ class Printer
     end
     Spice::DataBag.create_item(:name => "available_printers",
                                :id => self.name.gsub(" ", "_"),
+                               :uri => self.uri,
                                :make => self.make,
                                :model => self.model,
                                :ppd => self.ppd,
-                               :uri => self.uri,
                                :ppd_uri => self.ppd_uri)
     true
   end

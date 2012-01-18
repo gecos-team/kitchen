@@ -12,17 +12,22 @@ class Admin::PrintersController < ApplicationController
   end
 
   def create
-    @printer = Printer.new(params[:printer].except(:ppd))
+    @printer = Printer.new(params[:printer].except(:ppd, :ppd_file))
+    make = params[:printer][:make]
+    model = params[:printer][:model]
     if @printer.valid?
-      if params[:printer][:ppd].present?
-        make = params[:printer][:make]
-        model = params[:printer][:model]
-        basename = PPDUpload.save(params[:printer][:ppd], make, model)
+      if params[:printer][:ppd_file].present?
+        basename = PPDUpload.save(params[:printer][:ppd_file], make, model)
         @printer.ppd = basename
         @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
         @printer.create
       else
-        # - if there is no PPD, use the one defined in the "printers" databag
+        printer = Databag.find("printers/#{make}").value[model]
+        if printer["recommended_ppd"].present?
+          @printer.ppd = printer["recommended_ppd"]
+          @printer.ppd_uri = PPDUpload.ppd_uri(@printer.ppd, make, model)
+        end
+        @printer.create
       end
       redirect_to admin_printers_path
     else
@@ -34,16 +39,18 @@ class Admin::PrintersController < ApplicationController
       databag = Databag.find("printers")
       @makes = databag.empty? ? [] : databag.value.keys.sort
       if (make = params[:printer][:make]).present?
-        databag = Databag.find("printers/#{make}")
-        @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
+        if (model = params[:printer][:model]).present?
+          databag = Databag.find("printers/#{make}")
+          @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
+        end
       end
       render :action => :new
     end
   end
 
   # Returns the options for the model combo
-  def show
-    make = params[:id]
+  def models
+    make = params[:make]
     @models = Databag.find("printers/#{make}").value.keys.reject{ |k| k == "id" }.sort
     render :layout => false
   end

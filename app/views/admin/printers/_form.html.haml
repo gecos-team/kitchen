@@ -6,17 +6,18 @@
   = f.text_field :name, :value => @printer.name.gsub('_',' ')
 
 %p.long
-  = f.label :make, "Make", :class => :required
-  = f.select :make, @makes, :include_blank => true
-
-%p.long
-  = f.label :model, "Model", :class => :required
-  = f.select :model, @models || [], :include_blank => true
-
-%p.long
   = f.label :uri, "URI", :class => :required
   = f.text_field :uri
 
 %p.long
-  = f.label :ppd, "PPD"
-  = f.file_field :ppd
+  = f.label :make, "Make", :class => :required
+  = f.select :make, @makes, :include_blank => "Please select:"
+
+%p.long
+  = f.label :model, "Model", :class => :required
+  = f.select :model, @models || [], :include_blank => "Please select:"
+
+%p.long
+  = f.label :ppd_file, "Upload other PPD"
+  = f.file_field :ppd_file
+  %small (Will use the default PPD if left blank)
