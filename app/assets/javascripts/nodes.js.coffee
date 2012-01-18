@@ -23,6 +23,7 @@ $(document).ready ->
             $(this).unbind("click")
             $("#facebox").remove(".popup")
             false
+          $('#facebox_overlay').unbind("click")
           $("#default_attributes").live 'change', ->
             inputs = $(this).next("form").find("input[type!='hidden'][type!='submit']")
             if $(this).attr("class") == "unlock"
@@ -111,6 +112,7 @@ $(document).ready ->
 
 
   $("a[rel*=facebox]").facebox()
+  $('#facebox_overlay').unbind("click")
 
   $('table.tree').treeTable
     expandable: true

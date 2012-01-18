@@ -25,10 +25,14 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
   out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
 
+  sorted_attributes = field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}
+
   if !field[1][:principal].blank?
     attr_index = 0
-    data[field[0]] = data[field[0]].values if data[field[0]].class.name == "Has"
-    data[field[0]].each do |value|
+    subattribute = field[1][:principal].keys.first.split("/").last
+    subattribute_data = data[subattribute]
+    subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
+    subattribute_data.each do |value|
       out << "<div id = #{field_title}_#{attr_index}>"
       out << "<div id = 'fields'>"
       field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
@@ -43,8 +47,7 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
     # out << "<div id = #{field_title}_fill></div>"
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
   else
-
-  field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
+  sorted_attributes.each do |x|
     out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name)
   end
 end
@@ -88,7 +91,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
     field_id = parent_name+ field_id
 
    if !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], data))
+     out << select_tag(field_id, options_for_select(['',0]+properties["choice"], data), {:disabled => ("disabled" if disabled)})
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :disabled => ("disabled" if disabled)})
