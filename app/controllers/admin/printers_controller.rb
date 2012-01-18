@@ -49,6 +49,15 @@ class Admin::PrintersController < ApplicationController
     end
   end
 
+  def edit
+    databag = Databag.find("available_printers/#{params[:id]}")
+    @printer = Printer.instantiate(databag.empty? ? {} : databag.value)
+    databag = Databag.find("printers")
+    @makes = databag.empty? ? [] : databag.value.keys.sort
+    databag = Databag.find("printers/#{@printer.make}")
+    @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
+  end
+
   # Returns the options for the model combo
   def models
     make = params[:make]

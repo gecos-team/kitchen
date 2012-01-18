@@ -1,0 +1,6 @@
+%h1 Edit printer
+
+= form_for [:admin, @printer], :url => admin_printers_path do |f|
+  = render :partial => "form", :locals => {:f => f}
+  = submit_tag "Save"
+  = link_to "Delete", [:admin, @printer], :method => :delete, :confirm => "Are you sure?"

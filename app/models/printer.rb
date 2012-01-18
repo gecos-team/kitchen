@@ -13,9 +13,9 @@ class Printer
     end
 
     available = Databag.find("available_printers")
-    if !available.empty? and available.value.keys.include? printer.name.gsub(' ', '_')
-        errors.add(:name, I18n.t("activerecord.errors.messages.taken"))
-      end
+    if printer.new_record? and !available.empty? and available.value.keys.include? printer.name.gsub(' ', '_')
+      errors.add(:name, I18n.t("activerecord.errors.messages.taken"))
+    end
   end
   validates_presence_of :name, :make, :model, :uri
 
@@ -33,13 +33,25 @@ class Printer
 
   # Required for validations
   def new_record?
-    true
+    @new_record
   end
 
   def initialize(attributes={})
     { "name" => "" }.merge(attributes).each_pair { |k, v|
-      self.send "#{k}=", v
+      next unless ["id", "name", "make", "model", "ppd", "uri", "ppd_uri"].include? k.to_s
+      if k.to_s == "id"
+        self.name = v
+      else
+        self.send "#{k}=", v
+      end
     }
+    @new_record = true
+  end
+
+  def self.instantiate(attributes)
+    object = new(attributes)
+    object.instance_variable_set :@new_record, false
+    object
   end
 
   def create
@@ -53,6 +65,7 @@ class Printer
                                :model => self.model,
                                :ppd => self.ppd,
                                :ppd_uri => self.ppd_uri)
+    @new_record = false
     true
   end
 end

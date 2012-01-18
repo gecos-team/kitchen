@@ -3,7 +3,7 @@
 
 %p.long
   = f.label :name, "Name", :class => :required
-  = f.text_field :name, :value => @printer.name.gsub('_',' ')
+  = f.text_field :name, :value => @printer.name.gsub('_',' '), :disabled => !@printer.new_record?
 
 %p.long
   = f.label :uri, "URI", :class => :required
