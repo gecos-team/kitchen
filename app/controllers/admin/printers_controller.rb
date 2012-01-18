@@ -7,7 +7,8 @@ class Admin::PrintersController < ApplicationController
 
   def new
     @printer = Printer.new
-    @makes = Databag.find("printers").value.keys.sort
+    databag = Databag.find("printers")
+    @makes = databag.empty? ? [] : databag.value.keys.sort
   end
 
   def create
