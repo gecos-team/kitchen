@@ -2,7 +2,8 @@ class Printer
   include ActiveRecord::Validations
 
   validate do |printer|
-    if Databag.find("available_printers").value.keys.include? printer.name.gsub(' ', '_')
+    available = Databag.find("available_printers")
+    if !available.empty? and available.value.keys.include? printer.name.gsub(' ', '_')
       errors.add(:name, I18n.t("activerecord.errors.messages.taken"))
     end
   end

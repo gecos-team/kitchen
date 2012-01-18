@@ -21,7 +21,8 @@ class Admin::PrintersController < ApplicationController
       ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
         html_tag
       end
-      @makes = Databag.find("printers").value.keys.sort
+      databag = Databag.find("printers")
+      @makes = databag.empty? ? [] : databag.value.keys.sort
      if (make = params[:printer][:make]).present?
         @models = Databag.find("printers/#{make}").value.keys.reject{ |k| k == "id" }.sort
       end
