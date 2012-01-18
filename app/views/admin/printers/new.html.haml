@@ -1,0 +1,5 @@
+%h1 New printer
+
+= form_for [:admin, @printer], :url => admin_printers_path do |f|
+  = render :partial => "form", :locals => {:f => f}
+  = submit_tag "Create"

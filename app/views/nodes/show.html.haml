@@ -54,7 +54,8 @@
     = render :partial => "roles/groups", :locals => {:roles => @node.roles}
 
   #tabs-4
-    = raw @node.to_html
+    = raw build_tree('attrs', @node)
+
   - if @node.error?
     #tabs-3.ui-state-error.ui-corner-all
       %pre.ui-state-error.ui-corner-all= @node.normal["last_run_status_bt"]

@@ -46,23 +46,46 @@ class Cookbook < ChefBase
 
   def self.is_advanced_recipe?(recipe)
     cookbook_name, recipe_name = recipe.split("::")
+    recipe_name = "default" if recipe_name.blank?
     cookbook = Cookbook.find(cookbook_name)
     return false if cookbook.blank?
     cookbook_attributes = cookbook.versions.first.metadata["attributes"]
+    included_recipes = cookbook.versions.first.metadata["attributes"].map {|x,y| y["recipes"]}.flatten.uniq.map{|x| x.split("::")[1] == recipe_name}
     return false if cookbook_attributes.blank? or cookbook_name == "usermanagement"
-    return true if cookbook_attributes.keys.map{|x| x.split("/")[0] == recipe_name}.include?(true) or (recipe_name.blank? and !cookbook_attributes.blank?)
+    return true if included_recipes.include?(true) or (recipe_name.blank? and (!cookbook_attributes.blank? or !included_recipes.include?(true)))
   end
 
-  def self.skel_for(recipe)
-    self.find(recipe).versions.first.grouped_attributes
+  def self.wizard_name(recipe)
+    cookbook_name, recipe_name = recipe.split("::")
+    cookbook = Cookbook.find(cookbook_name)
+    return nil if cookbook.blank?
+    attributes = cookbook.versions.first.metadata["attributes"]
+    unless (wizard = attributes.find{ |name, meta| !meta["wizard"].nil? }).nil?
+      # wizard is now something like:
+      # ["printers/printers", {
+      #    "required"=>"required",
+      #    "calculated"=>false,
+      #    "wizard"=>"printers",
+      #    "default"=>[],
+      #    "choice"=>[],
+      #    "type"=>"array",
+      #    "recipes"=>["printers::printers"],
+      #    "display_name"=>"Printers: printers to setup",
+      #    "description"=>"List of printer names"}]
+      wizard[1]["wizard"]
+    end
   end
 
-  def self.multiple_in_skel_for(recipe)
-    self.find(recipe).versions.first.multiple_attributes
+  def self.skel_for(cookbook, recipe, filter = true)
+    self.find(cookbook).versions.first.grouped_attributes("#{cookbook}::#{recipe}", filter)
   end
 
-  def self.initialize_attributes_for(recipe, defaults = false)
-    Cookbook.find(recipe).versions.first.initialize_attributes(defaults)
+  def self.multiple_in_skel_for(cookbook, recipe)
+    self.find(cookbook).versions.first.multiple_attributes
+  end
+
+  def self.initialize_attributes_for(cookbook, recipe, defaults = false)
+    Cookbook.find(cookbook).versions.first.initialize_attributes("#{cookbook}::#{recipe}", defaults)
   end
 
 end
