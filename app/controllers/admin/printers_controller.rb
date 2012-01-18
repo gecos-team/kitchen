@@ -2,7 +2,8 @@ class Admin::PrintersController < ApplicationController
   before_filter :require_admin
 
   def index
-    @printers = [] # Printer.all
+    databag = Databag.find("available_printers")
+    @printers = databag.empty? ? [] : databag.value
   end
 
   def new
