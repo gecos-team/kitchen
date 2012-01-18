@@ -35,7 +35,7 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [], use_def
     subattribute_data.each do |value|
       out << "<div id = #{field_title}_#{attr_index}>"
       out << "<div id = 'fields'>"
-      field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
+      sorted_attributes.each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data)
       end
 
@@ -56,6 +56,7 @@ end
 end
 
 def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]", use_default_data = false)
+
    input_class = ""
 
    if !properties["default"].blank?
@@ -94,18 +95,38 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    end
     field_id = parent_name+ field_id
 
-   if !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(['',0]+properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
+
+
+   if !properties["wizzard"].blank?
+     out << render_wizard(field_id,properties,data)
+   elsif !properties["choice"].blank?
+     out << select_tag(field_id, options_for_select(['']+properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
-     # if disabled
-     #   out << image_tag("lock.png", :class => "lock_icon")
-     # end
+
+
    end
    # out << "</p>"
    out << "<br/><i class = 'hint'>#{properties['description']}</i></p>"
 
 end
+
+
+def render_wizard(field_id,properties,data = "")
+
+    case wizzard = properties["wizzard"]
+    when "selector"
+      render_selector_wizzard(field_id, data, properties["source"])
+    end
+
+end
+
+
+def render_selector_wizzard(field_id, data, source)
+  options = Databag.find(source).value.keys
+  select_tag(field_id, options_for_select(options, data))
+end
+
 
 end
