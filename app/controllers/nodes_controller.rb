@@ -25,8 +25,6 @@ class NodesController < ApplicationController
 
   def update
 
-    # debugger
-
     if (!params[:node].blank? and !params[:node][:normal].blank?)
       @node.normal = @node.normal.merge(params[:node][:normal])
     elsif !params[:for_node].blank?
@@ -52,6 +50,9 @@ class NodesController < ApplicationController
     @skel = Cookbook.skel_for(cookbook, recipe)
     @defaults = Cookbook.initialize_attributes_for(cookbook, recipe)
     @data = @defaults.merge(@node.normal)
+    @use_default_data = @node.normal["default"].blank? ? false : @node.normal["default"][params[:recipe]] == "1"
+    @input_class = "default"
+    @input_class += " lock" if !@use_default_data.blank?
     unless (wizard = Cookbook.wizard_name(cookbook)).nil?
       return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
     end
