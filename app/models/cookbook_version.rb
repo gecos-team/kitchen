@@ -4,13 +4,20 @@ class CookbookVersion < ChefBase
     Cookbook.all.map(&:versions)
   end
 
-  def grouped_attributes
+  def grouped_attributes(recipe = nil, filter = true)
     grouped = {}
-    metadata["attributes"].each_pair do |key,value|
-      cookbook = key.split("/")[0]
+    if !recipe.blank? and filter == true
+      attributes = metadata["attributes"].delete_if{|x,y| !y["recipes"].include?(recipe)}
+    else
+      attributes = metadata["attributes"]
+    end
+
+    attributes.each_pair do |key,value|
+      cookbook, attribute, subattribute = key.split("/")
       grouped[cookbook] = {:principal => {}, :attributes => []} if grouped[cookbook].nil?
 
       if value["type"] =="array"
+      #if !subattribute.blank?
         grouped[cookbook][:principal] = {key, value}
       else
         grouped[cookbook][:attributes]<< ({key, value})
@@ -24,15 +31,15 @@ class CookbookVersion < ChefBase
     self.grouped_attributes.select{|x,y| !y[:principal].blank?}.map{|x| x[0]}
   end
 
-  def initialize_attributes(defaults = false)
+  def initialize_attributes(recipe, defaults = false)
     grouped = {}
-    metadata["attributes"].each_pair do |key,value|
+    attributes = metadata["attributes"].delete_if{|x,y| !y["recipes"].include?(recipe)}
+    attributes.each_pair do |key,value|
       cookbook, attribute, subattribute = key.split("/")
       grouped[cookbook] = {} if grouped[cookbook].blank?
-
       if !subattribute.blank?
-        grouped[cookbook][attribute] = {} if grouped[cookbook][attribute].blank?
-        grouped[cookbook][attribute][subattribute] = defaults ? value["default"] : ""
+        grouped[cookbook][attribute] = [{}] if grouped[cookbook][attribute].blank?
+        grouped[cookbook][attribute].first[subattribute] = defaults ? value["default"] : ""
       else
         grouped[cookbook][attribute] = defaults ? value["default"] : ""   if grouped[cookbook][attribute].blank?
       end

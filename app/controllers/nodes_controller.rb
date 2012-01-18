@@ -24,6 +24,9 @@ class NodesController < ApplicationController
   end
 
   def update
+
+    # debugger
+
     if (!params[:node].blank? and !params[:node][:normal].blank?)
       @node.normal = @node.normal.merge(params[:node][:normal])
     elsif !params[:for_node].blank?
@@ -46,9 +49,12 @@ class NodesController < ApplicationController
 
   def advanced_data
     cookbook, recipe = params[:recipe].split("::")
-    @skel = Cookbook.skel_for(cookbook)
-    @defaults = Cookbook.initialize_attributes_for(cookbook)
+    @skel = Cookbook.skel_for(cookbook, recipe)
+    @defaults = Cookbook.initialize_attributes_for(cookbook, recipe)
     @data = @defaults.merge(@node.normal)
+    unless (wizard = Cookbook.wizard_name(cookbook)).nil?
+      return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
+    end
     respond_to do |format|
       format.html { render :layout => false}
       format.js { render :layout => false }

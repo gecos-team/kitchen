@@ -270,6 +270,11 @@ form select {
 label.required {
 }
 
+label.required:after {
+  color: #BB0000;
+  content: " *";
+}
+
 i.hint {
   font-size: 10px !important;
   font-style: italic;
@@ -319,11 +324,25 @@ input[type=submit] {
   padding: 4px;
 }
 
+.lock_icon {
+  padding-left:10px;
+}
+
 /*.ui-widget {
     font-size: 95% !important;
   }   */
 
 .dataTables_wrapper {
   margin-bottom:10px;
+}
+
+th.first {
+  min-width:50px;
+}
+
+tbody tr.expanded { background-color:#7ABCFF; }
+
+#facebox .content {
+  width:500px !important;
 }
 

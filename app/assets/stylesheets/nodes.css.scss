@@ -218,3 +218,22 @@ td.node-ok {
 td.node-error {
   background: url("node-error.png") no-repeat right center;
 }
+
+.treeTable tr.collapsed td .expander {
+    background-image: url("toggle-expand-dark.png");
+}
+
+.treeTable tr.expanded td .expander {
+    background-image: url("toggle-collapse-dark.png");
+}
+
+.treeTable tr td .expander {
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    padding: 0;
+}
+
+span.expander {
+  margin:0 !important;
+}
