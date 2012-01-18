@@ -1,22 +1,29 @@
 module ChefAPI
   def self.connect
     if !@connection
-      configfile = File.join(Rails.root,"config","chef.yml")
-      if File.exists? configfile
-        config = YAML.load_file(configfile)[Rails.env]
-        @couchdb = config["couchdb"]
-        uri = URI.parse(config["uri"])
-        Spice.setup do |s|
-          s.host = uri.host
-          s.port = uri.port
-          s.scheme = uri.scheme
-          s.client_name = config["client_name"]
-          s.key_file = config["keyfile"]
-        end
+      config = configuration
+      @couchdb = config["couchdb"]
+      uri = URI.parse(config["uri"])
+      Spice.setup do |s|
+        s.host = uri.host
+        s.port = uri.port
+        s.scheme = uri.scheme
+        s.client_name = config["client_name"]
+        s.key_file = config["keyfile"]
       end
       Spice.connect!
     end
     @connection = Spice.connection
+  end
+
+  def self.configuration
+    return @config if @config
+    configfile = File.join(Rails.root, "config", "chef.yml")
+    @config = if File.exists? configfile
+                YAML.load_file(configfile)[Rails.env]
+              else
+                {}
+              end
   end
 
   def self.get(*args)

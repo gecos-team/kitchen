@@ -12,8 +12,18 @@ class Admin::PrintersController < ApplicationController
   end
 
   def create
-    @printer = Printer.new(params[:printer])
-    if @printer.valid? and @printer.create
+    @printer = Printer.new(params[:printer].except(:ppd))
+    if @printer.valid?
+      if params[:printer][:ppd].present?
+        make = params[:printer][:make]
+        model = params[:printer][:model]
+        basename = PPDUpload.save(params[:printer][:ppd], make, model)
+        @printer.ppd = basename
+        @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
+        @printer.create
+      else
+        # - if there is no PPD, use the one defined in the "printers" databag
+      end
       redirect_to admin_printers_path
     else
       # Do not enclose fields with errors in a div.field_with_errors
@@ -23,8 +33,9 @@ class Admin::PrintersController < ApplicationController
       end
       databag = Databag.find("printers")
       @makes = databag.empty? ? [] : databag.value.keys.sort
-     if (make = params[:printer][:make]).present?
-        @models = Databag.find("printers/#{make}").value.keys.reject{ |k| k == "id" }.sort
+      if (make = params[:printer][:make]).present?
+        databag = Databag.find("printers/#{make}")
+        @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
       end
       render :action => :new
     end

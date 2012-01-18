@@ -1,21 +1,36 @@
-# development:
-#     uri: http://chef:4000/
-#     client_name: gecos-kitchen
-#     keyfile: config/chef/kitchen.pem
+# uri:           Location of the Chef API server.
+# ppd_uri_base:  Base URI of the printer PPDs.
+#                For example, if ppd_uri_base is https://chef/ppd/ for a
+#                "Generic" printer, model "PCL 6/PCL XL Printer", with a PPD
+#                file "postscript.ppd" the generated URI will be
+#                "https://chef/ppd/Generic/PCL 6_PCL XL Printer/postscript.ppd
+#                (kitchen replaces invalid characters with underscores).
+# ppd_directory: Local directory for printer PPD file uploads.
+# client_name:   Name of the Chef API client.
+# keyfile:       Private key of the chef client.
+# couchdb:       URI of the CouchDB server (optional).
+#                Used for some queries as an alternative to the Solr search
+#                if specified.
 development:
     uri: http://chef:4000/
+    ppd_uri_base: https://chef/ppd
+    ppd_directory: /var/www/ppd
     client_name: k2
     keyfile: config/chef/k2.pem
     couchdb: http://chef:5984/chef/
 
 production:
     uri: http://chef:4000/
+    ppd_uri_base: https://chef/ppd/
+    ppd_directory: /var/www/ppd
     client_name: kk
     keyfile: config/chef/kk.pem
     couchdb: http://chef:5984/chef/
 
 pre:
     uri: https://10.240.194.220/
+    ppd_uri_base: https://chef/ppd/
+    ppd_directory: /var/www/ppd
     client_name: kitchen2
     keyfile: config/chef/kitchen2.pem
     couchdb: http://chef:5984/chef/
