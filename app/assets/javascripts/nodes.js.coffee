@@ -23,14 +23,20 @@ $(document).ready ->
             $(this).unbind("click")
             $("#facebox").remove(".popup")
             false
-          $("#default_attributes").live 'change', ->
-            inputs = $(this).next("form").find("input[type!='hidden'][type!='submit']")
-            if $(this).attr("class") == "unlock"
-               inputs.attr("disabled", "disabled")
-               $(this).removeClass("unlock")
+          $('#facebox_overlay').unbind("click")
+          $(".default").bind 'change', ->
+            inputs = $(this).parents("form").find("input[type!='hidden'][type!='submit'][class != 'default']")
+            if $(this).attr("class") != "default lock"
+               $(this).addClass("lock")
+               for input in inputs
+                 $(input).attr("disabled", "disabled")
+                 $(input).attr("value", $(input).attr("default"))
             else
-              inputs.removeAttr("disabled")
-              $(this).addClass("unlock")
+              $(this).removeClass("lock")
+              for input in inputs
+                $(input).removeAttr("disabled")
+                $(input).attr("value", "")
+
               false
           false
 
@@ -111,6 +117,7 @@ $(document).ready ->
 
 
   $("a[rel*=facebox]").facebox()
+  $('#facebox_overlay').unbind("click")
 
   $('table.tree').treeTable
     expandable: true

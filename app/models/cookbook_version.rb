@@ -13,14 +13,17 @@ class CookbookVersion < ChefBase
     end
 
     attributes.each_pair do |key,value|
-      cookbook, attribute, subattribute = key.split("/")
-      grouped[cookbook] = {:principal => {}, :attributes => []} if grouped[cookbook].nil?
+      # cookbook, attribute, subattribute = key.split("/")
+      cookbook, recipe = recipe.split("::")
+      recipe, attribute, subattribute = key.split("/")
 
+      grouped[attribute] = {:principal => {}, :attributes => [], :recipe => recipe} if grouped[attribute].nil?
+      # debugger
       if value["type"] =="array"
       #if !subattribute.blank?
-        grouped[cookbook][:principal] = {key, value}
+        grouped[attribute][:principal] = {key, value}
       else
-        grouped[cookbook][:attributes]<< ({key, value})
+        grouped[attribute][:attributes]<< ({key, value})
       end
     end
     grouped

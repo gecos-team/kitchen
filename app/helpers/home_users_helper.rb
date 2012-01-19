@@ -18,21 +18,25 @@ def render_base_attribute(field, parent_name = "[databag]")
   out
 end
 
-def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
+def render_fieldset(field,data,parent_name = "[databag]", defaults = [], use_default_data = false)
 
   field_title = field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
 
+  sorted_attributes = field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}
+
   if !field[1][:principal].blank?
     attr_index = 0
-    data[field[0]] = data[field[0]].values if data[field[0]].class.name == "Has"
-    data[field[0]].each do |value|
+    subattribute = field[1][:principal].keys.first.split("/").last
+    subattribute_data = data[subattribute]
+    subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
+    subattribute_data.each do |value|
       out << "<div id = #{field_title}_#{attr_index}>"
       out << "<div id = 'fields'>"
-      field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
-        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name)
+      sorted_attributes.each do |x|
+        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data)
       end
 
       out << "</div>"
@@ -43,17 +47,28 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [])
     # out << "<div id = #{field_title}_fill></div>"
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
   else
-
-  field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
-    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name)
+  sorted_attributes.each do |x|
+    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data)
   end
 end
 
   out << "</fieldset><br/>"
 end
 
-def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]")
+def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]", use_default_data = false)
+
    input_class = ""
+
+   if !properties["default"].blank?
+     default = properties["default"]
+     #input_class += " disabled"
+   end
+
+   if use_default_data
+     data = properties["default"]
+   end
+
+
    size = case data.size
    when 1..10
      out = "<p class = 'short'>"
@@ -71,13 +86,6 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    display_label += "* " if properties["required"] == "required"
    input_class = "required" if properties["required"] == "required"
 
-   if (data == "" and !properties["default"].blank?)
-     data = properties["default"]
-     #input_class += " disabled"
-     disabled = true
-
-   end
-
    out << label_tag(key, display_label)
 
    if attr_index.nil?
@@ -87,18 +95,38 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    end
     field_id = parent_name+ field_id
 
-   if !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], data))
+
+
+   if !properties["wizard"].blank?
+     out << render_wizard(field_id,properties,data)
+   elsif !properties["choice"].blank?
+     out << select_tag(field_id, options_for_select(['']+properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
    else
      input_class += " #{properties["validation"]}"
-     out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :disabled => ("disabled" if disabled)})
-     # if disabled
-     #   out << image_tag("lock.png", :class => "lock_icon")
-     # end
+     out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
+
+
    end
    # out << "</p>"
    out << "<br/><i class = 'hint'>#{properties['description']}</i></p>"
 
 end
+
+
+def render_wizard(field_id,properties,data = "")
+
+    case wizard = properties["wizard"]
+    when "selector"
+      render_selector_wizard(field_id, data, properties["source"])
+    end
+
+end
+
+
+def render_selector_wizard(field_id, data, source)
+  options = Databag.find(source).value.keys
+  select_tag(field_id, options_for_select(options, data))
+end
+
 
 end

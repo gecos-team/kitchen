@@ -6,7 +6,7 @@
 
 = form_tag home_user_path(@user.username), :method => :put, :id => "edit_user" do
   - @user.skel.each do |attribute|
-    = raw render_fieldset(attribute, @user.databag.send(attribute[0]))
+    = raw render_fieldset(attribute, @user.databag.send(attribute[1][:recipe]))
 
 
   = submit_tag

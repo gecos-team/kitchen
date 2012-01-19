@@ -1,28 +1,15 @@
-= javascript_include_tag :users
+= javascript_include_tag :users, :advanced_data
 #attr_base
   - @skel.each do |attribute|
     = raw render_base_attribute(attribute, "[node][normal]")
 
-= check_box_tag "default_attributes", "", true
-Use default
-
 = form_tag node_path(@node.name), :method => :put, :id => "edit_node_attributes", :remote => true do
   - @skel.each do |attribute|
-    = raw render_fieldset(attribute, @data[attribute[0]], "[node][normal]", @defaults)
+    = raw render_fieldset(attribute, @data[attribute[1][:recipe]], "[node][normal]", @defaults, @use_default_data)
 
 
   = submit_tag
 
-
-
-
-/
-/ = javascript_include_tag :users
-/ = form_tag node_path(@node.name), :method => :put, :id => "edit_node_attributes", :remote => true do
-/
-/
-/
-/   - @skel.each do |attribute|
-/     = raw render_fieldset(attribute, @data[attribute[0]], "[node][normal]", @defaults)
-/
-/   = submit_tag
+  #default.float_right
+    = check_box "node[normal][default]", params[:recipe], :checked => ("checked" if !@use_default_data.blank?), :class => @input_class
+    Use default values
