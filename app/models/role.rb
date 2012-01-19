@@ -13,7 +13,6 @@ class Role < ChefBase
       "default_attributes"  => {},
       "description"         => nil,
       "run_list"            => [],
-      "normal"              => {},
       "override_attributes" => {}
     }.merge(attributes)
     super(attributes)
