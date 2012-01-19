@@ -3,7 +3,7 @@ class Admin::PrintersController < ApplicationController
 
   def index
     databag = Databag.find("available_printers")
-    @printers = databag.empty? ? [] : databag.value
+    @printers = databag.empty? ? {} : databag.value
   end
 
   def new
@@ -21,14 +21,14 @@ class Admin::PrintersController < ApplicationController
         basename = PPDUpload.save(params[:printer][:ppd_file], make, model)
         @printer.ppd = basename
         @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
-        @printer.create
+        @printer.create!
       else
         printer = Databag.find("printers/#{make}").value[model]
         if printer["recommended_ppd"].present?
           @printer.ppd = printer["recommended_ppd"]
           @printer.ppd_uri = PPDUpload.ppd_uri(@printer.ppd, make, model)
         end
-        @printer.create
+        @printer.create!
       end
       redirect_to admin_printers_path
     else
@@ -70,7 +70,7 @@ class Admin::PrintersController < ApplicationController
         @printer.ppd = basename
         @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
       end
-      @printer.save
+      @printer.save!
       redirect_to admin_printers_path
     else
       databag = Databag.find("printers")
@@ -79,6 +79,11 @@ class Admin::PrintersController < ApplicationController
       @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
       render :action => :edit
     end
+  end
+
+  def destroy
+    Printer.delete!(params[:id])
+    redirect_to admin_printers_path
   end
 
   # Returns the options for the model combo

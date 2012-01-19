@@ -65,28 +65,45 @@ class Printer
     }
   end
 
-  def create
+  def create!
     if (printers = Databag.find("available_printers")).blank?
       Spice::DataBag.create(:name => "available_printers")
     end
-    Spice::DataBag.create_item(:name => "available_printers",
-                               :id => self.name.gsub(" ", "_"),
-                               :uri => self.uri,
-                               :make => self.make,
-                               :model => self.model,
-                               :ppd => self.ppd,
-                               :ppd_uri => self.ppd_uri)
+    v = Spice::DataBag.create_item(:name => "available_printers",
+                                   :id => self.name.gsub(" ", "_"),
+                                   :uri => self.uri,
+                                   :make => self.make,
+                                   :model => self.model,
+                                   :ppd => self.ppd,
+                                   :ppd_uri => self.ppd_uri)
+    self.class.check_return_value(v)
     @new_record = false
     true
   end
 
-  def save
-    Spice::DataBag.update_item(:name => "available_printers",
-                               :id => self.name.gsub(" ", "_"),
-                               :uri => self.uri,
-                               :make => self.make,
-                               :model => self.model,
-                               :ppd => self.ppd,
-                               :ppd_uri => self.ppd_uri)
+  def save!
+    v = Spice::DataBag.update_item(:name => "available_printers",
+                                   :id => self.name.gsub(" ", "_"),
+                                   :uri => self.uri,
+                                   :make => self.make,
+                                   :model => self.model,
+                                   :ppd => self.ppd,
+                                   :ppd_uri => self.ppd_uri)
+    self.class.check_return_value(v)
+  end
+
+  def self.delete!(id)
+    v = Spice::DataBag.delete_item(:name => "available_printers", :id => id.gsub(" ", "_"))
+    check_return_value(v)
+  end
+
+  private
+
+  def self.check_return_value(value)
+    if value.is_a? String
+      response = Yajl.load value
+      raise ChefException, response["error"].join(", ")
+    end
+    value
   end
 end
