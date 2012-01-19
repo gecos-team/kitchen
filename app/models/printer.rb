@@ -36,6 +36,10 @@ class Printer
     @new_record
   end
 
+  def to_s
+    name
+  end
+
   def initialize(attributes={})
     { "name" => "" }.merge(attributes).each_pair { |k, v|
       next unless ["id", "name", "make", "model", "ppd", "uri", "ppd_uri"].include? k.to_s
@@ -54,6 +58,13 @@ class Printer
     object
   end
 
+  def update_attributes(attributes)
+    attributes.each_pair { |k, v|
+      next unless [ "uri", "make", "model" ].include? k.to_s
+      self.send "#{k}=", v
+    }
+  end
+
   def create
     if (printers = Databag.find("available_printers")).blank?
       Spice::DataBag.create(:name => "available_printers")
@@ -67,5 +78,15 @@ class Printer
                                :ppd_uri => self.ppd_uri)
     @new_record = false
     true
+  end
+
+  def save
+    Spice::DataBag.update_item(:name => "available_printers",
+                               :id => self.name.gsub(" ", "_"),
+                               :uri => self.uri,
+                               :make => self.make,
+                               :model => self.model,
+                               :ppd => self.ppd,
+                               :ppd_uri => self.ppd_uri)
   end
 end

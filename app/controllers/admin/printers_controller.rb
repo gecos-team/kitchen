@@ -58,6 +58,29 @@ class Admin::PrintersController < ApplicationController
     @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
   end
 
+  def update
+    databag = Databag.find("available_printers/#{params[:id]}")
+    @printer = Printer.instantiate(databag.empty? ? {} : databag.value)
+    @printer.update_attributes(params[:printer])
+    if @printer.valid?
+      if params[:printer][:ppd_file].present?
+        make = params[:printer][:make]
+        model = params[:printer][:model]
+        basename = PPDUpload.save(params[:printer][:ppd_file], make, model)
+        @printer.ppd = basename
+        @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
+      end
+      @printer.save
+      redirect_to admin_printers_path
+    else
+      databag = Databag.find("printers")
+      @makes = databag.empty? ? [] : databag.value.keys.sort
+      databag = Databag.find("printers/#{@printer.make}")
+      @models = databag.empty? ? [] : databag.value.keys.reject{ |k| k == "id" }.sort
+      render :action => :edit
+    end
+  end
+
   # Returns the options for the model combo
   def models
     make = params[:make]
