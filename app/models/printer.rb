@@ -18,6 +18,7 @@ class Printer
     end
   end
   validates_presence_of :name, :make, :model, :uri
+  validates_format_of :uri, :with => URI::regexp
 
   attr_accessor :name, :make, :model, :ppd, :uri, :ppd_uri
 
