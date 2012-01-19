@@ -39,9 +39,15 @@ class RolesController < ApplicationController
 
   def advanced_data
     cookbook, recipe = params[:recipe].split("::")
-    @skel = Cookbook.skel_for(cookbook)
-    @defaults = Cookbook.initialize_attributes_for(recipe)
-    @data = @defaults.merge(@role.default_attributes)
+    @skel = Cookbook.skel_for(cookbook, recipe)
+    @defaults = Cookbook.initialize_attributes_for(cookbook, recipe)
+    @data = @defaults.merge(@role.normal)
+    @use_default_data = @role.normal["default"].blank? ? false : @role.normal["default"][params[:recipe]] == "1"
+    @input_class = "default"
+    @input_class += " lock" if !@use_default_data.blank?
+    # unless (wizard = Cookbook.wizard_name(cookbook)).nil?
+    #   return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
+    # end
     respond_to do |format|
       format.html { render :layout => false}
       format.js { render :layout => false }

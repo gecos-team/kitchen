@@ -68,6 +68,7 @@ Kitchen::Application.routes.draw do
         get 'advanced_data'
         get 'check_data'
         post 'clean_data'
+        get 'search_packages'
       end
   end
   #resources :clients
@@ -83,6 +84,7 @@ Kitchen::Application.routes.draw do
       get 'advanced_data'
       get 'check_data'
       post 'clean_data'
+      get 'search_packages'
     end
   end
 

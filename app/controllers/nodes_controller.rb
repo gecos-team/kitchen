@@ -53,9 +53,9 @@ class NodesController < ApplicationController
     @use_default_data = @node.normal["default"].blank? ? false : @node.normal["default"][params[:recipe]] == "1"
     @input_class = "default"
     @input_class += " lock" if !@use_default_data.blank?
-    unless (wizard = Cookbook.wizard_name(cookbook)).nil?
-      return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
-    end
+    # unless (wizard = Cookbook.wizard_name(cookbook)).nil?
+    #   return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
+    # end
     respond_to do |format|
       format.html { render :layout => false}
       format.js { render :layout => false }
@@ -66,6 +66,12 @@ class NodesController < ApplicationController
     @node.clean_advanced_data(params[:recipe])
     render :nothing => true
   end
+
+  def search_packages
+    render :json => @node.search_package("web")
+  end
+
+
 
 
   protected

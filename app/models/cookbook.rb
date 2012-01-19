@@ -81,7 +81,7 @@ class Cookbook < ChefBase
   end
 
   def self.multiple_in_skel_for(cookbook, recipe)
-    self.find(cookbook).versions.first.multiple_attributes
+    self.find(cookbook).versions.first.multiple_attributes("#{cookbook}::#{recipe}")
   end
 
   def self.initialize_attributes_for(cookbook, recipe, defaults = false)

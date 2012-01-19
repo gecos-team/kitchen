@@ -346,3 +346,7 @@ tbody tr.expanded { background-color:#7ABCFF; }
   width:500px !important;
 }
 
+/*input#search_box {
+    background: url("search.gif") no-repeat scroll left center #FFFFFF;
+    padding-left: 20px;
+}       */
