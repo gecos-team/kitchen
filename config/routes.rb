@@ -89,7 +89,10 @@ Kitchen::Application.routes.draw do
   namespace :admin do
     root :to => 'home#index'
     resources :roles
-    resources :printers
+    resources :printers do
+      collection do
+        get 'models'
+      end
+    end
   end
-
 end
