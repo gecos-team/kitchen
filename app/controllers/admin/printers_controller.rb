@@ -73,6 +73,11 @@ class Admin::PrintersController < ApplicationController
       @printer.save!
       redirect_to admin_printers_path
     else
+      # Do not enclose fields with errors in a div.field_with_errors
+      # see http://guides.rubyonrails.org/active_record_validations_callbacks.html#customizing-the-error-messages-html
+      ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+        html_tag
+      end
       databag = Databag.find("printers")
       @makes = databag.empty? ? [] : databag.value.keys.sort
       databag = Databag.find("printers/#{@printer.make}")
