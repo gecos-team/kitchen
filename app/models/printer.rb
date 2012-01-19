@@ -41,7 +41,7 @@ class Printer
   end
 
   def initialize(attributes={})
-    { "name" => "" }.merge(attributes).each_pair { |k, v|
+    attributes.each_pair { |k, v|
       next unless ["id", "name", "make", "model", "ppd", "uri", "ppd_uri"].include? k.to_s
       if k.to_s == "id"
         self.name = v
@@ -49,6 +49,7 @@ class Printer
         self.send "#{k}=", v
       end
     }
+    @name ||= ""
     @new_record = true
   end
 
