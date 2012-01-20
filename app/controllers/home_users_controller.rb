@@ -16,7 +16,7 @@ class HomeUsersController < ApplicationController
 
     #Insert id into json to load
     params[:databag][:id] = @databag.id
-    params[:databag][:username] = @databag.name
+    params[:databag][:username] = @databag.username
 
     debugger
 
