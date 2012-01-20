@@ -94,9 +94,9 @@ class Node < ChefBase
      {:name => "gimp4", :description => "retoque fotografico 44"},
      {:name => "webrick4", :description => "servidor web rapido 44"}]
 
-     databag = Databag.find("sources_list/#{node_repos}").value["packages"]
-
-     node_repos = automatic["sources_list"].keys.first #HACER BUCLE
+     # databag = Databag.find("sources_list/#{node_repos}").value["packages"]
+     #
+     # node_repos = automatic["sources_list"].keys.first #HACER BUCLE
 
 
 
@@ -111,17 +111,21 @@ class Node < ChefBase
       # Add below block for each category
       {
         :header => {
-          :title =>  "Category Title",
-          :num =>  "Number of results",
-          :limit => "Number to display"
+          :title =>  "Search results",
+          :num =>  "2",
+          :limit => "2"
         },
         :data => [
           # Add below block for each result
           {
             :primary => "Title",
             :secondary => "Description (Optional)",
-            :image => "URL (Optional)",
-            :onclick => "JavaScript to execute when clicked (Optional)"
+            :onclick => "append_selected('T1')"
+          },
+          {
+            :primary => "Title2",
+            :secondary => "Description2 (Optional)",
+            :onclick => "append_selected('T2')"
           }
         ]
       }

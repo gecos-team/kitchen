@@ -5,7 +5,7 @@ ul.ss-box{margin:0 !important;padding:0 !important;width:304px;z-index:999999;bo
 div.ss-wrap ul.ss-box{display:block;}
 ul.ss-box li{float:left;width:100%;clear:both;}
 ul.ss-box li, ul.ss-box li *{cursor:pointer;}
-ul.ss-box li.ss-header{height:13px;overflow:hidden;padding:5px 0;background:transparent url(search-header-bg.gif) repeat-x bottom;}
+ul.ss-box li.ss-header{height:13px;overflow:hidden;padding:5px 0;}
 ul.ss-box li.ss-header p.ss-header-text{margin:0 !important;padding:0 0 0 10px !important;float:left;font-size:12px;font-weight:bold;}
 ul.ss-box li.ss-header p.ss-header-limit{margin:0 !important;padding:0 10px 0 0 !important;float:right;font-size:11px;font-weight:normal;}
 ul.ss-box li.ss-result{margin:0 !important;padding:0 !important;border-bottom:1px solid #c5c5c5;}
@@ -14,3 +14,14 @@ ul.ss-box li.ss-result a:hover{background:#cde0ff url(search-item-hover.gif) rep
 ul.ss-box li.ss-result img{margin-right:12px;}
 ul.ss-box li.ss-result p{margin:0 !important;padding:0 !important;color:#444;font-weight:normal;font-size:10px;}
 ul.ss-box li.ss-result p span.ss-result-title{display:inline !important;margin:0 !important;padding:0 !important;font-size:11px;font-weight:bold;color:#222;}
+
+ul.ss-box li.ss-result table {
+  border:none;
+  width:100%;
+}
+
+li.ss-header {
+  margin:0 !important;
+  background-color: #7ABCFF !important;
+  color: white;
+}
