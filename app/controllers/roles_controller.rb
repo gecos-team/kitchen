@@ -13,8 +13,8 @@ class RolesController < ApplicationController
   end
 
   def update
-    if (!params[:role].blank? and !params[:role][:default_attributes].blank?)
-      @role.default_attributes = @role.default_attributes.merge(params[:role][:default_attributes])
+    if (!params[:role].blank? and !params[:role][:override_attributes].blank?)
+      @role.override_attributes = @role.override_attributes.merge(params[:role][:override_attributes])
     elsif !params[:for_node].blank?
       @role.run_list = params[:for_node]
     end
@@ -41,13 +41,10 @@ class RolesController < ApplicationController
     cookbook, recipe = params[:recipe].split("::")
     @skel = Cookbook.skel_for(cookbook, recipe)
     @defaults = Cookbook.initialize_attributes_for(cookbook, recipe)
-    @data = @defaults.merge(@role.normal)
-    @use_default_data = @role.normal["default"].blank? ? false : @role.normal["default"][params[:recipe]] == "1"
+    @data = @defaults.merge(@role.override_attributes)
+    @use_default_data = @role.override_attributes["default"].blank? ? false : @role.override_attributes["default"][params[:recipe]] == "1"
     @input_class = "default"
     @input_class += " lock" if !@use_default_data.blank?
-    # unless (wizard = Cookbook.wizard_name(cookbook)).nil?
-    #   return render :text => Wizard.text(wizard, @node, @skel, @defaults, @data)
-    # end
     respond_to do |format|
       format.html { render :layout => false}
       format.js { render :layout => false }

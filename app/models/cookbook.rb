@@ -55,27 +55,6 @@ class Cookbook < ChefBase
     return true if included_recipes.include?(true) or (recipe_name.blank? and (!cookbook_attributes.blank? or !included_recipes.include?(true)))
   end
 
-  def self.wizard_name(recipe)
-    cookbook_name, recipe_name = recipe.split("::")
-    cookbook = Cookbook.find(cookbook_name)
-    return nil if cookbook.blank?
-    attributes = cookbook.versions.first.metadata["attributes"]
-    unless (wizard = attributes.find{ |name, meta| !meta["wizard"].nil? }).nil?
-      # wizard is now something like:
-      # ["printers/printers", {
-      #    "required"=>"required",
-      #    "calculated"=>false,
-      #    "wizard"=>"printers",
-      #    "default"=>[],
-      #    "choice"=>[],
-      #    "type"=>"array",
-      #    "recipes"=>["printers::printers"],
-      #    "display_name"=>"Printers: printers to setup",
-      #    "description"=>"List of printer names"}]
-      wizard[1]["wizard"]
-    end
-  end
-
   def self.skel_for(cookbook, recipe, filter = true)
     self.find(cookbook).versions.first.grouped_attributes("#{cookbook}::#{recipe}", filter)
   end

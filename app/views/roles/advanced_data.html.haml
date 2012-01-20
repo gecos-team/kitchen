@@ -1,6 +1,15 @@
-= javascript_include_tag :users
+= javascript_include_tag :users, :advanced_data
+#attr_base
+  - @skel.each do |attribute|
+    = raw render_base_attribute(attribute, "[role][override_attributes]")
+
 = form_tag role_path(@role.name), :method => :put, :id => "edit_role_attributes", :remote => true do
   - @skel.each do |attribute|
-    = raw render_fieldset(attribute, @data[attribute[0]], "[role][default_attributes]", @defaults)
+    = raw render_fieldset(attribute, @data[attribute[1][:recipe]], "[role][override_attributes]", @defaults, @use_default_data)
+
 
   = submit_tag
+
+  #default.float_right
+    = check_box "role[override_attributes][default]", params[:recipe], :checked => ("checked" if !@use_default_data.blank?), :class => @input_class
+    Use default values

@@ -3,7 +3,11 @@ class Databag < ChefBase
 
   attr_accessor :name
 
-  def initialize(attributes)
+  def initialize(attributes={})
     super(:value => attributes)
+  end
+
+  def empty?
+    value.empty?
   end
 end

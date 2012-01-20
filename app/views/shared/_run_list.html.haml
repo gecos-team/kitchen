@@ -24,5 +24,8 @@
         -item.extended_run_list.each do |run_list_item|
           %li.item{:class => "#{run_list_item.type} #{visible?(run_list_item.name)}" , :id => run_list_item.to_s}
             %span= run_list_item.name
-            - if run_list_item.is_advanced? and item.class.name == "Node"
-              %span= link_to "Edit", advanced_data_node_path(item.name, :recipe => run_list_item.name), :rel => "facebox"
+            - if run_list_item.is_advanced?
+              - if item.class.name == "Node"
+                %span= link_to "Edit", advanced_data_node_path(item.name, :recipe => run_list_item.name), :rel => "facebox"
+              - else
+                %span= link_to "Edit", advanced_data_role_path(item.name, :recipe => run_list_item.name), :rel => "facebox"
