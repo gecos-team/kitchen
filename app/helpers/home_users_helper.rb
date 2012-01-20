@@ -35,7 +35,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     subattribute_data = data[subattribute]
     subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
     subattribute_data.each do |value|
-      out << "<div id = #{field_title}_#{attr_index}>"
+      out << "<div id = #{subattribute}_#{attr_index}>"
       out << "<div id = 'fields'>"
       sorted_attributes.each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data)
@@ -47,7 +47,8 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
       attr_index+=1
     end
     # out << "<div id = #{field_title}_fill></div>"
-    out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}');", :class => "add")
+    out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}','#{subattribute}');", :class => "add")
+    out << "<div class = 'clear'></div><hr/>"
   else
   sorted_attributes.each do |x|
     out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data)
@@ -111,7 +112,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 
    end
    # out << "</p>"
-   out << "<br/><i class = 'hint'>#{properties['description']}</i></p>"
+   out << "<br><i class = 'hint'>#{properties['description']}</i></p>"
 
 end
 

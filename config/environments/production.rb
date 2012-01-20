@@ -43,7 +43,7 @@ Kitchen::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( client.js cookbook.js nodes.js search.js users.js)
+  config.assets.precompile += %w( client.js cookbooks.js nodes.js search.js users.js advanced_data.js roles.js users.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
