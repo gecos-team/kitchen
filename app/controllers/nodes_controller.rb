@@ -64,6 +64,12 @@ class NodesController < ApplicationController
     render :nothing => true
   end
 
+  def search_packages
+    render :json => @node.search_package("web")
+  end
+
+
+
 
   protected
 

@@ -19,6 +19,12 @@ development:
     keyfile: config/chef/k2.pem
     couchdb: http://chef:5984/chef/
 
+# development:
+#     uri: https://10.240.194.220/
+#     client_name: kitchen
+#     keyfile: config/chef/kitchen.pem
+#     couchdb: http://chef:5984/chef/
+
 production:
     uri: http://chef:4000/
     ppd_uri_base: https://chef/ppd/
@@ -34,3 +40,6 @@ pre:
     client_name: kitchen2
     keyfile: config/chef/kitchen2.pem
     couchdb: http://chef:5984/chef/
+
+
+

@@ -8,7 +8,7 @@ class HomeUser < ChefBase
      @@attributes = attributes
 
      metaclass.send :attr_accessor, "databag"
-     send "databag=".to_sym, Usermanagement.find_or_create(self.username)
+     send "databag=".to_sym, Usermanagement.find(Digest::MD5.hexdigest(self.username))
 
   end
 
@@ -39,7 +39,7 @@ class HomeUser < ChefBase
   end
 
   def multiple_in_skel
-    Cookbook.multiple_in_skel_for("usermanagement", "usermanagement", false)
+    Cookbook.multiple_in_skel_for("usermanagement", "usermanagement")
   end
 
 end
