@@ -18,6 +18,8 @@ class HomeUsersController < ApplicationController
     params[:databag][:id] = @databag.id
     params[:databag][:username] = @databag.name
 
+    debugger
+
     #Ugly fix for multiple attributes. While form needs unique ids in inputs, json not. Try to parse it to get something similar to no-unique form ids.
     @user.multiple_in_skel.each do |multiple|
       attribute = params[:databag][multiple].keys.first
