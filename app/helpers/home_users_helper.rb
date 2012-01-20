@@ -1,30 +1,32 @@
 module HomeUsersHelper
 
-def render_base_attribute(field, parent_name = "[databag]")
+def render_base_attribute(recipe_field, parent_name = "[databag]")
   out = ""
-  field_title = field[0]
+  recipe_field[1].each do |field|
+    field_title = field[0]
+    if !field[1][:principal].blank?
 
-  if !field[1][:principal].blank?
-
-    out << "<div id = #{field_title}_base class='hidden'>"
-    out << "<div id = 'fields'>"
-    field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
-      out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name)
+      out << "<div id = #{field_title}_base class='hidden'>"
+      out << "<div id = 'fields'>"
+      field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
+        out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name)
+      end
+      out << "</div>"
+      out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
+      out << "<div class = 'clear'></div></div>"
     end
-    out << "</div>"
-    out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
-    out << "<div class = 'clear'></div></div>"
   end
   out
 end
 
-def render_fieldset(field,data,parent_name = "[databag]", defaults = [], use_default_data = false)
+def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false)
 
-  field_title = field[0]
+  field_title = recipe_field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
-  out << "(Multiple)" if !field[1][:principal].blank?
+  # out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
 
+  recipe_field[1].each do |field|
   sorted_attributes = field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}
 
   if !field[1][:principal].blank?
@@ -51,6 +53,7 @@ def render_fieldset(field,data,parent_name = "[databag]", defaults = [], use_def
     out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data)
   end
 end
+end
 
   out << "</fieldset><br/>"
 end
@@ -68,7 +71,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
      data = properties["default"]
    end
 
-
+   data = "" if data.blank?
    size = case data.size
    when 1..10
      out = "<p class = 'short'>"
@@ -118,6 +121,8 @@ def render_wizard(field_id,properties,data = "")
     case wizard = properties["wizard"]
     when "selector"
       render_selector_wizard(field_id, data, properties["source"])
+    when "search"
+      render_search_wizard(field_id)
     end
 
 end
@@ -126,6 +131,10 @@ end
 def render_selector_wizard(field_id, data, source)
   options = Databag.find(source).value.keys
   select_tag(field_id, options_for_select(options, data))
+end
+
+def render_search_wizard(field_id)
+  render :partial => "wizards/search"
 end
 
 

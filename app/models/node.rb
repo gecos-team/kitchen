@@ -80,6 +80,57 @@ class Node < ChefBase
     end
   end
 
+  def available_packages
+    [{:name => "apache2", :description => "web server"},
+     {:name => "gimp", :description => "retoque fotografico"},
+     {:name => "webrick", :description => "servidor web rapido"},
+     {:name => "apache22", :description => "web server 22"},
+     {:name => "gimp2", :description => "retoque fotografico 22"},
+     {:name => "webrick2", :description => "servidor web rapido 22"},
+     {:name => "apache23", :description => "web server 33"},
+     {:name => "gimp3", :description => "retoque fotografico 33"},
+     {:name => "webrick3", :description => "servidor web rapido 33"},
+     {:name => "apache24", :description => "web server 44"},
+     {:name => "gimp4", :description => "retoque fotografico 44"},
+     {:name => "webrick4", :description => "servidor web rapido 44"}]
+
+     databag = Databag.find("sources_list/#{node_repos}").value["packages"]
+
+     node_repos = automatic["sources_list"].keys.first #HACER BUCLE
+
+
+
+  end
+
+
+  def search_package(q)
+    re = Regexp.new("/*#{q}*", Regexp::IGNORECASE)
+    self.available_packages.select{|x| x[:name].match(re) or x[:description].match(re)}
+
+    data = [
+      # Add below block for each category
+      {
+        :header => {
+          :title =>  "Category Title",
+          :num =>  "Number of results",
+          :limit => "Number to display"
+        },
+        :data => [
+          # Add below block for each result
+          {
+            :primary => "Title",
+            :secondary => "Description (Optional)",
+            :image => "URL (Optional)",
+            :onclick => "JavaScript to execute when clicked (Optional)"
+          }
+        ]
+      }
+    ]
+
+    return data
+
+
+  end
 
 
 end

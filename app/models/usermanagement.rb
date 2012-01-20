@@ -35,15 +35,28 @@ class Usermanagement < ChefBase
 
   def self.find_or_create(id)
 
-    user = Usermanagement.find(id)
+    md5 = Digest::MD5.hexdigest(id)
+
+    user = Usermanagement.find(md5)
 
     if user.blank?
       skel = Usermanagement.find("user_skel").to_json
-      skel["id"] = id
+      skel["id"] = md5
+      skel["username"] = id
       ChefAPI.post("/data/users", skel)
     end
 
-     Usermanagement.find(id)
+     Usermanagement.find(md5)
+  end
+
+  def self.find_or_default(id)
+
+    md5 = Digest::MD5.hexdigest(id)
+
+    user = Usermanagement.find(md5)
+
+     user.blank? ? Usermanagement.find("user_skel") : user
+
   end
 
 

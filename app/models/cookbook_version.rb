@@ -12,26 +12,28 @@ class CookbookVersion < ChefBase
       attributes = metadata["attributes"]
     end
 
+
     attributes.each_pair do |key,value|
       # cookbook, attribute, subattribute = key.split("/")
       cookbook, recipe = recipe.split("::")
       recipe, attribute, subattribute = key.split("/")
 
-      grouped[attribute] = {:principal => {}, :attributes => [], :recipe => recipe} if grouped[attribute].nil?
-      # debugger
+      grouped[recipe] = {} if grouped[recipe].blank?
+
+      grouped[recipe][attribute] = {:principal => {}, :attributes => [], :recipe => recipe} if grouped[recipe][attribute].nil?
       if value["type"] =="array"
       #if !subattribute.blank?
-        grouped[attribute][:principal] = {key, value}
+        grouped[recipe][attribute][:principal] = {key, value}
       else
-        grouped[attribute][:attributes]<< ({key, value})
+        grouped[recipe][attribute][:attributes]<< ({key, value})
       end
     end
     grouped
   end
 
 
-  def multiple_attributes
-    self.grouped_attributes.select{|x,y| !y[:principal].blank?}.map{|x| x[0]}
+  def multiple_attributes(recipe)
+    self.grouped_attributes(recipe).select{|x,y| !y[:principal].blank?}.map{|x| x[0]}
   end
 
   def initialize_attributes(recipe, defaults = false)
