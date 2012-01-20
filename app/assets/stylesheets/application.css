@@ -343,7 +343,7 @@ th.first {
 tbody tr.expanded { background-color:#7ABCFF; }
 
 #facebox .content {
-  width:500px !important;
+  width:800px !important;
 }
 
 /*input#search_box {

@@ -44,12 +44,12 @@ $(document).ready ->
           integer: true
 
 
-` function clone_attribute(attribute){
+` function clone_attribute(recipe,attribute){
 
-    fieldset = $("#"+attribute);
+    fieldset = $("#"+recipe);
     field = $("#"+attribute+"_base");
     clone = field.clone();
-    size = Number($("#"+attribute).children("div:not(.clear)").last().attr("id").split("_").pop())+1
+    size = Number($("#"+recipe).children("div:not(.clear)").last().attr("id").split("_").pop())+1;
 
 
     clone.find('input').each(function() {
@@ -58,7 +58,7 @@ $(document).ready ->
       });
 
     new_div_name = clone.attr("id").replace(attribute+"_base", attribute+"_"+size);
-    clone.attr("id",new_div_name)
+    clone.attr("id",new_div_name);
 
 
     clone.find("select, input").each(function() {
@@ -72,7 +72,7 @@ $(document).ready ->
     clone.removeClass()
 
 
-    clone.insertAfter(fieldset.children("div").last())
+    clone.insertAfter($("div[id^="+attribute+"][class!='hidden']").last())
     clone.fadeIn('slow')
 
 
