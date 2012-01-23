@@ -12,7 +12,7 @@ def render_base_attribute(recipe_field, parent_name = "[databag]")
         out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name)
       end
       out << "</div>"
-      out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
+      out <<  "<div id = 'action'><a href='#' class=remove attribute=#{field_title}>#{image_tag('delete.png')}</a></div>"
       out << "<div class = 'clear'></div></div>"
     end
   end
@@ -26,8 +26,8 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
   # out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
 
-  recipe_field[1].each do |field|
-  sorted_attributes = field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}
+  recipe_field[1].sort{|x,y| x[1][:order] <=> y[1][:order]}.each do |field|
+  attributes = field[1][:attributes]
 
   if !field[1][:principal].blank?
     attr_index = 0
@@ -37,12 +37,12 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     subattribute_data.each do |value|
       out << "<div id = #{subattribute}_#{attr_index}>"
       out << "<div id = 'fields'>"
-      sorted_attributes.each do |x|
+      attributes.each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data)
       end
 
       out << "</div>"
-      out <<  "<div id = 'action'><a href='#' class=remove>#{image_tag('delete.png')}</a></div>"
+      out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
       out << "<div class = 'clear'></div></div>"
       attr_index+=1
     end
@@ -50,7 +50,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}','#{subattribute}');", :class => "add")
     out << "<div class = 'clear'></div><hr/>"
   else
-  sorted_attributes.each do |x|
+  attributes.each do |x|
     out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data)
   end
 end
@@ -104,7 +104,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    if !properties["wizard"].blank?
      out << render_wizard(field_id,properties,data)
    elsif !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(['']+properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
+     out << select_tag(field_id, options_for_select(properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
@@ -135,7 +135,7 @@ def render_selector_wizard(field_id, data, source)
 end
 
 def render_search_wizard(field_id)
-  render :partial => "wizards/search"
+  render :partial => "wizards/search", :locals => {:field_id => field_id}
 end
 
 

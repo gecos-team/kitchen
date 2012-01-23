@@ -174,6 +174,58 @@ class ChefBase
     self.save
   end
 
+
+  def available_packages
+     packages = []
+     self.automatic["sources_list"].each do |repo|
+       repo_id = repo[0]
+
+       repo[1].each do |version|
+         version_id = version[0]
+
+            version[1].each do |suite|
+
+              begin
+                packages << Databag.find("sources_list/#{repo_id}").value["packages"]["#{version_id}"]["#{suite}"]
+              rescue Exception => e
+              end
+
+            end
+       end
+     end
+
+      packages.inject{|x,y| x.merge(y)}
+  end
+
+
+  def search_package(q)
+    re = Regexp.new("^.*#{q}.*$", Regexp::IGNORECASE)
+    results = self.available_packages.select{|x,y| x.match(re) or y.match(re)}
+
+    result_list = []
+    results.each do |result|
+      result_list << {:primary => result[0], :secondary => result[1], :onclick => "append_selected('#{result[0]}')"}
+    end
+
+    data = [
+      # Add below block for each category
+      {
+        :header => {
+          :title =>  "Search results",
+          :num =>  results.size,
+          :limit => results.size
+        },
+        :data => result_list
+      }
+    ]
+
+    return data
+
+
+  end
+
+
+
   private
 
   def update

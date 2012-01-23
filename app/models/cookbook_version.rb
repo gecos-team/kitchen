@@ -27,6 +27,8 @@ class CookbookVersion < ChefBase
       else
         grouped[recipe][attribute][:attributes]<< ({key, value})
       end
+      order = !value["order"].nil? ? value["order"].to_i : 99
+      grouped[recipe][attribute][:order] = order
     end
     grouped
   end
