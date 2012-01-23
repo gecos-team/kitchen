@@ -6,7 +6,8 @@
       %ul
         - recipes.each do |recipe|
           - recipe_name = normalize_item(recipe)
-          %li.recipe{:id => recipe, :class => visible?(recipe_name)}
+          - cookbook = recipe_name.split("::").size == 1
+          %li.recipe{:id => recipe, :class => "#{visible?(recipe_name)} #{'cookbook' if cookbook}"}
 
             %span= recipe_name
             / - if Cookbook.is_advanced_recipe?(recipe_name)
@@ -22,7 +23,8 @@
     #run-list.box_info.sortable
       %ul
         -item.extended_run_list.each do |run_list_item|
-          %li.item{:class => "#{run_list_item.type} #{visible?(run_list_item.name)}" , :id => run_list_item.to_s}
+          - cookbook = run_list_item.name.split("::").size == 1
+          %li.item{:class => "#{run_list_item.type} #{visible?(run_list_item.name)} #{'cookbook' if cookbook}" , :id => run_list_item.to_s}
             %span= run_list_item.name
             - if run_list_item.is_advanced?
               - if item.class.name == "Node"
