@@ -65,7 +65,7 @@ class NodesController < ApplicationController
   end
 
   def search_packages
-    render :json => @node.search_package("web")
+    render :json => @node.search_package(params[:q])
   end
 
 

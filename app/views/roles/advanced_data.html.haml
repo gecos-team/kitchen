@@ -5,7 +5,7 @@
 
 = form_tag role_path(@role.name), :method => :put, :id => "edit_role_attributes", :remote => true do
   - @skel.each do |attribute|
-    = raw render_fieldset(attribute, @data[attribute[1][:recipe]], "[role][override_attributes]", @defaults, @use_default_data)
+    = raw render_fieldset(attribute, @data[attribute[0]], "[role][override_attributes]", @defaults, @use_default_data)
 
 
   = submit_tag

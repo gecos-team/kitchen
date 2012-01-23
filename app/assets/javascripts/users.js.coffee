@@ -6,7 +6,11 @@ $(document).ready ->
 
   $(".remove").bind 'click', ->
     element = $(this).parent().parent()
-    element.fadeOut 'slow', -> $(this).remove()
+    att = $(this).attr("attribute");
+    if ($("div[id^="+att+"][class!='hidden']").size() == 1)
+      $(this).parent().parent().find("input[type!='hidden'][type!='submit'][class != 'default']").attr("value", "")
+    else
+      element.fadeOut 'slow', -> $(this).remove()
 
 
   jQuery.validator.addMethod "complete_uri",
@@ -105,6 +109,7 @@ $(document).ready ->
       $(this).attr("name",new_name);
       });
 
+
     clone.hide()
     clone.removeClass()
 
@@ -118,11 +123,27 @@ $(document).ready ->
 
     clone.fadeIn('slow')
 
+    if (clone.find('.wizard').size() > 0) {
+      clone.find('.wizard').each(function() {
+        url = window.location.pathname;
+         $(this).smartSuggest({src: url +'/search_packages.json',
+                                           showImages: false,
+                                           fillBox:true,
+                                           boxId: '%-'+$(this).attr('id')+'-suggestions'});
+
+      });
+
+    }
+
 
 
     $(".remove").bind('click', function() {
-      return $(this).parent().parent().fadeOut('slow', function(){
-        $(this).remove();
-        })
+      att = $(this).attr("attribute");
+      if ($("div[id^="+att+"][class!='hidden']").size() == 1) {
+         $(this).parent().parent().find("input[type!='hidden'][type!='submit'][class != 'default']").attr("value", "")
+      }else{
+        $(this).parent().parent().fadeOut('slow', function(){ $(this).remove();})
+
+      };
     });
 };`
