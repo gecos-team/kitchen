@@ -7,6 +7,15 @@ class NodesController < ApplicationController
       @nodes = Node.search("name:*#{params[:name]}*")
     else
       @nodes = Node.all
+      if @nodes == nil
+	 @nodes = []
+      else
+	 if @nodes.kind_of? Node
+            nodes_arr = []
+	    nodes_arr << @nodes
+	    @nodes = nodes_arr
+	 end
+      end
     end
   end
 
