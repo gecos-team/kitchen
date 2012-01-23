@@ -1,4 +1,4 @@
-= text_field_tag "search_box"
-
-= raw wizard_search_box
+= text_field_tag field_id, '', :search_box => field_id, :class => "wizard"
+- if !field_id.include?("[base]")
+  = raw wizard_search_box(field_id)
 

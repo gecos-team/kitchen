@@ -1,20 +1,19 @@
 module WizardsHelper
 
-  def wizard_search_box
+  def wizard_search_box(field_id)
+    normal_id = sanitize_to_id(field_id)
     "
     <script type='text/javascript'>
 
-      $('#search_box').smartSuggest({src: '/nodes/pc-pruebas/search_packages.json', showImages: false});
+      url = window.location.pathname
+      $('##{normal_id}').smartSuggest({src: url +'/search_packages.json',
+                                       showImages: false,
+                                       fillBox:true,
+                                       boxId: '%-#{normal_id}-suggestions'});
 
-      selected = '<div id=selected></div>';
 
-      $('.ss-wrap').parent().children('i').after(selected);
-      alert ('lala')
+      function append_selected (text) { }
 
-      function append_selected (text) {
-
-        $('#selected').append('<div id='+ text +'>text</div>');
-      }
     </script>
 
     "

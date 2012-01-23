@@ -6,7 +6,11 @@ $(document).ready ->
 
   $(".remove").bind 'click', ->
     element = $(this).parent().parent()
-    element.fadeOut 'slow', -> $(this).remove()
+    att = $(this).attr("attribute");
+    if ($("div[id^="+att+"][class!='hidden']").size() == 1)
+      $(this).parent().parent().find("input[type!='hidden'][type!='submit'][class != 'default']").attr("value", "")
+    else
+      element.fadeOut 'slow', -> $(this).remove()
 
 
   jQuery.validator.addMethod "complete_uri",
@@ -33,12 +37,43 @@ $(document).ready ->
       exp.test(val)
     "This field is invalid"
 
+  `jQuery.validator.addMethod("letterswithbasicpunc", function(value, element) {
+    return this.optional(element) || /^[a-z-.,()'\''\s]+$/i.test(value);
+  }, "Letters or punctuation only please");
 
+  jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || /^\w+$/i.test(value);
+  }, "Letters, numbers, spaces or underscores only please");
+
+  jQuery.validator.addMethod("lettersonly", function(value, element) {
+    return this.optional(element) || /^[a-z]+$/i.test(value);
+  }, "Letters only please");
+
+  jQuery.validator.addMethod("nowhitespace", function(value, element) {
+    return this.optional(element) || /^\S+$/i.test(value);
+  }, "No white space please");
+
+  jQuery.validator.addMethod("time", function(value, element) {
+    return this.optional(element) || /^([01]\d|2[0-3])(:[0-5]\d){0,2}$/.test(value);
+  }, "Please enter a valid time, between 00:00 and 23:59");
+  jQuery.validator.addMethod("time12h", function(value, element) {
+    return this.optional(element) || /^((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$/i.test(value);
+  }, "Please enter a valid time, between 00:00 am and 12:00 pm");
+
+  `
   $("#edit_user, #edit_node_attributes, #edit_role_attributes").validate
     rules:
         custom: "custom"
         ip: "ip"
         uri: "uri"
+        letterswithbasicpunc: "letterswithbasicpunc"
+        alphanumeric: "alphanumeric"
+        lettersonly: "lettersonly"
+        nowhitespace: "nowhitespace"
+        time: "time"
+        time12h: "time12h"
+        ipv4: "ipv4"
+        ipv6: "ipv6"
         integer:
           numeric: true
           integer: true
@@ -49,7 +84,13 @@ $(document).ready ->
     fieldset = $("#"+recipe);
     field = $("#"+attribute+"_base");
     clone = field.clone();
-    size = Number($("#"+recipe).children("div:not(.clear)").last().attr("id").split("_").pop())+1;
+
+    if ($("#"+recipe).children("div:not(.clear)").last().val() == null) {
+      size = 1;
+    }else{
+      size = Number($("#"+recipe).children("div:not(.clear)").last().attr("id").split("_").pop())+1;
+    }
+
 
 
     clone.find('input').each(function() {
@@ -68,18 +109,41 @@ $(document).ready ->
       $(this).attr("name",new_name);
       });
 
+
     clone.hide()
     clone.removeClass()
 
 
-    clone.insertAfter($("div[id^="+attribute+"][class!='hidden']").last())
+    last_input = $("div[id^="+attribute+"][class!='hidden']").last()
+    if (last_input.val() == null) {
+      clone.insertBefore(fieldset.children("a").last())
+    }else{
+      clone.insertAfter(last_input)
+    }
+
     clone.fadeIn('slow')
+
+    if (clone.find('.wizard').size() > 0) {
+      clone.find('.wizard').each(function() {
+        url = window.location.pathname;
+         $(this).smartSuggest({src: url +'/search_packages.json',
+                                           showImages: false,
+                                           fillBox:true,
+                                           boxId: '%-'+$(this).attr('id')+'-suggestions'});
+
+      });
+
+    }
 
 
 
     $(".remove").bind('click', function() {
-      return $(this).parent().parent().fadeOut('slow', function(){
-        $(this).remove();
-        })
+      att = $(this).attr("attribute");
+      if ($("div[id^="+att+"][class!='hidden']").size() == 1) {
+         $(this).parent().parent().find("input[type!='hidden'][type!='submit'][class != 'default']").attr("value", "")
+      }else{
+        $(this).parent().parent().fadeOut('slow', function(){ $(this).remove();})
+
+      };
     });
 };`
