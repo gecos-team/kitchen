@@ -176,25 +176,20 @@ class ChefBase
 
 
   def available_packages
-     packages = []
-     self.automatic["sources_list"].each do |repo|
-       repo_id = repo[0]
+    packages = []
+    self.automatic["sources_list"].each do |repo|
+      suite = repo[1]["suite"]
+      repo_id = repo[0].gsub('http://','').gsub('.','_').gsub(':','_').gsub('/','_')
 
-       repo[1].each do |version|
-         version_id = version[0]
+      repo[1]["components"].each do |component|
+          begin
+            packages << Databag.find("sources_list/#{repo_id}").value["packages"][suite][component]
+          rescue Exception => e
+          end
+      end
+    end
 
-            version[1].each do |suite|
-
-              begin
-                packages << Databag.find("sources_list/#{repo_id}").value["packages"]["#{version_id}"]["#{suite}"]
-              rescue Exception => e
-              end
-
-            end
-       end
-     end
-
-      packages.inject{|x,y| x.merge(y)}
+    packages.inject{|x,y| x.merge(y)}
   end
 
 
