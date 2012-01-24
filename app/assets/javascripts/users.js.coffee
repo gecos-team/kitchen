@@ -18,6 +18,11 @@ $(document).ready ->
       /(smb|nfs|ftp):\/\/([\S]*)\/.*/.test(val);
     "Please enter valid URI"
 
+  jQuery.validator.addMethod "printer_uri",
+    (val,elem) ->
+      /(((smb|http|ipp|ldp|socket):\/\/)|((serial[0-9]*|usb[0-9]*):\/))([\S]*)\/.*/.test(val);
+    "Please enter valid URI"
+
 
 
   jQuery.validator.addMethod "ip",
@@ -45,6 +50,11 @@ $(document).ready ->
     return this.optional(element) || /^\w+$/i.test(value);
   }, "Letters, numbers, spaces or underscores only please");
 
+  jQuery.validator.addMethod("alphanumericwithdots", function(value, element) {
+    return this.optional(element) || /^((\w)|\.)+$/i.test(value);
+  }, "Letters, numbers, spaces, underscores or dots only please");
+
+
   jQuery.validator.addMethod("lettersonly", function(value, element) {
     return this.optional(element) || /^[a-z]+$/i.test(value);
   }, "Letters only please");
@@ -59,6 +69,10 @@ $(document).ready ->
   jQuery.validator.addMethod("time12h", function(value, element) {
     return this.optional(element) || /^((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$/i.test(value);
   }, "Please enter a valid time, between 00:00 am and 12:00 pm");
+  jQuery.validator.addMethod("timespan", function(value, element) {
+    return this.optional(element) || /^([0-9][0-9][0-9])$/i.test(value);
+  }, "Please enter a valid time, between 00:00 am and 12:00 pm");
+
 
   `
   $("#edit_user, #edit_node_attributes, #edit_role_attributes").validate
@@ -66,11 +80,15 @@ $(document).ready ->
         custom: "custom"
         ip: "ip"
         uri: "uri"
+        complete_uri: "complete_uri"
+        printer_uri: "printer_uri"
         letterswithbasicpunc: "letterswithbasicpunc"
         alphanumeric: "alphanumeric"
+        alphanumericwithdots: "alphanumericwithdots"
         lettersonly: "lettersonly"
         nowhitespace: "nowhitespace"
         time: "time"
+        timespan: "timespan"
         time12h: "time12h"
         ipv4: "ipv4"
         ipv6: "ipv6"
