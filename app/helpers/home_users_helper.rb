@@ -131,7 +131,9 @@ end
 
 def render_selector_wizard(field_id, data, source)
   options = Databag.find(source).value.keys
-  select_tag(field_id, options_for_select(options, data))
+  unless options == nil
+    select_tag(field_id, options_for_select(options, data))
+  end
 end
 
 def render_search_wizard(field_id)
