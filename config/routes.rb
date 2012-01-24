@@ -77,7 +77,7 @@ Kitchen::Application.routes.draw do
     get 'check_recipe', :on => :collection
   end
 
-  resources :home_users
+  resources :home_users , :constraints => { :id => /.*/ }
 
   resources :roles do
     member do
