@@ -4,12 +4,15 @@
       %strong Available recipes
     #recipes.box_info.sortable
       %ul
+        - recipes_sort = []
         - recipes.each do |recipe|
-          - recipe_name = normalize_item(recipe)
-          - cookbook = recipe_name.split("::").size == 1
-          %li.recipe{:id => recipe, :class => "#{visible?(recipe_name)} #{'cookbook' if cookbook}"}
+          - recipes_sort << normalize_item(recipe)
+        - recipes_sort.sort!
+        - recipes_sort.each do |recipe|
+          - cookbook = recipe.split("::").size == 1
+          %li.recipe{:id => recipe, :class => "#{visible?(recipe)} #{'cookbook' if cookbook}"}
 
-            %span= recipe_name
+            %span= recipe
             / - if Cookbook.is_advanced_recipe?(recipe_name)
             /   %span= link_to "#", advanced_data_node_path(@node.name, :recipe => recipe_name), :rel => "facebox"
 
