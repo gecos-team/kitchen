@@ -6,6 +6,9 @@ class HomeUsersController < ApplicationController
 
   def edit
     @user = HomeUser.find(params[:id])
+    if @user.kind_of? Array
+      @user = @user.first
+    end
     @user.databag = Usermanagement.find("user_skel") if @user.databag.blank?
   end
 
@@ -13,7 +16,10 @@ class HomeUsersController < ApplicationController
 
     @databag = Usermanagement.find_or_create(params[:id])
     @user = HomeUser.find(params[:id])
-
+    if @user.kind_of? Array
+      @user = @user.first
+    end
+ 
     #Insert id into json to load
     params[:databag][:id] = @databag.id
     params[:databag][:username] = @databag.username
