@@ -123,14 +123,13 @@ def render_wizard(field_id,properties,data = "",node=nil)
     when "selector"
       render_selector_wizard(field_id, data, properties["source"])
     when "search"
-      render_search_wizard(field_id)
+      render_search_wizard(field_id, data)
     when "users"
       render_users_wizard(field_id, data, node=node)
     when "groups"
       render_groups_wizard(field_id, data, node=node)
    end
     
-
 end
 
 
@@ -166,8 +165,8 @@ def render_groups_wizard(field_id, data, node)
 end
 
 
-def render_search_wizard(field_id)
-  render :partial => "wizards/search", :locals => {:field_id => field_id}
+def render_search_wizard(field_id, data)
+  render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data}
 end
 
 

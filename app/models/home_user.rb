@@ -28,11 +28,29 @@ class HomeUser < ChefBase
   def self.all
     all = []
     Node.search("users_username:*").each do |node|
+#      node_info = {:name => node.name, :hostname => node.hostname, :errors => node.error?}
+#      node.automatic["users"].map{|x| all << self.new(x.merge!({"nodes" => [node_info]}))}
+#    end
+#    all
+#  end
       node_info = {:name => node.name, :hostname => node.hostname, :errors => node.error?}
-      node.automatic["users"].map{|x| all << self.new(x.merge!({"nodes" => [node_info]}))}
-    end
+      node.automatic['users'].each do |usernode|
+        userexist = false
+        all.each do |userall|
+          if userall.username == usernode['username']
+            userall.nodes << node_info
+#            all << userall
+            userexist = true
+          end
+        end
+        unless userexist
+          all << self.new(usernode.merge!({"nodes" => [node_info]}))
+        end
+      end
+     end
     all
   end
+  
 
   def skel
     Cookbook.skel_for("usermanagement", "usermanagement", false)
