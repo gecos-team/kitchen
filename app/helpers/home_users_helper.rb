@@ -1,6 +1,6 @@
 module HomeUsersHelper
 
-def render_base_attribute(recipe_field, parent_name = "[databag]")
+def render_base_attribute(recipe_field, parent_name = "[databag]", node=nil)
   out = ""
   recipe_field[1].each do |field|
     field_title = field[0]
@@ -9,7 +9,7 @@ def render_base_attribute(recipe_field, parent_name = "[databag]")
       out << "<div id = #{field_title}_base class='hidden'>"
       out << "<div id = 'fields'>"
       field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
-        out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name)
+        out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name, false,node=node)
       end
       out << "</div>"
       out <<  "<div id = 'action'><a href='#' class=remove attribute=#{field_title}>#{image_tag('delete.png')}</a></div>"
@@ -19,7 +19,7 @@ def render_base_attribute(recipe_field, parent_name = "[databag]")
   out
 end
 
-def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false)
+def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil)
 
   field_title = recipe_field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
@@ -38,7 +38,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
       out << "<div id = #{subattribute}_#{attr_index}>"
       out << "<div id = 'fields'>"
       attributes.each do |x|
-        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data)
+        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
       end
 
       out << "</div>"
@@ -51,7 +51,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     out << "<div class = 'clear'></div><hr/>"
   else
   attributes.each do |x|
-    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data)
+    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data,node=node)
   end
 end
 end
@@ -59,7 +59,7 @@ end
   out << "</fieldset><br/>"
 end
 
-def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]", use_default_data = false)
+def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]", use_default_data = false, node = nil)
 
    input_class = ""
 
@@ -102,7 +102,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 
 
    if !properties["wizard"].blank?
-     out << render_wizard(field_id,properties,data)
+     out << render_wizard(field_id,properties,data,node=node)
    elsif !properties["choice"].blank?
      out << select_tag(field_id, options_for_select(properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
    else
