@@ -69,6 +69,12 @@ $(document).ready ->
   jQuery.validator.addMethod("time12h", function(value, element) {
     return this.optional(element) || /^((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$/i.test(value);
   }, "Please enter a valid time, between 00:00 am and 12:00 pm");
+  jQuery.validator.addMethod("abspath", function(value, element) {
+    return this.optional(element) || /^(\/).+*$/i.test(value);
+  }, "Please enter a valid path");
+  jQuery.validator.addMethod("modefile", function(value, element) {
+    return this.optional(element) || /^[0|1|2|4][0-7][0-7][0-7]$/i.test(value);
+  }, "Please enter a valid mode of file (in e.g 0644,0775..)");
   jQuery.validator.addMethod("timespan", function(value, element) {
     return this.optional(element) || /^([0-9][0-9][0-9])$/i.test(value);
   }, "Please enter a valid time, between 00:00 am and 12:00 pm");
@@ -87,6 +93,8 @@ $(document).ready ->
         alphanumericwithdots: "alphanumericwithdots"
         lettersonly: "lettersonly"
         nowhitespace: "nowhitespace"
+        abspath: "abspath"
+        modefile: "modefile"
         time: "time"
         timespan: "timespan"
         time12h: "time12h"
