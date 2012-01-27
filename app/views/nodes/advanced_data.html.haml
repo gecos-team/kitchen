@@ -1,11 +1,11 @@
 = javascript_include_tag :users, :advanced_data
 #attr_base
   - @skel.each do |attribute|
-    = raw render_base_attribute(attribute, "[node][normal]")
+    = raw render_base_attribute(attribute, "[node][normal]",@node)
 
 = form_tag node_path(@node.name), :method => :put, :id => "edit_node_attributes", :remote => true do
   - @skel.each do |attribute|
-    = raw render_fieldset(attribute, @data[attribute[0]], "[node][normal]", @defaults, @use_default_data)
+    = raw render_fieldset(attribute, @data[attribute[0]], "[node][normal]", @defaults, @use_default_data, @node)
 
 
   = submit_tag
