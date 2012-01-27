@@ -117,14 +117,19 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 end
 
 
-def render_wizard(field_id,properties,data = "")
+def render_wizard(field_id,properties,data = "",node=nil)
 
     case wizard = properties["wizard"]
     when "selector"
       render_selector_wizard(field_id, data, properties["source"])
     when "search"
       render_search_wizard(field_id)
-    end
+    when "users"
+      render_users_wizard(field_id, data, node=node)
+    when "groups"
+      render_groups_wizard(field_id, data, node=node)
+   end
+    
 
 end
 
@@ -135,6 +140,31 @@ def render_selector_wizard(field_id, data, source)
     select_tag(field_id, options_for_select(options, data))
   end
 end
+
+def render_users_wizard(field_id, data, node)
+  usernames = []
+  
+  node.automatic['users'].each do |user|
+    usernames << user['username']
+  end
+  usernames << 'root'
+  options = usernames.sort!
+  unless options == nil
+    select_tag(field_id, options_for_select(options, data))
+  end
+end
+
+
+def render_groups_wizard(field_id, data, node)
+  groups = []
+  
+  groups = node.automatic['etc']['group'].keys.sort!
+  options = groups
+  unless options == nil
+    select_tag(field_id, options_for_select(options, data))
+  end
+end
+
 
 def render_search_wizard(field_id)
   render :partial => "wizards/search", :locals => {:field_id => field_id}
