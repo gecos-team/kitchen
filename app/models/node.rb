@@ -1,7 +1,7 @@
 class Node < ChefBase
 
   def before_save
-    @run_list = (["recipe[ohai-gecos]"] + @run_list + Cookbook.find("usermanagement").recipes_list).flatten.uniq.compact
+    @run_list = (["role[default_group]"] + @run_list)
   end
 
   [:patform, :hostname, :ipaddress].each do |method|
@@ -91,7 +91,18 @@ class Node < ChefBase
   end
 
   def self.all
-    Node.find("*")
+    @nodes = Node.find("*")
+    # sanitizing nodes array just in case it's only one node...
+    if @nodes == nil
+      @nodes = []
+    else
+      if @nodes.kind_of? Node
+        nodes_arr = []
+        nodes_arr << @nodes
+        @nodes = nodes_arr
+      end
+    end
+    @nodes
   end
 
 

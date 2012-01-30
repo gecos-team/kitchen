@@ -32,11 +32,15 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
   if !field[1][:principal].blank?
     attr_index = 0
     subattribute = field[1][:principal].keys.first.split("/").last
+#    `echo 'subattribute: #{subattribute.inspect}' >>/tmp/ami`
+#    `echo 'data: #{data.inspect}' >>/tmp/ami`
     subattribute_data = data[subattribute]
+#    `echo 'subattribute: #{subattribute_data.inspect}' >>/tmp/ami`
     subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
     subattribute_data.each do |value|
       out << "<div id = #{subattribute}_#{attr_index}>"
       out << "<div id = 'fields'>"
+#      `echo 'subattribute: #{value.inspect}' >>/tmp/ami`
       attributes.each do |x|
         out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
       end
@@ -142,9 +146,10 @@ end
 
 def render_users_wizard(field_id, data, node)
   usernames = []
-  
-  node.automatic['users'].each do |user|
-    usernames << user['username']
+  unless node.automatic['users'] == nil 
+    node.automatic['users'].each do |user|
+      usernames << user['username']
+    end
   end
   usernames << 'root'
   options = usernames.sort!
