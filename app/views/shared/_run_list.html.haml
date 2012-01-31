@@ -26,9 +26,12 @@
     #run-list.box_info.sortable
       %ul
         -item.extended_run_list.each do |run_list_item|
-          - cookbook = run_list_item.name.split("::").size == 1
+          - cookbook = run_list_item.name.split("::").size == 1 unless run_list_item.type.to_s == "role" 
           %li.item{:class => "#{run_list_item.type} #{visible?(run_list_item.name)} #{'cookbook' if cookbook}" , :id => run_list_item.to_s}
-            %span= run_list_item.name
+            - if run_list_item.type.to_s == "role"
+              %span= run_list_item.name + ' (group)'
+            - else
+              %span= run_list_item.name
             - if run_list_item.is_advanced?
               - if item.class.name == "Node"
                 %span= link_to "Edit", advanced_data_node_path(item.name, :recipe => run_list_item.name), :rel => "facebox"
