@@ -4,7 +4,7 @@ class Node < ChefBase
     @run_list = (["role[default_group]"] + @run_list)
   end
 
-  [:patform, :hostname, :ipaddress].each do |method|
+  [:platform, :hostname, :ipaddress].each do |method|
    define_method method do
       self.automatic[method.to_s]
    end
