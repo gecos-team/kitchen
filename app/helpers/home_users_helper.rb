@@ -92,7 +92,12 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 
    display_label = properties["display_name"]
    display_label += "* " if properties["required"] == "required"
-   input_class = "required" if properties["required"] == "required"
+   if properties["required"] == "required"
+     input_class = "required"
+   else
+     input_class = "notrequired"
+   end
+   #input_class = "required" if properties["required"] == "required"
 
    out << label_tag(key, display_label)
 

@@ -15,68 +15,125 @@ $(document).ready ->
 
   jQuery.validator.addMethod "complete_uri",
     (val,elem) ->
-      /(smb|nfs|ftp):\/\/([\S]*)\/.*/.test(val);
+      if $(elem).hasClass('notrequired') and val.length == 0
+        true
+      else 
+        /^(smb|nfs|ftp):\/\/[\w\-_]+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/.test(val);
+      
     "Please enter valid URI"
 
   jQuery.validator.addMethod "printer_uri",
     (val,elem) ->
-      /(((smb|http|ipp|ldp|socket):\/\/)|((serial[0-9]*|usb[0-9]*):\/))([\S]*)\/.*/.test(val);
+      if $(elem).hasClass('notrequired') and val.length == 0
+        true
+      else
+
+        /(((smb|http|ipp|ldp|socket):\/\/)|((serial[0-9]*|usb[0-9]*):\/))([\S]*)\/.*/.test(val);
     "Please enter valid URI"
 
 
 
   jQuery.validator.addMethod "ip",
     (val,elem) ->
-      /([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$/i.test(val);
+      if $(elem).hasClass('notrequired') and val.length == 0
+        true
+      else
+        /([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$/i.test(val);
     "Please enter a valid IP x.x.x.x"
 
 
   jQuery.validator.addMethod "integer",
     (val,elem) ->
-      val > 0 && val < 65536
+      if $(elem).hasClass('notrequired') and val.length == 0
+        true
+      else
+        val > 0 && val < 65536
     "Please enter a valid number between 0 and 65335"
 
   jQuery.validator.addMethod "custom",
     (val, elem) ->
-      exp = new RegExp($(elem).attr("custom"))
-      exp.test(val)
+      if $(elem).hasClass('notrequired') and val.length == 0
+        true
+      else
+        exp = new RegExp($(elem).attr("custom"))
+        exp.test(val)
     "This field is invalid"
 
   `jQuery.validator.addMethod("letterswithbasicpunc", function(value, element) {
-    return this.optional(element) || /^[a-z-.,()'\''\s]+$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^[a-z-.,()'\''\s]+$/i.test(value);
+    }
   }, "Letters or punctuation only please");
 
   jQuery.validator.addMethod("alphanumeric", function(value, element) {
-    return this.optional(element) || /^\w+$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^\w+$/i.test(value);
+    }
   }, "Letters, numbers, spaces or underscores only please");
 
   jQuery.validator.addMethod("alphanumericwithdots", function(value, element) {
-    return this.optional(element) || /^((\w)|\.)+$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^((\w)|\.)+$/i.test(value);
+    }
   }, "Letters, numbers, spaces, underscores or dots only please");
 
 
   jQuery.validator.addMethod("lettersonly", function(value, element) {
-    return this.optional(element) || /^[a-z]+$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^[a-z]+$/i.test(value);
+    }
   }, "Letters only please");
 
   jQuery.validator.addMethod("nowhitespace", function(value, element) {
-    return this.optional(element) || /^\S+$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^\S+$/i.test(value);
+    }
   }, "No white space please");
 
   jQuery.validator.addMethod("time", function(value, element) {
-    return this.optional(element) || /^([01]\d|2[0-3])(:[0-5]\d){0,2}$/.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^([01]\d|2[0-3])(:[0-5]\d){0,2}$/.test(value);
+    }
   }, "Please enter a valid time, between 00:00 and 23:59");
   jQuery.validator.addMethod("time12h", function(value, element) {
-    return this.optional(element) || /^((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^((0?[1-9]|1[012])(:[0-5]\d){0,2}(\ [AP]M))$/i.test(value);
+    }
   }, "Please enter a valid time, between 00:00 am and 12:00 pm");
   jQuery.validator.addMethod("abspath", function(value, element) {
-    return this.optional(element) || /^(\/).+*$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^(\/).+$/i.test(value);
+    }
   }, "Please enter a valid path");
   jQuery.validator.addMethod("modefile", function(value, element) {
-    return this.optional(element) || /^[0|1|2|4][0-7][0-7][0-7]$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^[0|1|2|4][0-7][0-7][0-7]$/i.test(value);
+    }
   }, "Please enter a valid mode of file (in e.g 0644,0775..)");
   jQuery.validator.addMethod("timespan", function(value, element) {
-    return this.optional(element) || /^([0-9][0-9][0-9])$/i.test(value);
+    if ($(element).hasClass('notrequired') && value.length == 0) {
+      return true;
+    } else {
+      return this.optional(element) || /^([0-9][0-9][0-9])$/i.test(value);
+    }
   }, "Please enter a valid time, between 00:00 am and 12:00 pm");
 
 
