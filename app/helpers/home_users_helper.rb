@@ -28,21 +28,33 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
 
   recipe_field[1].sort{|x,y| x[1][:order] <=> y[1][:order]}.each do |field|
   attributes = field[1][:attributes]
-
+  
   if !field[1][:principal].blank?
     attr_index = 0
     subattribute = field[1][:principal].keys.first.split("/").last
-#    `echo 'subattribute: #{subattribute.inspect}' >>/tmp/ami`
-#    `echo 'data: #{data.inspect}' >>/tmp/ami`
+    attribute_mult = field[1][:principal].keys.first
+    defaults = field[1][:principal][attribute_mult]['default']
+    
     subattribute_data = data[subattribute]
-#    `echo 'subattribute: #{subattribute_data.inspect}' >>/tmp/ami`
     subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
+    default_data = []
+    if defaults != nil
+      defaults = eval(defaults)
+      default_data = defaults.values if defaults.class.name == "Hash"
+    end
     subattribute_data.each do |value|
+      
       out << "<div id = #{subattribute}_#{attr_index}>"
       out << "<div id = 'fields'>"
-#      `echo 'subattribute: #{value.inspect}' >>/tmp/ami`
+      attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
       attributes.each do |x|
-        out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+
+        if value[x.keys.first.split("/")[2]] == "" and defaults != nil and default_data[attr_index] != nil
+           out << render_attribute(x.keys.first, x.values.first, default_data[attr_index][x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+        else
+        
+          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+        end
       end
 
       out << "</div>"
@@ -54,10 +66,10 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}','#{subattribute}');", :class => "add")
     out << "<div class = 'clear'></div><hr/>"
   else
-  attributes.each do |x|
-    out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data,node=node)
+    attributes.each do |x|
+      out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data,node=node)
+    end
   end
-end
 end
 
   out << "</fieldset><br/>"
