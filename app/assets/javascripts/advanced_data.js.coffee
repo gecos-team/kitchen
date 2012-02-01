@@ -6,10 +6,10 @@ $(document).ready ->
        $(this).addClass("lock")
        for input in inputs
          $(input).attr("disabled", "disabled")
-         $(input).attr("value", $(input).attr("default"))
+ #         $(input).attr("value", $(input).attr("default"))
     else
       $(this).removeClass("lock")
       for input in inputs
         $(input).removeAttr("disabled")
-        $(input).attr("value", "")
+ #       $(input).attr("value", "")
     false
