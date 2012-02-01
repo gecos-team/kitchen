@@ -25,7 +25,7 @@
   %ul.net
     %h3 Net
     %li
-      %strong Ip:
+      %strong IP:
       = @node.ipaddress
     %li
       %stronc Mac:
@@ -43,6 +43,7 @@
     %li= link_to  "Run List", "#tabs-1"
     %li= link_to "Workstation details", "#tabs-4"
     %li= link_to "Groups", "#tabs-2"
+    %li= link_to "Actions", "#tabs-5"
     - if @node.error?
       %li= link_to "Errors", "#tabs-3"
 
@@ -55,6 +56,9 @@
 
   #tabs-4
     = raw build_tree('attrs', @node)
+
+  #tabs-5
+    = link_to "Remote Control (VNC)", "http://#{request.env["SERVER_NAME"]}/tools/vnc/?ip=#{@node.ipaddress}&port=5900"
 
   - if @node.error?
     #tabs-3.ui-state-error.ui-corner-all
