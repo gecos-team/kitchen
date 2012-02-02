@@ -121,7 +121,6 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    else
      input_class = "notrequired"
    end
-   #input_class = "required" if properties["required"] == "required"
 
    out << label_tag(key, display_label)
 
@@ -130,14 +129,34 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    else
      field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[#{attr_index}]").join
    end
-    field_id = parent_name+ field_id
 
+   field_id = parent_name + field_id
+
+
+   if !properties["dependent"].nil?
+
+     input_class << " has_dependents"
+     field_index = field_id.gsub('][', '_').gsub('[', '').gsub(']', '')
+     s_dependent = "<ul class=\"hidden dependent_#{field_index}\">"
+
+     properties["dependent"].each do |dependent|
+       field = dependent["field"]
+       validator = dependent["validator"]
+       field_suffix = field.split("/").join("_")
+       s_dependent << "<li><span class=\"field\">#{field_suffix}</span><span class=\"validator\">#{validator}</span>"
+     end
+
+     s_dependent << '</ul>'
+     out << s_dependent
+   end
+
+   out << label_tag(key, display_label)
 
 
    if !properties["wizard"].blank?
      out << render_wizard(field_id,properties,data,node=node)
    elsif !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
+     out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})

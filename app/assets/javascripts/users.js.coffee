@@ -135,6 +135,24 @@ $(document).ready ->
       return this.optional(element) || /^([0-9][0-9][0-9])$/i.test(value);
     }
   }, "Please enter a valid time, between 00:00 am and 12:00 pm");
+  jQuery.validator.addMethod('istrue', function(value, element) {
+    var ret = false;
+    $.each([true, 1, 'true', 'on', 'yes'], function(index, item) {
+      if (value === item) {
+        ret = true;
+      }
+    });
+    return ret;
+  }, "Please enter a valid value, must be True");
+  jQuery.validator.addMethod('isfalse', function(value, element) {
+    var ret = false;
+    $.each([false, 0, 'false', 'off', 'no'], function(index, item) {
+      if (value === item) {
+        ret = true;
+      }
+    });
+    return ret;
+  }, "Please enter a valid value, must be True");
 
 
   `
