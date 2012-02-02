@@ -42,25 +42,37 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
       defaults = eval(defaults)
       default_data = defaults.values if defaults.class.name == "Hash"
     end
-    subattribute_data.each do |value|
-      
-      out << "<div id = #{subattribute}_#{attr_index}>"
-      out << "<div id = 'fields'>"
-      attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
-      attributes.each do |x|
-
-        if value[x.keys.first.split("/")[2]] == "" and defaults != nil and default_data[attr_index] != nil
-           out << render_attribute(x.keys.first, x.values.first, default_data[attr_index][x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
-        else
+    out << "<p>sub: #{subattribute_data.inspect}</p>"
+    if subattribute_data.size == 1 and subattribute_data[0].values.first == "" and defaults != nil
+      default_data.each do |value|
         
+        out << "<div id = #{subattribute}_#{attr_index}>"
+        out << "<div id = 'fields'>"
+        attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
+        attributes.each do |x|
           out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
         end
+        out << "</div>"
+        out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
+        out << "<div class = 'clear'></div></div>"
+        attr_index+=1
       end
+    else
+      subattribute_data.each do |value|
+     
+        out << "<div id = #{subattribute}_#{attr_index}>"
+        out << "<div id = 'fields'>"
+        attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
+        attributes.each do |x|
+ 
+          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+        end
+        out << "</div>"
+        out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
+        out << "<div class = 'clear'></div></div>"
+        attr_index+=1
 
-      out << "</div>"
-      out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
-      out << "<div class = 'clear'></div></div>"
-      attr_index+=1
+      end
     end
     # out << "<div id = #{field_title}_fill></div>"
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}','#{subattribute}');", :class => "add")
