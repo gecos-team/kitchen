@@ -11,8 +11,8 @@ class NodesController < ApplicationController
   end
 
   def show
-    @roles = @node.avaiable_roles
-    @recipes = @node.avaiable_recipes
+    @roles = @node.available_roles
+    @recipes = @node.available_recipes
 
     respond_to do |format|
       format.html

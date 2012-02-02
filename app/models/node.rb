@@ -52,11 +52,11 @@ class Node < ChefBase
     rl
   end
 
-  def avaiable_recipes
+  def available_recipes
     Cookbook.all.map(&:recipes_name).flatten.map{|x| "recipe[#{x}]"} - self.run_list
   end
 
-  def avaiable_roles
+  def available_roles
     Role.all.map(&:name).flatten.map{|x| "role[#{x}]"} - self.run_list
   end
 
