@@ -28,7 +28,7 @@
       %strong IP:
       = @node.ipaddress
     %li
-      %stronc Mac:
+      %strong Mac:
       = @node.automatic["macaddress"]
   %ul.other
     %h3 Others
@@ -58,7 +58,9 @@
     = raw build_tree('attrs', @node)
 
   #tabs-5
-    = link_to "Remote Control (VNC)", "http://#{request.env["SERVER_NAME"]}/tools/vnc/?ip=#{@node.ipaddress}&port=5900"
+    %ul
+      %li= link_to "Remote Control (VNC)", "http://#{request.env["SERVER_NAME"]}/tools/vnc/?ip=#{@node.ipaddress}&port=5900"
+      %li= link_to "Remote Terminal (Shellinabox)", "http://#{request.env["SERVER_NAME"]}/tools/terminal/?ip=#{@node.ipaddress}&port=4200"
 
   - if @node.error?
     #tabs-3.ui-state-error.ui-corner-all
