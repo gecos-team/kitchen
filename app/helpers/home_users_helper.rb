@@ -42,25 +42,37 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
       defaults = eval(defaults)
       default_data = defaults.values if defaults.class.name == "Hash"
     end
-    subattribute_data.each do |value|
-      
-      out << "<div id = #{subattribute}_#{attr_index}>"
-      out << "<div id = 'fields'>"
-      attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
-      attributes.each do |x|
-
-        if value[x.keys.first.split("/")[2]] == "" and defaults != nil and default_data[attr_index] != nil
-           out << render_attribute(x.keys.first, x.values.first, default_data[attr_index][x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
-        else
+    out << "<p>sub: #{subattribute_data.inspect}</p>"
+    if subattribute_data.size == 1 and subattribute_data[0].values.first == "" and defaults != nil
+      default_data.each do |value|
         
+        out << "<div id = #{subattribute}_#{attr_index}>"
+        out << "<div id = 'fields'>"
+        attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
+        attributes.each do |x|
           out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
         end
+        out << "</div>"
+        out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
+        out << "<div class = 'clear'></div></div>"
+        attr_index+=1
       end
+    else
+      subattribute_data.each do |value|
+     
+        out << "<div id = #{subattribute}_#{attr_index}>"
+        out << "<div id = 'fields'>"
+        attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
+        attributes.each do |x|
+ 
+          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+        end
+        out << "</div>"
+        out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
+        out << "<div class = 'clear'></div></div>"
+        attr_index+=1
 
-      out << "</div>"
-      out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
-      out << "<div class = 'clear'></div></div>"
-      attr_index+=1
+      end
     end
     # out << "<div id = #{field_title}_fill></div>"
     out << link_to_function(image_tag("add.png"), "clone_attribute('#{field_title}','#{subattribute}');", :class => "add")
@@ -109,7 +121,6 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    else
      input_class = "notrequired"
    end
-   #input_class = "required" if properties["required"] == "required"
 
    out << label_tag(key, display_label)
 
@@ -118,14 +129,34 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    else
      field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[#{attr_index}]").join
    end
-    field_id = parent_name+ field_id
 
+   field_id = parent_name + field_id
+
+
+   if !properties["dependent"].nil?
+
+     input_class << " has_dependents"
+     field_index = field_id.gsub('][', '_').gsub('[', '').gsub(']', '')
+     s_dependent = "<ul class=\"hidden dependent_#{field_index}\">"
+
+     properties["dependent"].each do |dependent|
+       field = dependent["field"]
+       validator = dependent["validator"]
+       field_suffix = field.split("/").join("_")
+       s_dependent << "<li><span class=\"field\">#{field_suffix}</span><span class=\"validator\">#{validator}</span>"
+     end
+
+     s_dependent << '</ul>'
+     out << s_dependent
+   end
+
+   out << label_tag(key, display_label)
 
 
    if !properties["wizard"].blank?
      out << render_wizard(field_id,properties,data,node=node)
    elsif !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
+     out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
