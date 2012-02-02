@@ -24,11 +24,15 @@ class CookbookVersion < ChefBase
       if value["type"] =="array"
       #if !subattribute.blank?
         grouped[recipe][attribute][:principal] = {key, value}
+        order = !value["order"].nil? ? value["order"].to_i : 99
+        grouped[recipe][attribute][:order] = order
       else
         grouped[recipe][attribute][:attributes]<< ({key, value})
+        if grouped[recipe][attribute][:principal] == nil
+          order = !value["order"].nil? ? value["order"].to_i : 99
+          grouped[recipe][attribute][:order] = order
+        end
       end
-      order = !value["order"].nil? ? value["order"].to_i : 99
-      grouped[recipe][attribute][:order] = order
     end
     grouped
   end
