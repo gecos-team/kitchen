@@ -25,10 +25,8 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   # out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
-
   recipe_field[1].sort{|x,y| x[1][:order] <=> y[1][:order]}.each do |field|
   attributes = field[1][:attributes]
-  
   if !field[1][:principal].blank?
     attr_index = 0
     subattribute = field[1][:principal].keys.first.split("/").last
@@ -121,7 +119,6 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
      input_class = "notrequired"
    end
 
-   out << label_tag(key, display_label)
 
    if attr_index.nil?
      field_id = key.split("/").map{|x| "[#{x}]"}.join
@@ -155,7 +152,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    if !properties["wizard"].blank?
      out << render_wizard(field_id,properties,data,node=node)
    elsif !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
+     out << select_tag(field_id, options_for_select(properties["choice"], default), {:class => input_class, :disabled => ("disabled" if use_default_data)})
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
