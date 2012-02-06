@@ -42,7 +42,6 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
       defaults = eval(defaults)
       default_data = defaults.values if defaults.class.name == "Hash"
     end
-    out << "<p>sub: #{subattribute_data.inspect}</p>"
     if subattribute_data.size == 1 and subattribute_data[0].values.first == "" and defaults != nil
       default_data.each do |value|
         
