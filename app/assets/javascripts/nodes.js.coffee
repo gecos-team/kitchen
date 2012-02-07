@@ -4,19 +4,33 @@
 
 $(document).ready ->
 
+  assistantIsRunning = false
+
+  $(document).ajaxError () ->
+    assistantIsRunning = false
+  
+  jQuery(document).bind 'close.facebox', (event) ->
+    assistantIsRunning = false
+
   $("#run-list ul").sortable
     connectWith: ["#recipes ul", "#roles ul"],
     dropOnEmpty: true
     receive: (e,ui) ->
+      if assistantIsRunning is true
+        ui.sender.sortable('cancel')
+        return
+      assistantIsRunning = true
       recipe = ui.item.text().trim()
       $.getJSON ("/cookbooks/check_recipe?recipe="+recipe), (data) ->
-        if data is true
+        if data is not true
+          assistantIsRunning = false
+        else
           url = window.location.pathname
           ui.item.append("<span><a href="+url+"/advanced_data?recipe="+recipe+" rel=facebox>Edit</a></span>")
           link = ui.item.find("a[rel*=facebox]")
           link.facebox()
           link.click()
-          $(".close_image").bind 'click', ->
+          $("a.close, img.close_image").bind 'click', ->
             jQuery(document).trigger('close.facebox')
             ui.sender.sortable('cancel')
             link.remove()
@@ -39,7 +53,7 @@ $(document).ready ->
 
               false
           false
-
+        
           # $(document).bind 'afterClose.facebox', ->
           #   $.getJSON (url+"/check_data?recipe="+recipe), (data_check) ->
           #     if data_check is true
