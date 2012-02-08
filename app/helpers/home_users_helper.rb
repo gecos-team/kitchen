@@ -19,16 +19,33 @@ def render_base_attribute(recipe_field, parent_name = "[databag]", node=nil)
   out
 end
 
-def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil)
+def recursive_hash(hash, hash_new)
+  hash.each do |key, item|
+    if item.class.name == "ActiveSupport::HashWithIndifferentAccess"
+      item=item.to_hash
+    end 
+    if item.class.name == "String"
+      hash_new.merge!({key=>item})
+    elsif item.class.name == "Hash" and item.keys.first == item.keys.first.to_i.to_s
+      hash_new.merge!({key=>item.values})
+    elsif item.class.name == "Hash"
+      hash_new.merge!({key=>recursive_hash(item, {})})
+    end
+  end
+  return hash_new
 
+end
+module_function :recursive_hash
+
+
+
+def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil)
   field_title = recipe_field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   # out << "(Multiple)" if !field[1][:principal].blank?
   out << "</legend>"
-
   recipe_field[1].sort{|x,y| x[1][:order] <=> y[1][:order]}.each do |field|
   attributes = field[1][:attributes]
-  
   if !field[1][:principal].blank?
     attr_index = 0
     subattribute = field[1][:principal].keys.first.split("/").last
@@ -39,10 +56,8 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
     default_data = []
     if defaults != nil
-      defaults = eval(defaults)
-      default_data = defaults.values if defaults.class.name == "Hash"
+      default_data = defaults
     end
-    out << "<p>sub: #{subattribute_data.inspect}</p>"
     if subattribute_data.size == 1 and subattribute_data[0].values.first == "" and defaults != nil
       default_data.each do |value|
         
@@ -121,23 +136,45 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    else
      input_class = "notrequired"
    end
-   #input_class = "required" if properties["required"] == "required"
 
-   out << label_tag(key, display_label)
 
    if attr_index.nil?
      field_id = key.split("/").map{|x| "[#{x}]"}.join
    else
      field_id = key.split("/").map{|x| "[#{x}]"}.insert(2, "[#{attr_index}]").join
    end
-    field_id = parent_name+ field_id
 
+   field_id = parent_name + field_id
+
+
+   if !properties["dependent"].nil?
+
+     input_class << " has_dependents"
+     field_index = field_id.gsub('][', '_').gsub('[', '').gsub(']', '')
+     s_dependent = "<ul class=\"hidden dependent_#{field_index}\">"
+
+     properties["dependent"].each do |dependent|
+       field = dependent["field"]
+       validator = dependent["validator"]
+       field_suffix = field.split("/").join("_")
+       s_dependent << "<li><span class=\"field\">#{field_suffix}</span><span class=\"validator\">#{validator}</span>"
+     end
+
+     s_dependent << '</ul>'
+     out << s_dependent
+   end
+
+   out << label_tag(key, display_label)
 
 
    if !properties["wizard"].blank?
      out << render_wizard(field_id,properties,data,node=node)
    elsif !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], data), {:disabled => ("disabled" if use_default_data)})
+     if !data.blank?
+       out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
+     else
+       out << select_tag(field_id, options_for_select(properties["choice"], default), {:class => input_class, :disabled => ("disabled" if use_default_data)})
+     end
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
@@ -175,14 +212,19 @@ end
 
 def render_users_wizard(field_id, data, node)
   usernames = []
-  unless node.automatic['users'] == nil 
-    node.automatic['users'].each do |user|
-      usernames << user['username']
+  unless node == nil
+    unless node.automatic['users'] == nil 
+      node.automatic['users'].each do |user|
+        usernames << user['username']
+      end
     end
-  end
-  usernames << 'root'
-  options = usernames.sort!
-  unless options == nil
+    usernames << 'root'
+    options = usernames.sort!
+    unless options == nil
+      select_tag(field_id, options_for_select(options, data))
+    end
+  else
+    options = [ 'root' ]
     select_tag(field_id, options_for_select(options, data))
   end
 end
@@ -190,10 +232,17 @@ end
 
 def render_groups_wizard(field_id, data, node)
   groups = []
-  
-  groups = node.automatic['etc']['group'].keys.sort!
-  options = groups
-  unless options == nil
+  if node != nil and node.automatic['etc']['group'] != nil
+    groups = node.automatic['etc']['group'].keys.sort!
+    options = groups
+    unless options == nil
+      select_tag(field_id, options_for_select(options, data))
+    else
+      options = [ 'root' ]
+      select_tag(field_id, options_for_select(options, data))
+    end
+  else
+    options = [ 'root' ]
     select_tag(field_id, options_for_select(options, data))
   end
 end

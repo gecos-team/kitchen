@@ -28,7 +28,7 @@ class CookbookVersion < ChefBase
         grouped[recipe][attribute][:order] = order
       else
         grouped[recipe][attribute][:attributes]<< ({key, value})
-        if grouped[recipe][attribute][:principal] == nil
+        if grouped[recipe][attribute][:principal].empty?
           order = !value["order"].nil? ? value["order"].to_i : 99
           grouped[recipe][attribute][:order] = order
         end

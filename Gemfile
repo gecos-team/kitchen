@@ -5,7 +5,7 @@ gem 'rails'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-# gem 'sqlite3'
+gem 'sqlite3'
 
 gem 'json'
 gem 'spice'
@@ -15,7 +15,7 @@ gem 'mixlib-authentication', :require =>'mixlib/authentication'
 gem 'haml'
 gem 'mongrel'
 gem 'pakunok'
-gem 'mysql2'
+#gem 'mysql2'
 gem 'devise'
 gem "friendly_id", "~> 4.0.0.beta14"
 gem 'bluecloth'
