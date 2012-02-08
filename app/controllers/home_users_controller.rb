@@ -1,5 +1,5 @@
 class HomeUsersController < ApplicationController
-
+  helper HomeUsersHelper
   def index
     @users = HomeUser.all
   end
@@ -29,8 +29,8 @@ class HomeUsersController < ApplicationController
       attribute = params[:databag][multiple].keys.first
       params[:databag][multiple][attribute] = params[:databag][multiple].values.map{|x| x.values}.flatten
     end
-
-    Usermanagement.update(params[:databag])
+    r_hash = HomeUsersHelper.recursive_hash(params[:databag].to_hash, {})
+    Usermanagement.update(r_hash)
 
     redirect_to edit_home_user_path(@user.username)
   end

@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-
+  helper HomeUsersHelper
   before_filter :get_role, :except => "index"
 
   def index
@@ -14,7 +14,8 @@ class RolesController < ApplicationController
 
   def update
     if (!params[:role].blank? and !params[:role][:override_attributes].blank?)
-      @role.override_attributes = @role.override_attributes.merge(params[:role][:override_attributes])
+      r_hash = HomeUsersHelper.recursive_hash(params[:role][:override_attributes].to_hash, {})
+      @role.override_attributes = @role.override_attributes.merge(r_hash)
     elsif !params[:for_node].blank?
       @role.run_list = params[:for_node]
     end
