@@ -52,6 +52,6 @@ $(document).ready ->
 
   // Process items with dependent fields
   $('.has_dependents').each(function(index, elem) {
-    $(elem).unbind().change(on_field_change);
+    $(elem).change(on_field_change).change();
   });
 `
