@@ -15,26 +15,44 @@
     %li
       %strong Hostname:
       = @node.hostname
-  %ul.users
-    %h3 Users
-    -if !@node.users.blank?
-      = @node.users.join ", "
-      /- @node.users.each do |user|
-      / %li= user
-      / %li= link_to user, home_user_path(user)
-  %ul.net
-    %h3 Net
-    %li
-      %strong IP:
-      = @node.ipaddress
-    %li
-      %strong Mac:
-      = @node.automatic["macaddress"]
   %ul.other
-    %h3 Others
     %li
-      %strong Uptime
-      = @node.automatic["uptime"]
+      %strong Users:
+      - if !@node.users.blank?
+        - @node.users.each do |user|
+          = link_to user, edit_home_user_path(user)
+    - if !@node.automatic["dmi"].blank? and @node.automatic["dmi"].has_key?("chassis") and @node.automatic["dmi"]["chassis"].has_key?("manufacturer") and !@node.automatic["dmi"]["chassis"]["manufacturer"].blank?
+      %li 
+        %strong Manufacturer:
+        - if @node.automatic["dmi"]["chassis"].has_key?("type") and !@node.automatic["dmi"]["chassis"]["type"].blank?
+          = "#{@node.automatic["dmi"]["chassis"]["manufacturer"]} (#{@node.automatic["dmi"]["chassis"]["type"]})"
+        - else
+          = @node.automatic["dmi"]["chassis"]["manufacturer"]
+    - if !@node.automatic["dmi"].blank? and @node.automatic["dmi"].has_key?("chassis") and @node.automatic["dmi"]["chassis"].has_key?("serial_number") and !@node.automatic["dmi"]["chassis"]["serial_number"].blank?
+      %li
+        %strong Serial Number:
+        = @node.automatic["dmi"]["chassis"]["serial_number"]
+    %li
+      %strong Net:
+      - if @node.ipaddress != nil and @node.automatic["macaddress"]!=nil
+        = "#{@node.ipaddress} , #{@node.automatic["macaddress"]}"
+    %li
+      %strong Uptime:
+      - if @node.automatic["uptime"] != nil
+        = @node.automatic["uptime"]
+/%ul.net
+/    %h3 Net
+/    %li
+/      %strong IP:
+/      = @node.ipaddress
+/    %li
+/      %strong Mac:
+/      = @node.automatic["macaddress"]
+/  %ul.other
+/    %h3 Others
+/    %li
+/      %strong Uptime
+/      = @node.automatic["uptime"]
 
 .clear
 
