@@ -8,3 +8,4 @@
 config/chef.yml
 config/chef/kitchen.pem
 config/database.yml
+db/kitchen_production.sqlite3
