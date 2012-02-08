@@ -212,14 +212,19 @@ end
 
 def render_users_wizard(field_id, data, node)
   usernames = []
-  unless node.automatic['users'] == nil 
-    node.automatic['users'].each do |user|
-      usernames << user['username']
+  unless node == nil
+    unless node.automatic['users'] == nil 
+      node.automatic['users'].each do |user|
+        usernames << user['username']
+      end
     end
-  end
-  usernames << 'root'
-  options = usernames.sort!
-  unless options == nil
+    usernames << 'root'
+    options = usernames.sort!
+    unless options == nil
+      select_tag(field_id, options_for_select(options, data))
+    end
+  else
+    options = [ 'root' ]
     select_tag(field_id, options_for_select(options, data))
   end
 end
@@ -227,10 +232,17 @@ end
 
 def render_groups_wizard(field_id, data, node)
   groups = []
-  
-  groups = node.automatic['etc']['group'].keys.sort!
-  options = groups
-  unless options == nil
+  if node != nil and node.automatic['etc']['group'] != nil
+    groups = node.automatic['etc']['group'].keys.sort!
+    options = groups
+    unless options == nil
+      select_tag(field_id, options_for_select(options, data))
+    else
+      options = [ 'root' ]
+      select_tag(field_id, options_for_select(options, data))
+    end
+  else
+    options = [ 'root' ]
     select_tag(field_id, options_for_select(options, data))
   end
 end
