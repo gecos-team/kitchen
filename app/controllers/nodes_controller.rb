@@ -1,5 +1,6 @@
 class NodesController < ApplicationController
 
+  helper HomeUsersHelper
   before_filter :get_node, :except => "index"
 
   def index
@@ -24,9 +25,9 @@ class NodesController < ApplicationController
   end
 
   def update
-
     if (!params[:node].blank? and !params[:node][:normal].blank?)
-      @node.normal = @node.normal.merge(params[:node][:normal])
+      r_hash = HomeUsersHelper.recursive_hash(params[:node][:normal].to_hash, {})
+      @node.normal = @node.normal.merge(r_hash)
     elsif !params[:for_node].blank?
       @node.run_list = params[:for_node]
     end

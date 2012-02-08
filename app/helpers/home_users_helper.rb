@@ -19,8 +19,27 @@ def render_base_attribute(recipe_field, parent_name = "[databag]", node=nil)
   out
 end
 
-def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil)
+def recursive_hash(hash, hash_new)
+  hash.each do |key, item|
+    if item.class.name == "ActiveSupport::HashWithIndifferentAccess"
+      item=item.to_hash
+    end 
+    if item.class.name == "String"
+      hash_new.merge!({key=>item})
+    elsif item.class.name == "Hash" and item.keys.first == item.keys.first.to_i.to_s
+      hash_new.merge!({key=>item.values})
+    elsif item.class.name == "Hash"
+      hash_new.merge!({key=>recursive_hash(item, {})})
+    end
+  end
+  return hash_new
 
+end
+module_function :recursive_hash
+
+
+
+def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil)
   field_title = recipe_field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   # out << "(Multiple)" if !field[1][:principal].blank?
@@ -37,8 +56,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
     default_data = []
     if defaults != nil
-      defaults = eval(defaults)
-      default_data = defaults.values if defaults.class.name == "Hash"
+      default_data = defaults
     end
     if subattribute_data.size == 1 and subattribute_data[0].values.first == "" and defaults != nil
       default_data.each do |value|
@@ -152,7 +170,11 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
    if !properties["wizard"].blank?
      out << render_wizard(field_id,properties,data,node=node)
    elsif !properties["choice"].blank?
-     out << select_tag(field_id, options_for_select(properties["choice"], default), {:class => input_class, :disabled => ("disabled" if use_default_data)})
+     if !data.blank?
+       out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
+     else
+       out << select_tag(field_id, options_for_select(properties["choice"], default), {:class => input_class, :disabled => ("disabled" if use_default_data)})
+     end
    else
      input_class += " #{properties["validation"]}"
      out << text_field_tag(field_id, data, {:class => input_class, :custom => properties["custom"], :default => (default if default), :disabled => ("disabled" if use_default_data)})
