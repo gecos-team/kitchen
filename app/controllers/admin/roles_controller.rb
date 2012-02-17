@@ -11,7 +11,11 @@ class Admin::RolesController < ApplicationController
   end
 
   def create
-    params[:role][:node_list] = params[:role][:nodes].reject {|key,value| value == "0" }.keys
+    if params[:role][:node] != nil
+      params[:role][:node_list] = params[:role][:nodes].reject {|key,value| value == "0" }.keys
+    else
+      params[:role][:node_list] = []
+    end
     params[:role].delete(:nodes)
     #HACK: Roles doesn't support spaces, so they are replaced by _
     params[:role][:name].gsub!(/ /,'_')

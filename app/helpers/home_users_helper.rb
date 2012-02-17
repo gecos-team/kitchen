@@ -168,7 +168,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 
 
    if !properties["wizard"].blank?
-     out << render_wizard(field_id,properties,data,node=node)
+     out << render_wizard(field_id,properties,data,node=node,input_class, use_default_data)
    elsif !properties["choice"].blank?
      if !data.blank?
        out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
@@ -187,30 +187,30 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 end
 
 
-def render_wizard(field_id,properties,data = "",node=nil)
+def render_wizard(field_id,properties, data = "", node = nil, input_class = '', use_default_data = '')
 
     case wizard = properties["wizard"]
     when "selector"
-      render_selector_wizard(field_id, data, properties["source"])
+      render_selector_wizard(field_id, data, properties["source"],input_class, use_default_data)
     when "search"
-      render_search_wizard(field_id, data)
+      render_search_wizard(field_id, data,input_class, use_default_data)
     when "users"
-      render_users_wizard(field_id, data, node=node)
+      render_users_wizard(field_id, data, node=node,input_class, use_default_data)
     when "groups"
-      render_groups_wizard(field_id, data, node=node)
+      render_groups_wizard(field_id, data, node=node,input_class, use_default_data)
    end
     
 end
 
 
-def render_selector_wizard(field_id, data, source)
+def render_selector_wizard(field_id, data, source, input_class = '', use_default_data = '')
   options = Databag.find(source).value.keys
   unless options == nil
-    select_tag(field_id, options_for_select(options, data))
+    select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
   end
 end
 
-def render_users_wizard(field_id, data, node)
+def render_users_wizard(field_id, data, node,input_class = '', use_default_data = '')
   usernames = []
   unless node == nil
     unless node.automatic['users'] == nil 
@@ -221,35 +221,35 @@ def render_users_wizard(field_id, data, node)
     usernames << 'root'
     options = usernames.sort!
     unless options == nil
-      select_tag(field_id, options_for_select(options, data))
+      select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
     end
   else
     options = [ 'root' ]
-    select_tag(field_id, options_for_select(options, data))
+    select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
   end
 end
 
 
-def render_groups_wizard(field_id, data, node)
+def render_groups_wizard(field_id, data, node,input_class = '', use_default_data = '')
   groups = []
   if node != nil and node.automatic['etc']['group'] != nil
     groups = node.automatic['etc']['group'].keys.sort!
     options = groups
     unless options == nil
-      select_tag(field_id, options_for_select(options, data))
+      select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
     else
       options = [ 'root' ]
-      select_tag(field_id, options_for_select(options, data))
+      select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
     end
   else
     options = [ 'root' ]
-    select_tag(field_id, options_for_select(options, data))
+    select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
   end
 end
 
 
-def render_search_wizard(field_id, data)
-  render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data}
+def render_search_wizard(field_id, data,input_class = '', use_default_data = '' )
+  render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data, :input_class => input_class, :use_default_data => use_default_data}
 end
 
 

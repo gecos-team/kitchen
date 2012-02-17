@@ -1,4 +1,8 @@
-= text_field_tag field_id, packages, :search_box => field_id, :class => "wizard"
+- if use_default_data
+  = text_field_tag field_id, packages, :search_box => field_id, :class => "wizard", :disabled => "disabled"
+- else
+  = text_field_tag field_id, packages, :search_box => field_id, :class => "wizard"
+
 - if !field_id.include?("[base]")
   = raw wizard_search_box(field_id)
 
