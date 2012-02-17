@@ -2,15 +2,21 @@ $(document).ready ->
   $('#facebox_overlay').unbind("click")
   $(".default").bind 'change', ->
     inputs = $(this).parents("form").find("input[type!='hidden'][type!='submit'][class != 'default']")
+    selects = $(this).parents("form").find("select[type!='hidden'][type!='submit'][class != 'default']")
     if $(this).attr("class") != "default lock"
        $(this).addClass("lock")
        for input in inputs
          $(input).attr("disabled", "disabled")
  #         $(input).attr("value", $(input).attr("default"))
+       for select in selects
+         $(select).attr("disabled", "disabled")
+ #         $(select).attr("value", $(select).attr("default"))
     else
       $(this).removeClass("lock")
       for input in inputs
         $(input).removeAttr("disabled")
+      for select in selects
+        $(select).removeAttr("disabled")
     false
 
 `
