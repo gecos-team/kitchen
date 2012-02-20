@@ -11,6 +11,7 @@ $(document).ready ->
   
   jQuery(document).bind 'close.facebox', (event) ->
     assistantIsRunning = false
+ 
 
   $("#run-list ul").sortable
     connectWith: ["#recipes ul", "#roles ul"],
@@ -26,15 +27,17 @@ $(document).ready ->
           assistantIsRunning = false
         else
           url = window.location.pathname
-          ui.item.append("<span><a href="+url+"/advanced_data?recipe="+recipe+" rel=facebox>Edit</a></span>")
+          $("a.close, img.close_image").unbind("click")
+          ui.item.append("<span><a href="+url+"/advanced_data?recipe="+recipe+ " rel=facebox>Edit</a></span>")
           link = ui.item.find("a[rel*=facebox]")
           link.facebox()
           link.click()
           $("a.close, img.close_image").bind 'click', ->
             jQuery(document).trigger('close.facebox')
-            ui.sender.sortable('cancel')
-            link.remove()
-            $(this).unbind("click")
+            if $('div.edit_recipe', $('a.close').parent('div.popup')).get(0) == undefined
+              ui.sender.sortable('cancel')
+              link.remove()
+              $(this).unbind("click")
             $("#facebox").remove(".popup")
             false
           $('#facebox_overlay').unbind("click")

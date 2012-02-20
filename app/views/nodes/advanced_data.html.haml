@@ -1,5 +1,10 @@
 = javascript_include_tag :users, :advanced_data
-#attr_base
+- if params[:edit_recipe] == '1'
+  #attr_base.edit_recipe
+  - @skel.each do |attribute|
+    = raw render_base_attribute(attribute, "[node][normal]",@node)
+- else
+  #attr_base
   - @skel.each do |attribute|
     = raw render_base_attribute(attribute, "[node][normal]",@node)
 
@@ -8,7 +13,7 @@
     = raw render_fieldset(attribute, @data[attribute[0]], "[node][normal]", @defaults, @use_default_data, @node)
 
 
-  = submit_tag
+  = submit_tag "Save Changes", :class => 'submitfacebox'
 
   #default.float_right
     = check_box "node[normal][default]", params[:recipe], :checked => ("checked" if !@use_default_data.blank?), :class => @input_class

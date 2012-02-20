@@ -19,6 +19,18 @@ $(document).ready ->
         $(select).removeAttr("disabled")
     false
 
+  $(":submit.submitfacebox").bind 'click', (event) ->
+    list = $("#run-list ul li").map (index, elem) ->
+      if $(elem).data('edit_recipe') == undefined
+        return elem;
+    $(list).each (index, elem) ->
+        $(elem).data('edit_recipe',1)
+        if $('a', elem).attr('href') != undefined
+          href = $('a', elem).attr('href')
+          href = href + "&edit_recipe=1"
+          $('a', elem).attr('href', href)
+
+
 `
   var on_field_change = function(event) {
 
