@@ -177,30 +177,42 @@ class ChefBase
 
   def available_packages
     packages = []
-    self.automatic["sources_list"].each do |repo|
-      suite = repo[1]["suite"]
-      repo_id = repo[0].gsub('http://','').gsub('.','_').gsub(':','_').gsub('/','_')
-
-      repo[1]["components"].each do |component|
-          begin
-            packages << Databag.find("sources_list/#{repo_id}").value["packages"][suite][component]
-          rescue Exception => e
+    if self.automatic["sources_list"] != nil
+      self.automatic["sources_list"].each do |repo|
+        suite = repo[1]["suite"]
+        repo_id = repo[0].gsub('http://','').gsub('.','_').gsub(':','_').gsub('/','_')
+        begin
+          databag = Databag.find("sources_list/#{repo_id}")
+          repo[1]["components"].each do |component|
+            packages << databag.value["packages"][suite][component]
           end
+        rescue Exception => e
+        end
       end
+      packages.inject{|x,y| x.merge(y)}
     end
+ #   packages
 
-    packages.inject{|x,y| x.merge(y)}
   end
 
 
   def search_package(q)
     re = Regexp.new("^.*#{q}.*$", Regexp::IGNORECASE)
-    results = self.available_packages.select{|x,y| x.match(re) or y.match(re)}
-
-    result_list = []
-    results.each do |result|
-      result_list << {:primary => result[0], :secondary => result[1], :onclick => "append_selected('#{result[0]}')"}
+    packages = self.available_packages
+    if packages.empty?
+      results = [["No results","Probably haven't any sourcelist or you are trying with a group instead of workstation"]]
+      result_list = []
+      results.each do |result|
+        result_list << {:primary => result[0], :secondary => result[1]}
+      end
+    else
+      results = packages.select{|x,y| x.match(re) or y.match(re)}
+      result_list = []
+      results.each do |result|
+        result_list << {:primary => result[0], :secondary => result[1], :onclick => "append_selected('#{result[0]}')"}
+      end
     end
+
 
     data = [
       # Add below block for each category

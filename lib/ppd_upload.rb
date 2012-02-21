@@ -1,17 +1,17 @@
 module PPDUpload
-  def self.save(incoming, make, model)
+  def self.save(host,incoming, make)
     if !incoming.nil? and incoming.size > 0
       basename = sanitized_basename(incoming.original_filename)
-      filename = disk_filename(basename, make, model)
+      filename = disk_filename(host, basename, make)
       write_file(filename, incoming)
       basename
     end
   end
 
-  def self.ppd_uri(basename, make, model)
-    [ ChefAPI.configuration["ppd_uri_base"],
+  def self.ppd_uri(host,basename, make)
+    
+    [ host+'/ppds',
       sanitized_filename(make),
-      sanitized_filename(model),
       sanitized_basename(basename) ].join "/"
   end
 
@@ -25,10 +25,9 @@ module PPDUpload
     sanitized_filename(value.gsub(/^.*(\\|\/)/, ''))
   end
 
-  def self.disk_filename(basename, make, model)
-    File.join(ChefAPI.configuration["ppd_directory"],
+  def self.disk_filename(host,basename, make)
+    File.join(host+'/ppds',
               sanitized_filename(make),
-              sanitized_filename(model),
               sanitized_basename(basename))
   end
 
