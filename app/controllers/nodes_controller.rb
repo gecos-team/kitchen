@@ -48,7 +48,7 @@ class NodesController < ApplicationController
 
   def advanced_data
     cookbook, recipe = params[:recipe].split("::")
-    @skel = Cookbook.skel_for(cookbook, recipe)
+    @skel = Cookbook.skel_for(cookbook, recipe, true,  @node)
     @defaults = Cookbook.initialize_attributes_for(cookbook, recipe)
     @data = @defaults.merge(@node.normal)
     @use_default_data = @node.normal["default"].blank? ? false : @node.normal["default"][params[:recipe]] == "1"

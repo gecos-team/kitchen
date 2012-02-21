@@ -4,5 +4,5 @@
   = text_field_tag field_id, packages, :search_box => field_id, :class => "wizard"
 
 - if !field_id.include?("[base]")
-  = raw wizard_search_box(field_id)
+  = raw wizard_search_box(field_id, node)
 

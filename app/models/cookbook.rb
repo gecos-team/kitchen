@@ -55,8 +55,8 @@ class Cookbook < ChefBase
     return true if included_recipes.include?(true) or (recipe_name.blank? and (!cookbook_attributes.blank? or !included_recipes.include?(true)))
   end
 
-  def self.skel_for(cookbook, recipe, filter = true)
-    self.find(cookbook).versions.first.grouped_attributes("#{cookbook}::#{recipe}", filter)
+  def self.skel_for(cookbook, recipe, filter = true, node = nil)
+    self.find(cookbook).versions.first.grouped_attributes("#{cookbook}::#{recipe}", filter, node)
   end
 
   def self.multiple_in_skel_for(cookbook, recipe)

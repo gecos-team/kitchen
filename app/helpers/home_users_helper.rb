@@ -193,7 +193,7 @@ def render_wizard(field_id,properties, data = "", node = nil, input_class = '', 
     when "selector"
       render_selector_wizard(field_id, data, properties["source"],input_class, use_default_data)
     when "search"
-      render_search_wizard(field_id, data,input_class, use_default_data)
+      render_search_wizard(field_id, data,node=node, input_class, use_default_data)
     when "users"
       render_users_wizard(field_id, data, node=node,input_class, use_default_data)
     when "groups"
@@ -248,8 +248,8 @@ def render_groups_wizard(field_id, data, node,input_class = '', use_default_data
 end
 
 
-def render_search_wizard(field_id, data,input_class = '', use_default_data = '' )
-  render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data, :input_class => input_class, :use_default_data => use_default_data}
+def render_search_wizard(field_id, data,node=nil, input_class = '', use_default_data = '' )
+  render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data, :input_class => input_class, :use_default_data => use_default_data, :node => node}
 end
 
 

@@ -4,7 +4,7 @@ class CookbookVersion < ChefBase
     Cookbook.all.map(&:versions)
   end
 
-  def grouped_attributes(recipe = nil, filter = true)
+  def grouped_attributes(recipe = nil, filter = true, node = nil)
     grouped = {}
     if !recipe.blank? and filter == true
       attributes = metadata["attributes"].delete_if{|x,y| !y["recipes"].include?(recipe)}
@@ -19,7 +19,6 @@ class CookbookVersion < ChefBase
       recipe, attribute, subattribute = key.split("/")
 
       grouped[recipe] = {} if grouped[recipe].blank?
-
       grouped[recipe][attribute] = {:principal => {}, :attributes => [], :recipe => recipe} if grouped[recipe][attribute].nil?
       if value["type"] =="array"
       #if !subattribute.blank?

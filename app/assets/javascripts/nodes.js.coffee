@@ -11,7 +11,6 @@ $(document).ready ->
   
   jQuery(document).bind 'close.facebox', (event) ->
     assistantIsRunning = false
- 
 
   $("#run-list ul").sortable
     connectWith: ["#recipes ul", "#roles ul"],
