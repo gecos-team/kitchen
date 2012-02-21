@@ -18,6 +18,9 @@
   = f.select :model, @models || [], :include_blank => "Please select:"
 
 %p.long
+  = f.text_field :host, :value => "http://#{request.env['SERVER_NAME']}", :hidden => true
+
+%p.long
   = f.label :ppd_file, "Upload other PPD"
   = f.file_field :ppd_file
   %small (Will use the default PPD if left blank)

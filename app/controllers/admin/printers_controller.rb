@@ -18,15 +18,15 @@ class Admin::PrintersController < ApplicationController
     model = params[:printer][:model]
     if @printer.valid?
       if params[:printer][:ppd_file].present?
-        basename = PPDUpload.save(params[:printer][:ppd_file], make, model)
+        basename = PPDUpload.save(params[:printer][:host],params[:printer][:ppd_file], make)
         @printer.ppd = basename
-        @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
+        @printer.ppd_uri = PPDUpload.ppd_uri(params[:printer][:host],basename, make)
         @printer.create!
       else
         printer = Databag.find("printers/#{make}").value[model]
         if printer["recommended_ppd"].present?
           @printer.ppd = printer["recommended_ppd"]
-          @printer.ppd_uri = PPDUpload.ppd_uri(@printer.ppd, make, model)
+          @printer.ppd_uri = PPDUpload.ppd_uri(params[:printer][:host],@printer.ppd, make)
         end
         @printer.create!
       end
@@ -66,10 +66,17 @@ class Admin::PrintersController < ApplicationController
       if params[:printer][:ppd_file].present?
         make = params[:printer][:make]
         model = params[:printer][:model]
-        basename = PPDUpload.save(params[:printer][:ppd_file], make, model)
+        basename = PPDUpload.save(params[:printer][:host],params[:printer][:ppd_file], make)
         @printer.ppd = basename
-        @printer.ppd_uri = PPDUpload.ppd_uri(basename, make, model)
+        @printer.ppd_uri = PPDUpload.ppd_uri(params[:printer][:host],basename, make)
+      else
+        printer = Databag.find("printers/#{params[:printer][:make]}").value[params[:printer][:model]]
+        if printer["recommended_ppd"].present?
+          @printer.ppd = printer["recommended_ppd"]
+          @printer.ppd_uri = PPDUpload.ppd_uri(params[:printer][:host],@printer.ppd, params[:printer][:make])
+        end
       end
+
       @printer.save!
       redirect_to admin_printers_path
     else
