@@ -13,9 +13,9 @@ class RolesController < ApplicationController
   end
 
   def update
-    if (!params[:role].blank? and !params[:role][:override_attributes].blank?)
-      r_hash = HomeUsersHelper.recursive_hash(params[:role][:override_attributes].to_hash, {})
-      @role.override_attributes = @role.override_attributes.merge(r_hash)
+    if (!params[:role].blank? and !params[:role][:default_attributes].blank?)
+      r_hash = HomeUsersHelper.recursive_hash(params[:role][:default_attributes].to_hash, {})
+      @role.default_attributes = @role.default_attributes.merge(r_hash)
     elsif !params[:for_node].blank?
       @role.run_list = params[:for_node]
     end
@@ -42,8 +42,8 @@ class RolesController < ApplicationController
     cookbook, recipe = params[:recipe].split("::")
     @skel = Cookbook.skel_for(cookbook, recipe)
     @defaults = Cookbook.initialize_attributes_for(cookbook, recipe)
-    @data = @defaults.merge(@role.override_attributes)
-    @use_default_data = @role.override_attributes["default"].blank? ? false : @role.override_attributes["default"][params[:recipe]] == "1"
+    @data = @defaults.merge(@role.default_attributes)
+    @use_default_data = @role.default_attributes["default"].blank? ? false : @role.default_attributes["default"][params[:recipe]] == "1"
     @input_class = "default"
     @input_class += " lock" if !@use_default_data.blank?
     respond_to do |format|

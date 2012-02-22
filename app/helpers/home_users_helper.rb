@@ -1,6 +1,6 @@
 module HomeUsersHelper
 
-def render_base_attribute(recipe_field, parent_name = "[databag]", node=nil)
+def render_base_attribute(recipe_field, parent_name = "[databag]", node=nil, rol = 0)
   out = ""
   recipe_field[1].each do |field|
     field_title = field[0]
@@ -39,7 +39,7 @@ module_function :recursive_hash
 
 
 
-def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil)
+def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], use_default_data = false, node = nil, rol = 0)
   field_title = recipe_field[0]
   out =  "<fieldset id = #{field_title}> <legend> #{field_title}"
   # out << "(Multiple)" if !field[1][:principal].blank?
@@ -65,7 +65,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
         out << "<div id = 'fields'>"
         attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
         attributes.each do |x|
-          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node, rol = rol)
         end
         out << "</div>"
         out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
@@ -80,7 +80,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
         attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
         attributes.each do |x|
  
-          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node)
+          out << render_attribute(x.keys.first, x.values.first, value[x.keys.first.split("/")[2]], attr_index, parent_name, use_default_data, node=node, rol = rol)
         end
         out << "</div>"
         out <<  "<div id = 'action'><a href='#' class=remove attribute=#{subattribute} >#{image_tag('delete.png')}</a></div>"
@@ -94,7 +94,7 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     out << "<div class = 'clear'></div><hr/>"
   else
     attributes.each do |x|
-      out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data,node=node)
+      out << render_attribute(x.keys.first, x.values.first, data[x.keys.first.split("/")[1]], nil, parent_name, use_default_data,node=node, rol = rol)
     end
   end
 end
@@ -102,7 +102,7 @@ end
   out << "</fieldset><br/>"
 end
 
-def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]", use_default_data = false, node = nil)
+def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[databag]", use_default_data = false, node = nil, rol = 0)
 
    input_class = ""
 
@@ -168,7 +168,7 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 
 
    if !properties["wizard"].blank?
-     out << render_wizard(field_id,properties,data,node=node,input_class, use_default_data)
+     out << render_wizard(field_id,properties,data,node=node,input_class, use_default_data, rol=rol)
    elsif !properties["choice"].blank?
      if !data.blank?
        out << select_tag(field_id, options_for_select(properties["choice"], data), {:class => input_class, :disabled => ("disabled" if use_default_data)})
@@ -187,30 +187,30 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
 end
 
 
-def render_wizard(field_id,properties, data = "", node = nil, input_class = '', use_default_data = '')
+def render_wizard(field_id,properties, data = "", node = nil, input_class = '', use_default_data = '', rol=rol)
 
     case wizard = properties["wizard"]
     when "selector"
-      render_selector_wizard(field_id, data, properties["source"],input_class, use_default_data)
+      render_selector_wizard(field_id, data, properties["source"],input_class, use_default_data, rol=rol)
     when "search"
-      render_search_wizard(field_id, data,node=node, input_class, use_default_data)
+      render_search_wizard(field_id, data,node=node, input_class, use_default_data, rol=rol)
     when "users"
-      render_users_wizard(field_id, data, node=node,input_class, use_default_data)
+      render_users_wizard(field_id, data, node=node,input_class, use_default_data, rol=rol)
     when "groups"
-      render_groups_wizard(field_id, data, node=node,input_class, use_default_data)
+      render_groups_wizard(field_id, data, node=node,input_class, use_default_data, rol=rol)
    end
     
 end
 
 
-def render_selector_wizard(field_id, data, source, input_class = '', use_default_data = '')
+def render_selector_wizard(field_id, data, source, input_class = '', use_default_data = '', rol=rol)
   options = Databag.find(source).value.keys
   unless options == nil
     select_tag(field_id, options_for_select(options, data),{:class => input_class, :disabled => ("disabled" if use_default_data)})
   end
 end
 
-def render_users_wizard(field_id, data, node,input_class = '', use_default_data = '')
+def render_users_wizard(field_id, data, node,input_class = '', use_default_data = '', rol = rol)
   usernames = []
   unless node == nil
     unless node.automatic['users'] == nil 
@@ -230,7 +230,7 @@ def render_users_wizard(field_id, data, node,input_class = '', use_default_data 
 end
 
 
-def render_groups_wizard(field_id, data, node,input_class = '', use_default_data = '')
+def render_groups_wizard(field_id, data, node,input_class = '', use_default_data = '', rol = rol)
   groups = []
   if node != nil and node.automatic['etc']['group'] != nil
     groups = node.automatic['etc']['group'].keys.sort!
@@ -248,8 +248,13 @@ def render_groups_wizard(field_id, data, node,input_class = '', use_default_data
 end
 
 
-def render_search_wizard(field_id, data,node=nil, input_class = '', use_default_data = '' )
-  render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data, :input_class => input_class, :use_default_data => use_default_data, :node => node}
+def render_search_wizard(field_id, data,node=nil, input_class = '', use_default_data = '' , rol=rol)
+  if rol == 1
+    out = text_field_tag(field_id, data, {:class => input_class, :disabled => ("disabled" if use_default_data)})
+
+  else
+    render :partial => "wizards/search", :locals => {:field_id => field_id, :packages => data, :input_class => input_class, :use_default_data => use_default_data, :node => node}
+  end
 end
 
 
