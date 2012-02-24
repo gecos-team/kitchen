@@ -22,7 +22,7 @@ $(document).ready ->
       assistantIsRunning = true
       recipe = ui.item.text().trim()
       $.getJSON ("/cookbooks/check_recipe?recipe="+recipe), (data) ->
-        if data is not true
+        if data == null or data is not true
           assistantIsRunning = false
         else
           url = window.location.pathname
