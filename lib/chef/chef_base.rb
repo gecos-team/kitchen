@@ -191,7 +191,7 @@ class ChefBase
       end
       packages.inject{|x,y| x.merge(y)}
     end
- #   packages
+    packages
 
   end
 
