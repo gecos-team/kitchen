@@ -13,12 +13,23 @@ class RolesController < ApplicationController
   end
 
   def update
+    
     if (!params[:role].blank? and !params[:role][:default_attributes].blank?)
       r_hash = HomeUsersHelper.recursive_hash(params[:role][:default_attributes].to_hash, {})
+      if r_hash.key?("default") and @role.default_attributes.key?("default")
+        r_hash["default"] = @role.default_attributes["default"].merge(r_hash["default"])
+      end
       @role.default_attributes = @role.default_attributes.merge(r_hash)
     elsif !params[:for_node].blank?
       @role.run_list = params[:for_node]
     end
+    @role.default_attributes["default"].each do |recipe_default, value|
+      if value == '1'
+        attr_name = recipe_default.split('::')[1]
+        @role.default_attributes.delete(attr_name)
+      end
+    end
+
 
     @role.save
     respond_to do |format|
