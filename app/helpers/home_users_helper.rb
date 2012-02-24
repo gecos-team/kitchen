@@ -9,7 +9,7 @@ def render_base_attribute(recipe_field, parent_name = "[databag]", node=nil, rol
       out << "<div id = #{field_title}_base class='hidden'>"
       out << "<div id = 'fields'>"
       field[1][:attributes].sort{|x,y| x.values.first["order"].to_i <=> y.values.first["order"].to_i}.each do |x|
-        out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name, false,node=node)
+        out << render_attribute(x.keys.first, x.values.first, "", "base", parent_name, false,node=node, rol)
       end
       out << "</div>"
       out <<  "<div id = 'action'><a href='#' class=remove attribute=#{field_title}>#{image_tag('delete.png')}</a></div>"
@@ -189,13 +189,13 @@ def render_wizard(field_id,properties, data = "", node = nil, input_class = '', 
 
     case wizard = properties["wizard"]
     when "selector"
-      render_selector_wizard(field_id, data, properties["source"],input_class, use_default_data, rol=rol)
+      render_selector_wizard(field_id, data, properties["source"],input_class, use_default_data, rol)
     when "search"
-      render_search_wizard(field_id, data,node=node, input_class, use_default_data, rol=rol)
+      render_search_wizard(field_id, data,node=node, input_class, use_default_data, rol)
     when "users"
-      render_users_wizard(field_id, data, node=node,input_class, use_default_data, rol=rol)
+      render_users_wizard(field_id, data, node=node,input_class, use_default_data, rol)
     when "groups"
-      render_groups_wizard(field_id, data, node=node,input_class, use_default_data, rol=rol)
+      render_groups_wizard(field_id, data, node=node,input_class, use_default_data, rol)
    end
     
 end

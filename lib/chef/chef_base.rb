@@ -179,19 +179,24 @@ class ChefBase
     packages = []
     if self.automatic["sources_list"] != nil
       self.automatic["sources_list"].each do |repo|
+
         suite = repo[1]["suite"]
         repo_id = repo[0].gsub('http://','').gsub('.','_').gsub(':','_').gsub('/','_')
         begin
           databag = Databag.find("sources_list/#{repo_id}")
+
           repo[1]["components"].each do |component|
             packages << databag.value["packages"][suite][component]
+
           end
         rescue Exception => e
+     
         end
       end
       packages.inject{|x,y| x.merge(y)}
+    else
+      []
     end
-    packages
 
   end
 
