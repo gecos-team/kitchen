@@ -51,7 +51,6 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
     subattribute = field[1][:principal].keys.first.split("/").last
     attribute_mult = field[1][:principal].keys.first
     defaults = field[1][:principal][attribute_mult]['default']
-    
     subattribute_data = data[subattribute]
     subattribute_data = subattribute_data.values if subattribute_data.class.name == "Hash"
     default_data = []
@@ -74,7 +73,6 @@ def render_fieldset(recipe_field,data,parent_name = "[databag]", defaults = [], 
       end
     else
       subattribute_data.each do |value|
-     
         out << "<div id = #{subattribute}_#{attr_index}>"
         out << "<div id = 'fields'>"
         attributes = attributes.sort{|x,y| x[x.keys.first]['order'] <=> y[y.keys.first]['order']}
@@ -111,9 +109,9 @@ def render_attribute(key,properties,data = "",attr_index = nil, parent_name = "[
      #input_class += " disabled"
    end
 
-   if use_default_data
-     data = properties["default"]
-   end
+   #if use_default_data
+   #  data = properties["default"]
+   #end
 
    data = "" if data.blank?
    size = case data.size

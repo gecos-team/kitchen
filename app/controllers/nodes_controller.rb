@@ -23,15 +23,25 @@ class NodesController < ApplicationController
 
   def edit
   end
+  
 
   def update
     if (!params[:node].blank? and !params[:node][:normal].blank?)
       r_hash = HomeUsersHelper.recursive_hash(params[:node][:normal].to_hash, {})
+      if r_hash.key?("default") and @node.normal.key?("default")
+        r_hash["default"] = @node.normal["default"].merge(r_hash["default"])
+      end
       @node.normal = @node.normal.merge(r_hash)
     elsif !params[:for_node].blank?
       @node.run_list = params[:for_node]
     end
-
+    @node.normal["default"].each do |recipe_default, value|
+      if value == '1'
+        attr_name = recipe_default.split('::')[1]
+        @node.normal.delete(attr_name)
+      end
+    end 
+    
     @node.save
     respond_to do |format|
       format.html {redirect_to node_path(@node.name)}
