@@ -2,16 +2,55 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+$(window).bind 'beforeunload', (e) ->
+  if $("#facebox").css('display') is 'block'
+    if $('div.edit_recipe', $('a.close').parent('div.popup')).get(0) == undefined
+      $("#recipes ul").sortable("cancel")
+      recipe_open = $('fieldset',$('#edit_node_attributes')).attr('id')
+      to_node = $('#run-list ul').sortable('toArray')
+      runlist = []
+      for field in to_node
+          runlist.push(field)
+      url = window.location.pathname
+      $.ajax({
+        type: 'PUT',
+        url: url,
+        data: {for_node: runlist}
+      })
+      return
+
 $(document).ready ->
 
   assistantIsRunning = false
-
   $(document).ajaxError () ->
     assistantIsRunning = false
   
   jQuery(document).bind 'close.facebox', (event) ->
     assistantIsRunning = false
 
+  $("#run-list ul").sortable
+    connectWith: ["#recipes ul", "#roles ul"],
+    dropOnEmptu: true
+    remove: (e, ui) ->
+      if ui.item.context.classList.contains("recipe")
+        regex = /(recipe)?\[?(.*::.*)\]?/
+        recipe = ui.item.attr('id').match(regex)
+        normalize_recipe = RegExp.$2 
+        to_node = $('#run-list ul').sortable('toArray')
+        runlist = []
+        for field in to_node
+          runlist.push(field)
+        url = window.location.pathname
+        if normalize_recipe == undefined
+          params = {for_node: runlist}
+        else
+          params = {for_node: runlist, recipe_clean: normalize_recipe}
+        $.ajax({
+           type: 'PUT',
+           url: url,
+           data: params
+        })
+ 
   $("#run-list ul").sortable
     connectWith: ["#recipes ul", "#roles ul"],
     dropOnEmpty: true
@@ -21,6 +60,17 @@ $(document).ready ->
         return
       assistantIsRunning = true
       recipe = ui.item.text().trim()
+      if ui.item.context.classList.contains("recipe")
+        to_node = $('#run-list ul').sortable('toArray')
+        runlist = []
+        for field in to_node
+          runlist.push(field)
+        url = window.location.pathname
+        $.ajax({
+           type: 'PUT',
+           url: url,
+           data: {for_node: runlist}
+        })
       $.getJSON ("/cookbooks/check_recipe?recipe="+recipe), (data) ->
         if data == null or data is not true
           assistantIsRunning = false
@@ -37,6 +87,17 @@ $(document).ready ->
               ui.sender.sortable('cancel')
               link.remove()
               $(this).unbind("click")
+              if ui.item.context.classList.contains("recipe")
+                to_node = $('#run-list ul').sortable('toArray')
+                runlist = []
+                for field in to_node
+                  runlist.push(field)
+                url = window.location.pathname
+                $.ajax({
+                   type: 'PUT',
+                   url: url,
+                   data: {for_node: runlist}
+                })
             $("#facebox").remove(".popup")
             false
           $('#facebox_overlay').unbind("click")

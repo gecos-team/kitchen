@@ -1,5 +1,3 @@
-= form_for @node, :url => node_path(@node.name), :method => :put, :html => {:id => "edit_node"} do |f|
-  = render :partial => "shared/run_list", :locals => {:item => @node, :recipes => @recipes}
+= render :partial => "shared/run_list", :locals => {:item => @node, :recipes => @recipes}
 
-  .clear
-  = f.submit "Save"
+.clear

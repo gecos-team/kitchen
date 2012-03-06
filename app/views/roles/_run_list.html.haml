@@ -1,4 +1,2 @@
-= form_for @role do |f|
-  = render :partial => "shared/run_list", :locals => {:item => @role, :recipes => @recipes}
-  .clear
-  = f.submit "Guardar"
+= render :partial => "shared/run_list", :locals => {:item => @role, :recipes => @recipes}
+.clear

@@ -23,7 +23,7 @@ class NodesController < ApplicationController
 
   def edit
   end
-  
+ 
 
   def update
     if (!params[:node].blank? and !params[:node][:normal].blank?)
@@ -34,6 +34,12 @@ class NodesController < ApplicationController
       @node.normal = @node.normal.merge(r_hash)
     elsif !params[:for_node].blank?
       @node.run_list = params[:for_node]
+      if !params['recipe_clean'].blank?
+        recipe_clean = params['recipe_clean']
+	attr_name = recipe_clean.split('::')[1]
+        @node.normal.delete(attr_name)
+        @node.normal['default'].delete(recipe_clean)
+      end
     end
     @node.normal["default"].each do |recipe_default, value|
       if value == '1'

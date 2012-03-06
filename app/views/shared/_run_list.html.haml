@@ -34,6 +34,6 @@
               %span= run_list_item.name
             - if run_list_item.is_advanced?
               - if item.class.name == "Node"
-                %span= link_to "Edit", advanced_data_node_path(item.name, :recipe => run_list_item.name), :rel => "facebox"
+                %span= link_to "Edit", advanced_data_node_path(item.name, :recipe => run_list_item.name, :edit_recipe => 1), :rel => "facebox"
               - else
-                %span= link_to "Edit", advanced_data_role_path(item.name, :recipe => run_list_item.name), :rel => "facebox"
+                %span= link_to "Edit", advanced_data_role_path(item.name, :recipe => run_list_item.name, :edit_recipe => 1), :rel => "facebox"

@@ -22,11 +22,20 @@ class RolesController < ApplicationController
       @role.default_attributes = @role.default_attributes.merge(r_hash)
     elsif !params[:for_node].blank?
       @role.run_list = params[:for_node]
-    end
-    @role.default_attributes["default"].each do |recipe_default, value|
-      if value == '1'
-        attr_name = recipe_default.split('::')[1]
+      if !params['recipe_clean'].blank?
+        recipe_clean = params['recipe_clean']
+        attr_name = recipe_clean.split('::')[1]
         @role.default_attributes.delete(attr_name)
+        @role.default_attributes['default'].delete(recipe_clean)
+      end
+
+    end
+    if !@role.default_attributes["default"].blank?
+      @role.default_attributes["default"].each do |recipe_default, value|
+        if value == '1'
+          attr_name = recipe_default.split('::')[1]
+          @role.default_attributes.delete(attr_name)
+        end
       end
     end
 
