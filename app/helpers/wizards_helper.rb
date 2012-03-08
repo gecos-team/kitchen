@@ -13,8 +13,8 @@ module WizardsHelper
       $('##{normal_id}').smartSuggest({src: url +'/search_packages.json',
                                        showImages: false,
                                        fillBox:true,
-                                       timeoutLength:1000,
-                                       minChars:3,
+                                       timeoutLength:3000,
+                                       minChars:2,
                                        boxId: '%-#{normal_id}-suggestions'});
 
 
