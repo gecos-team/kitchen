@@ -41,12 +41,14 @@ class NodesController < ApplicationController
         @node.normal['default'].delete(recipe_clean)
       end
     end
-    @node.normal["default"].each do |recipe_default, value|
-      if value == '1'
-        attr_name = recipe_default.split('::')[1]
-        @node.normal.delete(attr_name)
-      end
-    end 
+    if !@node.normal["default"].blank?
+      @node.normal["default"].each do |recipe_default, value|
+        if value == '1'
+          attr_name = recipe_default.split('::')[1]
+          @node.normal.delete(attr_name)
+        end
+      end 
+    end
     
     @node.save
     respond_to do |format|
