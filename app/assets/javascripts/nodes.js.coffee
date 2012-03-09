@@ -33,7 +33,7 @@ $(document).ready ->
     dropOnEmptu: true
     remove: (e, ui) ->
       if ui.item.context.classList.contains("recipe")
-        regex = /(recipe)?\[?(.*::.*)\]?/
+        regex = /(recipe)?\[?(.*::.*?)\]?$/
         recipe = ui.item.attr('id').match(regex)
         normalize_recipe = RegExp.$2 
         to_node = $('#run-list ul').sortable('toArray')
