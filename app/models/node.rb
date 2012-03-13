@@ -87,7 +87,7 @@ class Node < ChefBase
       nodes.first
     else
       nodes
-      end
+    end
   end
 
   def self.all
