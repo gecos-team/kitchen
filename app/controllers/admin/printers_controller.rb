@@ -102,13 +102,36 @@ class Admin::PrintersController < ApplicationController
     end
 
     nodes_to_clean.each do |node|
-      node.normal['automatic_printers']['printers_spa'].delete({'name'=>params[:id]})
-      if node.normal['automatic_printers']['printers_spa'].empty?
-        node.normal.delete('automatic_printers')
-        node.normal['default'].delete('printers_management::automatic_printers')
-        node.run_list.delete('recipe[printers_management::automatic_printers]') 
+      if not node.normal['automatic_printers']['printers_spa'].empty?
+        node.normal['automatic_printers']['printers_spa'].delete({'name'=>params[:id]})
+        if node.normal['automatic_printers']['printers_spa'].empty?
+          node.normal.delete('automatic_printers')
+          node.normal['default'].delete('printers_management::automatic_printers')
+          node.run_list.delete('recipe[printers_management::automatic_printers]') 
+        end
+        node.save
       end
-      node.save
+    end
+    roles_to_clean = []
+    roles = Role.search("automatic_printers:*")
+    if roles.kind_of? Role
+      role_arr = []
+      role_arr << roles
+      roles_to_clean = role_arr
+    else
+      roles_to_clean = roles
+    end
+    roles_to_clean.each do |role|
+      if not role.default_attributes["automatic_printers"]["printers_spa"].empty?
+
+        role.default_attributes["automatic_printers"]["printers_spa"].delete({"name"=>params[:id]})
+        if role.default_attributes["automatic_printers"]["printers_spa"].empty?
+          role.default_attributes.delete("automatic_printers")
+          role.default_attributes["default"].delete("printers_management::automatic_printers")
+          role.run_list.delete("recipe[printers_management::automatic_printers]")
+        end
+        role.save
+      end
     end
     Printer.delete!(params[:id])
     redirect_to admin_printers_path
