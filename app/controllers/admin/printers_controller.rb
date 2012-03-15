@@ -94,6 +94,22 @@ class Admin::PrintersController < ApplicationController
   end
 
   def destroy
+    nodes_to_clean = Node.search("automatic_printers_printers_spa_name:*#{params[:id]}*")
+    if nodes_to_clean.kind_of? Node
+      nodes_arr = []
+      nodes_arr << nodes_to_clean
+      nodes_to_clean = nodes_arr
+    end
+
+    nodes_to_clean.each do |node|
+      node.normal['automatic_printers']['printers_spa'].delete({'name'=>params[:id]})
+      if node.normal['automatic_printers']['printers_spa'].empty?
+        node.normal.delete('automatic_printers')
+        node.normal['default'].delete('printers_management::automatic_printers')
+        node.run_list.delete('recipe[printers_management::automatic_printers]') 
+      end
+      node.save
+    end
     Printer.delete!(params[:id])
     redirect_to admin_printers_path
   end
