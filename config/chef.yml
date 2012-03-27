@@ -26,12 +26,12 @@ development:
 #     couchdb: http://chef:5984/chef/
 
 production:
-    uri: http://chef:4000/
-    ppd_uri_base: https://chef/ppd/
-    ppd_directory: /var/www/ppd
-    client_name: kk
-    keyfile: config/chef/kk.pem
-    couchdb: http://chef:5984/chef/
+    uri: http://localhost:4000/
+    ppd_uri_base: https://localhost/ppds/
+    ppd_directory: /var/www/files/ppds
+    client_name: kitchen
+    keyfile: config/chef/kitchen.pem
+    couchdb: http://localhost:5984/chef/
 
 pre:
     uri: https://10.240.194.220/
