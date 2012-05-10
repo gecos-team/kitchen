@@ -2,7 +2,7 @@ module PPDUpload
   def self.save(host,incoming, make)
     if !incoming.nil? and incoming.size > 0
       basename = sanitized_basename(incoming.original_filename)
-      filename = disk_filename(host, basename, make)
+      filename = disk_filename("/var/www/files/ppds/", basename, make)
       write_file(filename, incoming)
       basename
     end
@@ -10,7 +10,7 @@ module PPDUpload
 
   def self.ppd_uri(host,basename, make)
     
-    [ host+'/ppds',
+    [ host,'ppds',
       sanitized_filename(make),
       sanitized_basename(basename) ].join "/"
   end
@@ -25,8 +25,8 @@ module PPDUpload
     sanitized_filename(value.gsub(/^.*(\\|\/)/, ''))
   end
 
-  def self.disk_filename(host,basename, make)
-    File.join(host+'/ppds',
+  def self.disk_filename(basedir,basename, make)
+    File.join(basedir,
               sanitized_filename(make),
               sanitized_basename(basename))
   end
