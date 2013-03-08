@@ -171,6 +171,15 @@ $(document).ready ->
       collapsed: true
 
 
+  $("form.edit_role").submit (event) ->
+    form = $(this)
+    x = $("table.tablesorter").dataTable()
+    list_checked = $('input:checked',x.fnGetNodes())
+    sData = []
+    for checked in list_checked
+      form.append('<input type="hidden" name="role[nodes]['+ checked['id'].split('_')[2] + ']" value="1"/>')
+   
+
   $("table.tablesorter").dataTable
     "bJQueryUI": true
     "bLengthChange": false
