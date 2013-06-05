@@ -30,7 +30,7 @@ $(document).ready ->
 
   $("#run-list ul").sortable
     connectWith: ["#recipes ul", "#roles ul"],
-    dropOnEmptu: true
+    dropOnEmpty: true
     remove: (e, ui) ->
       if ui.item.context.classList.contains("recipe")
         regex = /(recipe)?\[?(.*::.*?)\]?$/
