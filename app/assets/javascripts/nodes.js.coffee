@@ -173,7 +173,7 @@ $(document).ready ->
 
   $("form.edit_role").submit (event) ->
     form = $(this)
-    x = $("table.tablesorter").dataTable()
+    x = $("table.tablesorterdom").dataTable()
     list_checked = $('input:checked',x.fnGetNodes())
     sData = []
     for checked in list_checked
